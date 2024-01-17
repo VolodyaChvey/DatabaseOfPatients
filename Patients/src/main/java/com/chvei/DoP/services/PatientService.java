@@ -34,6 +34,7 @@ public class PatientService {
 
     public Long updatePatient(Patient patient) {
         Long id = patientRepository.save(patient).getId();
+
         return id;
     }
 
