@@ -1,26 +1,23 @@
-import logo from './logo.svg';
+
 import "bootstrap/dist/css/bootstrap.min.css";
 import './App.css';
+import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from 'react-router-dom';
+import Layout from './Components/Layout';
+import StartPage from "./Pages/StartPage";
+import { SinglePatient, patientLoader } from "./Pages/SinglePatient";
+import { Patients, patientsLoader } from './Pages/Patients';
+import ErrorPage from './Pages/ErrorPage';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route path='/' element={<Layout />}>
+      <Route index element={<StartPage />} />
+      <Route path="patients" element={<Patients />} loader={patientsLoader} errorElement={<ErrorPage />} />
+      <Route path="patients/:id" element={<SinglePatient />} loader={patientLoader} />
+    </Route>
+  )
+)
+
+export default function App() {
+  return <RouterProvider router={router} />
 }
-
-export default App;
