@@ -1,6 +1,6 @@
 import { Row, Col } from "react-bootstrap";
 
-export default function KeyValue({k, v}){
+export default function TextText({k, v}){
     return (
         <Row className="mb-3">
             <Col sm={2}></Col>

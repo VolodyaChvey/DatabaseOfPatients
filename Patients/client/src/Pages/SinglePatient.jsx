@@ -1,7 +1,7 @@
 import { Container } from "react-bootstrap";
 import { useLoaderData, useNavigate } from "react-router-dom";
 import TwoButtons from '../Components/TwoButtons';
-import KeyValue from '../Components/KeyValue';
+import TextText from "../Components/TextText";
 
 function SinglePatient() {
     const { patient } = useLoaderData();
@@ -13,7 +13,7 @@ function SinglePatient() {
             <Container>
                 <TwoButtons oneLabel={"Go back"} oneOnClick={goBack} />
                 {Object.entries(patient)
-                    .map(([k, v]) => (<KeyValue key={k} k={k} v={v} />))}
+                    .map(([k, v]) => (<TextText key={k} k={k} v={v} />))}
                 <TwoButtons oneLabel={"Удалить"} oneOnClick
                     twoLabel={"Корректировать"} twoOnClick />
             </Container>
