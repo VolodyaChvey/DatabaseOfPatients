@@ -7,6 +7,7 @@ import StartPage from "./Pages/StartPage";
 import { SinglePatient, patientLoader } from "./Pages/SinglePatient";
 import { Patients, patientsLoader } from './Pages/Patients';
 import ErrorPage from './Pages/ErrorPage';
+import AddPatient from "./Pages/AddPatient";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -14,6 +15,7 @@ const router = createBrowserRouter(
       <Route index element={<StartPage />} />
       <Route path="patients" element={<Patients />} loader={patientsLoader} errorElement={<ErrorPage />} />
       <Route path="patients/:id" element={<SinglePatient />} loader={patientLoader} />
+      <Route path="patients/new" element={<AddPatient/>}/>
     </Route>
   )
 )
