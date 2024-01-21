@@ -7,7 +7,8 @@ import StartPage from "./Pages/StartPage";
 import { SinglePatient, patientLoader } from "./Pages/SinglePatient";
 import { Patients, patientsLoader } from './Pages/Patients';
 import ErrorPage from './Pages/ErrorPage';
-import AddPatient from "./Pages/AddPatient";
+import {AddPatient, newPatientAction} from "./Pages/AddPatient";
+import { EditPatient, updatePatientAction } from "./Pages/EditPatient";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -15,7 +16,8 @@ const router = createBrowserRouter(
       <Route index element={<StartPage />} />
       <Route path="patients" element={<Patients />} loader={patientsLoader} errorElement={<ErrorPage />} />
       <Route path="patients/:id" element={<SinglePatient />} loader={patientLoader} />
-      <Route path="patients/new" element={<AddPatient/>}/>
+      <Route path="patients/new" element={<AddPatient/>} action={newPatientAction}/>
+      <Route path="patients/:id/edit" element={<EditPatient/>} action={updatePatientAction} loader={patientLoader}/>
     </Route>
   )
 )
