@@ -16,7 +16,7 @@ function SinglePatient() {
         ))}
         <TwoButtons
           oneLabel={"Удалить"}
-          oneOnClick
+          oneOnClick={()=>navigate(`/patients/${patient.id}/delete`)}
           twoLabel={"Корректировать"}
           twoOnClick={() =>
             navigate(`/patients/${patient.id}/edit`)}
