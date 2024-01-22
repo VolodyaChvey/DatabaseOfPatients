@@ -38,16 +38,16 @@ function AddPatient() {
     </>
   );
 }
-async function createPatient(nPatient) {
+async function createPatient(patient) {
   try {
-    const res = await fetch(`http://localhost:8080/patients/`, {
+    const res = await fetch(`http://localhost:8080/patients`, {
       method: "POST",
-      heanders: { "Content-Type": "application/json" },
-      body: JSON.stringify(nPatient),
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(patient),
     });
     return res.json();
   } catch (e) {
-    return nPatient;
+    return patient;
   }
 }
 

@@ -8,7 +8,7 @@ export  const translation = {
 export const emptyPatient = {
     id:"",
     lastName: "",
-    middleName: "",
     firstName: "",
+    middleName: "",
     address: "",
 };
