@@ -14,11 +14,11 @@ public class DoPApplication {
         SpringApplication.run(DoPApplication.class,args);
     }
     @Bean
-    public WebMvcConfigurer corsConfigurer(){
+    public WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurer() {
             @Override
-            public void  addCorsMappings(CorsRegistry registry){
-                registry.addMapping("*/**")
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("/**")
                         .allowedMethods("GET","POST","PUT","DELETE");
             }
         };
