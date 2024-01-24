@@ -11,6 +11,7 @@ import { AddPatient, newPatientAction } from "./Pages/AddPatient";
 import { EditPatient, updatePatientAction } from "./Pages/EditPatient";
 import DeletePatient from "./Pages/DeletePatient";
 import { NewDisease, diseasesLoader } from "./Pages/NewDisease";
+import {Diseases} from "./Pages/Diseases";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
