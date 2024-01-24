@@ -34,7 +34,7 @@ function AddPatient() {
       <TwoButtons oneLabel={"Go back"} oneOnClick={() => navigate(-1)} />
       {data?.message && <div style={{ color: "blue" }} className="text-center">{data.message}</div>}
       <CostomForm action={"/patients/new"} submitting={navigation.state === "submitting"} />
-      <DropdownButtons/>
+      <DropdownButtons />
     </>
   );
 }
