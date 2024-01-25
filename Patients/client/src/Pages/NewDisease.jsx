@@ -1,5 +1,6 @@
 import { useLoaderData, useParams } from "react-router-dom";
 import TextDiagnosis from "../Components/TextDiagnosis";
+import TabsDiseases from "../Components/TabsDiseases";
 
 function NewDisease() {
     const { disease } = useLoaderData();
@@ -7,6 +8,7 @@ function NewDisease() {
     return (
         <>
         <TextDiagnosis diagnosis={"lkjhlkjj"}/>
+        <TabsDiseases/>
         </>
     )
 }
