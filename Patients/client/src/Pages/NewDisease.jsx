@@ -1,14 +1,27 @@
-import { useLoaderData, useParams } from "react-router-dom";
+import { useLoaderData } from "react-router-dom";
 import TextDiagnosis from "../Components/TextDiagnosis";
 import TabsDiseases from "../Components/TabsDiseases";
+import { useState } from "react";
 
 function NewDisease() {
-    const { disease } = useLoaderData();
-    const {id} = useParams();
+    const { diseases } = useLoaderData();
+    const [diagnosis, setDiagnosis] = useState("lkjhlkjj")
+
+    function onPrepareDiagnosis(params) {
+        let regexp =/\s./
+        if(!regexp.test(params)){
+        params = " " + params;}
+        setDiagnosis(diagnosis +"$" +params)
+    }
+
+    function showDiagnosis(){
+        return diagnosis.replace(/\$/g,"")
+    }
+
     return (
         <>
-        <TextDiagnosis diagnosis={"lkjhlkjj"}/>
-        <TabsDiseases/>
+            <TextDiagnosis diagnosis={showDiagnosis()} />
+            <TabsDiseases diseases={diseases} onApply={onPrepareDiagnosis} />
         </>
     )
 }
@@ -18,15 +31,11 @@ async function getDiseases() {
         const response = await fetch(`http://localhost:8080/diseases`)
         return response.json();
     } catch (e) {
-        return [
-            {
-                main: [{ name: "ИБС" }, { name: "ХРБС" }]
-            }, {
-                property: [{ name: "МА" }, { name: "ФП" }]
-            }, {
-                complication: [{ name: "Н1" }, { name: "Н2" }]
-            }
-        ]
+        return {
+            main: [{ name: "ИБС" }, { name: "ХРБС" },],
+            property: [{ name: "МА" }, { name: "ФП" },],
+            complication: [{ name: "Н1" }, { name: "Н2" }]
+        }
 
     }
 }

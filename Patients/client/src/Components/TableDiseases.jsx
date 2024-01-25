@@ -1,19 +1,12 @@
-import { useNavigate } from "react-router-dom";
+
 import { Table } from "react-bootstrap";
 
-export default function TableDiseases({ diseases }) {
-  
-  const navigate = useNavigate();
+export default function TableDiseases({ diseases, onClick }) {
   return (
     <Table striped bordered hover className="text-center">
-      <thead>
-        <tr>
-          <th>Название заболевания</th>
-        </tr>
-      </thead>
       <tbody>
         {diseases.map(d => (
-          <tr key={d.id} onClick={() => navigate(`/diseases/${d.id}`)}>
+          <tr key={d.name} onClick={() => onClick(d.name)}>
             <th>{d.name}</th>
           </tr>
         ))}

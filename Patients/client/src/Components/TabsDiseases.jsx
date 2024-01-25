@@ -1,26 +1,20 @@
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
+import ItemDisease from './ItemDisease';
 
-export default function TabsDiseases(){
-    return (
-        <Tabs
-          defaultActiveKey="profile"
-          id="fill-tab-example"
-          className="mb-3"
-          justify
-        >
-          <Tab eventKey="home" title="Home">
-            Tab content for Home
+export default function TabsDiseases({ diseases, onApply }) {
+  return (
+    <>
+      <Tabs defaultActiveKey="main"
+        id="fill-tab-example"
+        className="mb-3"
+        justify>
+        {Object.entries(diseases).map(([n, m]) => (
+          <Tab key={n} eventKey={n} title={n}>
+            <ItemDisease itemDisease={m} name={n} onApply={onApply} />
           </Tab>
-          <Tab eventKey="profile" title="Profile">
-            Tab content for Profile
-          </Tab>
-          <Tab eventKey="longer-tab" title="Loooonger Tab">
-            Tab content for Loooonger Tab
-          </Tab>
-          <Tab eventKey="contact" title="Contact" disabled>
-            Tab content for Contact
-          </Tab>
-        </Tabs>
-      );
+        ))}
+      </Tabs>
+    </>
+  );
 }
