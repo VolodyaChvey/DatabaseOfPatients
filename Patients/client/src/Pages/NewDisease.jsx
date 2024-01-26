@@ -2,30 +2,40 @@ import { useLoaderData } from "react-router-dom";
 import TextDiagnosis from "../Components/TextDiagnosis";
 import TabsDiseases from "../Components/TabsDiseases";
 import { useState } from "react";
+import { emptyDiagnosis } from "../data";
 
 function NewDisease() {
   const { diseases } = useLoaderData();
-  const [diagnosis, setDiagnosis] = useState("");
+  const [diagnosis, setDiagnosis] = useState(emptyDiagnosis);
 
-  function onPrepareDiagnosis({params, name}) {
-    let regexp = /\s./;
-    if (!regexp.test(params)) {
-      params = " " + params;
+  function onPrepareDiagnosis({ value, name }) {
+    if (!value) { return }
+    let addition = value ? value : "";
+    if (name === "main") {
+      setDiagnosis({ ...diagnosis, main: addition })
+    } else {
+      diagnosis[name].push(addition)
+      setDiagnosis({ ...diagnosis, [name]: diagnosis[name] })
     }
-    setDiagnosis(diagnosis + "$" + params);
-   console.log(name)
-  /*  if (diagnosis) {
-      count = diagnosis.match(/\$/g).length;
-    }*/
   }
 
-  function showDiagnosis() {
-    return diagnosis.replace(/\$/g, "");
+  function showDiagnosisInLine() {
+    let propertyString = "";
+    let complicationString = "";
+    for (let key in diagnosis.property) {
+      propertyString = propertyString + " " + diagnosis.property[key];
+    }
+    for (let key in diagnosis.complication) {
+      complicationString = complicationString + " " + diagnosis.complication[key]
+    }
+    return diagnosis.main + " "
+      + propertyString + " "
+      + complicationString
   }
 
   return (
     <>
-      <TextDiagnosis diagnosis={showDiagnosis()} />
+      <TextDiagnosis diagnosis={showDiagnosisInLine()} />
       <TabsDiseases diseases={diseases} onApply={onPrepareDiagnosis} />
     </>
   );

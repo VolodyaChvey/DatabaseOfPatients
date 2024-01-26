@@ -14,3 +14,9 @@ export const emptyPatient = {
     address: "",
     disease: "",
 };
+
+export const emptyDiagnosis = {
+  main: "",
+  property: [],
+  complication: [],
+}

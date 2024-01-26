@@ -11,7 +11,8 @@ export default function ItemDisease({ itemDisease, name, onApply }) {
   }
 
   function Apply() {
-    onApply({value, name});
+    onApply({ value, name });
+    setValue("")
   }
 
   function onClick(e) {
