@@ -14,7 +14,7 @@ function Patients() {
     setValueInput(e.target.value);
   }
 
-  function showPatients(patients) {
+  function showPatients() {
     return patients
       .filter((p) => {
         return p.lastName.toLowerCase().includes(valueInput);
@@ -31,7 +31,7 @@ function Patients() {
       <h2 className="m-3">Список пациентов</h2>
       <Suspense fallback={<h2>Loading...</h2>}>
         <Await resolve={patients}>
-          <TablePatients patients={showPatients(patients)} />
+          <TablePatients patients={showPatients()} />
         </Await>
       </Suspense>
       <TwoButtons

@@ -14,7 +14,7 @@ export default function TextInput({
     <Row className="mb-3">
       <Col sm={2}></Col>
       <Col sm={3} className="text-right">
-        {text}
+        <p>{text}</p>
       </Col>
       <Col sm={3} className="text-right">
         <input
