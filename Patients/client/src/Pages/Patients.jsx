@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import TablePatients from "../Components/TablePatients";
 import TextInput from "../Components/TextInput";
 import TwoButtons from "../Components/TwoButtons";
+import Get from "../Controllers/Get";
 
 function Patients() {
   const { patients } = useLoaderData();
@@ -44,8 +45,7 @@ function Patients() {
 
 async function getPatients() {
   try {
-    const res = await fetch(`http://localhost:8080/patients`);
-    return res.json();
+    return await Get({ path: "/patients" });
   } catch (e) {
     return [
       {

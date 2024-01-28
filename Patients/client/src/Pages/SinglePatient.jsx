@@ -1,7 +1,9 @@
-import { Container } from "react-bootstrap";
+
 import { useLoaderData, useNavigate } from "react-router-dom";
 import TwoButtons from "../Components/TwoButtons";
 import TextText from "../Components/TextText";
+import { translation } from "../data";
+import Get from "../Controllers/Get";
 
 function SinglePatient() {
   const { patient } = useLoaderData();
@@ -9,28 +11,27 @@ function SinglePatient() {
   const goBack = () => navigate(-1);
   return (
     <>
-      <Container>
         <TwoButtons oneLabel={"Go back"} oneOnClick={goBack} />
-        {Object.entries(patient).map(([k, v]) => (
-          <TextText key={k} k={k} v={v} />
-        ))}
+        {Object.entries(patient)
+          .filter(([k, v]) => k !== "id")
+          .map(([k, v]) => (
+            <TextText key={k}
+             k={translation[k]}
+             v={v} />
+          ))}
         <TwoButtons
           oneLabel={"Удалить"}
-          oneOnClick={()=>navigate(`/patients/${patient.id}/delete`)}
+          oneOnClick={() => navigate(`/patients/${patient.id}/delete`)}
           twoLabel={"Корректировать"}
-          twoOnClick={() =>
-            navigate(`/patients/${patient.id}/edit`)}
+          twoOnClick={() => navigate(`/patients/${patient.id}/edit`)}
         />
-      </Container>
     </>
   );
-
 }
 
 async function getPatientById(id) {
   try {
-    const res = await fetch(`http://localhost:8080/patients/${id}`);
-    return res.json();
+    return await Get({path:`/patients/${id}`})
   } catch (e) {
     return {
       id: 101,
@@ -38,6 +39,7 @@ async function getPatientById(id) {
       firstName: "Иван",
       middleName: "Иванович",
       address: "Иванова 34",
+      diagnosis: "",
     };
   }
 }

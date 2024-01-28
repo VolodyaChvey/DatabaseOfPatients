@@ -1,5 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom"
 import TwoButtons from "../Components/TwoButtons";
+import Delete from "../Controllers/Delete";
 
 export default function DeletePatient() {
     const { id } = useParams();
@@ -18,9 +19,7 @@ export default function DeletePatient() {
 
 async function removePatient(id, navigate) {
     try {
-        await fetch(`http://localhost:8080/patients/${id}`, {
-            method: 'DELETE'
-        })
+        await Delete({path:`/patients/${id}`})
         navigate('/patients', { replace: true })
     } catch (e) { }
 }

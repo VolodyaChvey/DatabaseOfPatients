@@ -4,6 +4,7 @@ import TwoButtons from "../Components/TwoButtons";
 import CostomForm from "../Components/CostomForm";
 import { useActionData, useNavigate, useNavigation } from "react-router-dom";
 import DropdownButtons from "../Components/DropdownButtons";
+import Post from "../Controllers/Post";
 
 function AddPatient() {
   const navigation = useNavigation();
@@ -26,7 +27,7 @@ function AddPatient() {
         method: "POST",
         body: JSON.stringify(patient),
       });
-    } catch (e) {}
+    } catch (e) {} 
     console.log(patient);
   }*/
   return (
@@ -40,12 +41,7 @@ function AddPatient() {
 }
 async function createPatient(patient) {
   try {
-    const res = await fetch(`http://localhost:8080/patients`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(patient),
-    });
-    return res.json();
+    return await Post({path:"/patients",body:patient});
   } catch (e) {
     return patient;
   }

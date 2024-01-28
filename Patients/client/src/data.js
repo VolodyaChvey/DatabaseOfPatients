@@ -3,7 +3,7 @@ export  const translation = {
     middleName: "Отчество",
     firstName: "Имя",
     address: "Адрес",
-    disease: "Диагноз",
+    diagnosis: "Диагноз",
   };
 
 export const emptyPatient = {
@@ -12,11 +12,11 @@ export const emptyPatient = {
     firstName: "",
     middleName: "",
     address: "",
-    disease: "",
+    diagnosis: "",
 };
 
 export const emptyDiagnosis = {
   main: "",
-  property: [],
-  complication: [],
+  properties: [],
+  complications: [],
 }

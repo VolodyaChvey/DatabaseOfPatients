@@ -22,7 +22,7 @@ const router = createBrowserRouter(
       <Route path="patients/new" element={<AddPatient />} action={newPatientAction} />
       <Route path="patients/:id/edit" element={<EditPatient />} action={updatePatientAction} loader={patientLoader} />
       <Route path="patients/:id/delete" element={<DeletePatient />} />
-      <Route path="diseases/:id" element={<NewDisease />} loader={diseasesLoader} />
+      <Route path="diseases/new" element={<NewDisease />} loader={diseasesLoader} />
       <Route path="diseases" element={<Diseases/>} loader={diseasesLoader}/>
     </Route>
   )

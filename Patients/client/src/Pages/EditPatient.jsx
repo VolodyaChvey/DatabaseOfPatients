@@ -6,6 +6,7 @@ import {
 } from "react-router-dom";
 import TwoButtons from "../Components/TwoButtons";
 import CostomForm from "../Components/CostomForm";
+import Put from "../Controllers/Put";
 
 function EditPatient() {
   const { patient } = useLoaderData();
@@ -32,12 +33,7 @@ function EditPatient() {
 
 async function updatePatient(patient) {
   try {
-    const res = await fetch(`http://localhost:8080/patients/${patient.id}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(patient),
-    });
-    return res.json();
+    return await Put({ path: `/patients/${patient.id}`, body: patient });
   } catch (e) {
     return patient;
   }

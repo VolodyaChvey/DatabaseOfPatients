@@ -1,41 +1,43 @@
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate, useParams } from "react-router-dom";
 import TextDiagnosis from "../Components/TextDiagnosis";
 import TabsDiseases from "../Components/TabsDiseases";
 import { useState } from "react";
 import { emptyDiagnosis } from "../data";
+import DiagnosisToStringInLine from "../Preparators/DiagnosisToStringInLine";
+import Get from "../Controllers/Get";
 
 function NewDisease() {
+  const { id } = useParams();
   const { diseases } = useLoaderData();
+  const navigate = useNavigate();
   const [diagnosis, setDiagnosis] = useState(emptyDiagnosis);
 
   function onPrepareDiagnosis({ value, name }) {
-    if (!value) { return }
+    if (!value) {
+      return;
+    }
     let addition = value ? value : "";
     if (name === "main") {
-      setDiagnosis({ ...diagnosis, main: addition })
+      setDiagnosis({ ...diagnosis, main: addition });
     } else {
-      diagnosis[name].push(addition)
-      setDiagnosis({ ...diagnosis, [name]: diagnosis[name] })
+      if (!diagnosis[name].includes(addition)) {
+        diagnosis[name].push(addition);
+        setDiagnosis({ ...diagnosis, [name]: diagnosis[name] });
+      }
     }
   }
 
-  function showDiagnosisInLine() {
-    let propertyString = "";
-    let complicationString = "";
-    for (let key in diagnosis.property) {
-      propertyString = propertyString + " " + diagnosis.property[key];
-    }
-    for (let key in diagnosis.complication) {
-      complicationString = complicationString + " " + diagnosis.complication[key]
-    }
-    return diagnosis.main + " "
-      + propertyString + " "
-      + complicationString
+  function onSave() {
+    console.log(diagnosis);
+    navigate(`/patients/${id}`)
   }
 
   return (
     <>
-      <TextDiagnosis diagnosis={showDiagnosisInLine()} />
+      <TextDiagnosis
+        diagnosis={DiagnosisToStringInLine(diagnosis)}
+        onClick={onSave}
+      />
       <TabsDiseases diseases={diseases} onApply={onPrepareDiagnosis} />
     </>
   );
@@ -43,13 +45,12 @@ function NewDisease() {
 
 async function getDiseases() {
   try {
-    const response = await fetch(`http://localhost:8080/diseases`);
-    return response.json();
+   return await Get({path:"/diseases"})
   } catch (e) {
     return {
-      main: [{ name: "ИБС" }, { name: "ХРБС" }],
-      property: [{ name: "МА" }, { name: "ФП" }],
-      complication: [{ name: "Н1" }, { name: "Н2" }],
+      main: [{id:1, name: "ИБС" }, {id:2, name: "ХРБС" }],
+      properties: [{id:1, name: "МА" }, {id:2, name: "ФП" }],
+      complications: [{id:1, name: "Н1" }, {id:2, name: "Н2" }],
     };
   }
 }
