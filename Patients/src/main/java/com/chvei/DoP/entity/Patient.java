@@ -14,15 +14,12 @@ public class Patient {
     private String firstName;
     private String middleName;
     private String address;
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "patient_disease",
-            joinColumns = @JoinColumn(name = "patient_id"),
-            inverseJoinColumns = @JoinColumn(name = "disease_id"))
-    private List<Disease> diseases = new ArrayList<>();
-public void addDisease(Disease disease){
+
+
+/*public void addDisease(Disease disease){
     this.diseases.add(disease);
     disease.getPatients().add(this);
-}
+}*/
 
     public Long getId() {
         return id;
@@ -64,13 +61,7 @@ public void addDisease(Disease disease){
         this.address = address;
     }
 
-    public List<Disease> getDiseases() {
-        return diseases;
-    }
 
-    public void setDiseases(List<Disease> diseases) {
-        this.diseases = diseases;
-    }
 
     @Override
     public String toString() {

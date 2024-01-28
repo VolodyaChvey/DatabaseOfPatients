@@ -1,4 +1,4 @@
-package com.chvei.DoP.services;
+package com.chvei.DoP.services.servicesImp;
 
 import com.chvei.DoP.entity.Patient;
 import com.chvei.DoP.repositories.PatientRepository;
@@ -6,13 +6,14 @@ import com.chvei.DoP.repositories.PatientRepository;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.chvei.DoP.services.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class PatientServiceImp implements PatientService{
+public class PatientServiceImp implements PatientService {
     private final Logger logger = Logger.getLogger(PatientServiceImp.class.getName());
     private PatientRepository patientRepository;
 
@@ -33,18 +34,19 @@ public class PatientServiceImp implements PatientService{
     }
 
     public Patient savePatient(Patient patient) {
-        Long id = patientRepository.save(patient).getId();
-        logger.log(Level.INFO, "Patient with Id" + id + " saved");
-        return patientRepository.findById(id).orElseThrow();
+        Patient patient1 = patientRepository.save(patient);
+        logger.log(Level.INFO, "Patient " + patient1.getLastName() + " saved");
+        return patient1;
     }
 
     public Patient updatePatient(Patient patient) {
         Patient upPatient = patientRepository.save(patient);
-        logger.log(Level.INFO, "Patient with Id " + upPatient.getId() + " updated");
+        logger.log(Level.INFO, "Patient " + upPatient.getLastName() + " updated");
         return upPatient;
     }
 
     public void deletePatient(Long id) {
         patientRepository.deleteById(id);
+        logger.log(Level.INFO, "Patient with id " + id + " deleted");
     }
 }

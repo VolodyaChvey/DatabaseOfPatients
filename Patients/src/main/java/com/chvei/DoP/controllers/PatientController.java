@@ -16,8 +16,8 @@ public class PatientController {
     }
 
     @Autowired
-    public PatientController(PatientService patientService) {
-        this.patientService = patientService;
+    public PatientController(PatientService patientServiceImp) {
+        this.patientService = patientServiceImp;
     }
 
     @GetMapping("/{id}")
@@ -31,12 +31,12 @@ public class PatientController {
     }
 
     @PostMapping
-    public Long createPatient(@RequestBody Patient patient) {
+    public Patient createPatient(@RequestBody Patient patient) {
         return patientService.savePatient(patient);
     }
 
     @PutMapping("/{id}")
-    public Long updatePatient(@RequestBody Patient patient) {
+    public Patient updatePatient(@RequestBody Patient patient) {
         return patientService.updatePatient(patient);
     }
 
