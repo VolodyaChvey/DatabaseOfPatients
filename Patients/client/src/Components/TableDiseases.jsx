@@ -6,7 +6,7 @@ export default function TableDiseases({ diseases, onClick }) {
     <Table striped bordered hover className="text-center">
       <tbody>
         {diseases.map(d => (
-          <tr key={d.id} onClick={() => onClick({patternId:d.id, value:d.name})}>
+          <tr key={d.id} onClick={() => onClick(d)}>
             <th>{d.name}</th>
           </tr>
         ))}

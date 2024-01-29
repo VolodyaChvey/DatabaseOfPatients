@@ -6,16 +6,18 @@ export default function CostomForm({ action, patient, submitting }) {
   const formPatient = patient ? patient : emptyPatient;
   return (
     <Form method="post" action={action}>
-      {Object.entries(formPatient).map(([k, v]) => (
-        <TextInput
-          key={k}
-          type={k === "id" ? "hidden" : "text"}
-          text={k === "id" ? null : translation[k]}
-          name={k}
-         // value={k === "id" ? v : null}
-          defaultValue={v}
-        />
-      ))}
+      {Object.entries(formPatient)
+        .filter(([k, m]) => k !== "diagnosis")
+        .map(([k, v]) => (
+          <TextInput
+            key={k}
+            type={k === "id" ? "hidden" : "text"}
+            text={k === "id" ? null : translation[k]}
+            name={k}
+            // value={k === "id" ? v : null}
+            defaultValue={v}
+          />
+        ))}
       <TextInput
         type={"submit"}
         value={"Сохранить"}

@@ -11,6 +11,7 @@ function NewDisease() {
   const { diseases } = useLoaderData();
   const navigate = useNavigate();
   const [diagnosis, setDiagnosis] = useState(emptyDiagnosis);
+  const [isActive,setIsActive] = useState(true)
 
   function onPrepareDiagnosis({ value, name }) {
     if (!value) {
@@ -25,18 +26,27 @@ function NewDisease() {
         setDiagnosis({ ...diagnosis, [name]: diagnosis[name] });
       }
     }
+    setIsActive(false);
   }
 
   function onSave() {
     console.log(diagnosis);
-    navigate(`/patients/${id}`)
+    setDiagnosis(emptyDiagnosis);
+    setIsActive(true)
+   // navigate(`/patients/${id}`)
+  }
+  function onClean(){
+    setDiagnosis(emptyDiagnosis);
+    setIsActive(true);
   }
 
   return (
     <>
       <TextDiagnosis
         diagnosis={DiagnosisToStringInLine(diagnosis)}
-        onClick={onSave}
+        onClickSave={onSave}
+        onClickClean={onClean}
+        isActive={isActive}
       />
       <TabsDiseases diseases={diseases} onApply={onPrepareDiagnosis} />
     </>
