@@ -26,16 +26,17 @@ export default function ItemDisease({ itemDisease, name, onApply }) {
     setIsActive(true);
     setValue("");
   }
- async function onClickAddNew() {
+  async function onClickAddNew() {
     let d = await createPatternDisease();
-    console.log(d)
-     diseases.unshift(d);
-    console.log(diseases)
+    diseases.unshift(d);
     setDiseases(diseases);
     setIsActive(false);
   }
   function onClickEdit() {
-    editPatternDisease();
+    let d = editPatternDisease();
+    diseases = diseases.filter((d) => d.id !== patternId);
+    diseases.unshift(d);
+    setDiseases(diseases);
   }
   function onClickDelete() {
     deletePatternDisease();
@@ -78,22 +79,18 @@ export default function ItemDisease({ itemDisease, name, onApply }) {
 
   async function createPatternDisease() {
     try {
-      const response = await Post({
+      return await Post({
         path: `/diseases/${name}`,
         body: { name: value },
       });
-      console.log(response)
-     
-      return response;
     } catch (e) {}
   }
   async function editPatternDisease() {
     try {
-      const response = await Put({
+      return await Put({
         path: `/diseases/${name}/${patternId}`,
         body: { id: patternId, name: value },
       });
-      return response.json();
     } catch (e) {}
   }
   async function deletePatternDisease() {
