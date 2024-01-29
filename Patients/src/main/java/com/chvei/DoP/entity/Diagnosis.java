@@ -4,7 +4,6 @@ import com.chvei.DoP.entity.patternsDiseases.ComplicationDisease;
 import com.chvei.DoP.entity.patternsDiseases.MainDisease;
 import com.chvei.DoP.entity.patternsDiseases.PropertyDisease;
 import jakarta.persistence.*;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +13,8 @@ public class Diagnosis {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @OneToOne(mappedBy = "diagnosis")
+    private Patient patient;
     @ManyToOne
     @JoinColumn(name = "MAIN-DISEASE_ID")
     private MainDisease mainDisease;
@@ -28,22 +29,20 @@ public class Diagnosis {
             inverseJoinColumns = @JoinColumn(name = "complication-disease_id"))
     private List<ComplicationDisease> complications = new ArrayList<>();
 
-    public Diagnosis() {
-    }
-
-    @Autowired
-    public Diagnosis(MainDisease mainDisease, List<PropertyDisease> properties, List<ComplicationDisease> complications) {
-        this.mainDisease = mainDisease;
-        this.properties = properties;
-        this.complications = complications;
-    }
-
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Patient getPatient() {
+        return patient;
+    }
+
+    public void setPatient(Patient patient) {
+        this.patient = patient;
     }
 
     public MainDisease getMainDisease() {

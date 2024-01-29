@@ -100,7 +100,7 @@ public class DiseaseController {
     }
 
     @PutMapping("/complications/{id}")
-    public ComplicationDisease updateCoplicationDisease(@RequestBody ComplicationDisease complicationDisease) {
+    public ComplicationDisease updateComplicationDisease(@RequestBody ComplicationDisease complicationDisease) {
         return complicationDiseaseService.updateComplicationDisease(complicationDisease);
     }
 

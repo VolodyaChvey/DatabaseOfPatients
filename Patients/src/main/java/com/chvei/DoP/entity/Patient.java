@@ -2,9 +2,6 @@ package com.chvei.DoP.entity;
 
 import jakarta.persistence.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Entity
 public class Patient {
     @Id
@@ -15,11 +12,10 @@ public class Patient {
     private String middleName;
     private String address;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "diagnosis_id", referencedColumnName = "id")
+    private Diagnosis diagnosis;
 
-/*public void addDisease(Disease disease){
-    this.diseases.add(disease);
-    disease.getPatients().add(this);
-}*/
 
     public Long getId() {
         return id;
@@ -61,7 +57,13 @@ public class Patient {
         this.address = address;
     }
 
+    public Diagnosis getDiagnosis() {
+        return diagnosis;
+    }
 
+    public void setDiagnosis(Diagnosis diagnosis) {
+        this.diagnosis = diagnosis;
+    }
 
     @Override
     public String toString() {
