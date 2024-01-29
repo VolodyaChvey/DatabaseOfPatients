@@ -5,11 +5,12 @@ export default function PrepareDiagnosis({
   text,
   value,
   onChange,
-isActive,
+  isActive,
   onClickEdit,
   onClickAddNew,
   onclickApply,
   onClickDelete,
+  onClickClean,
 }) {
   return (
     <>
@@ -19,17 +20,18 @@ isActive,
           <Row className="mb-3 text-center">
             <Col sm={2}></Col>
             <Col>
-              <Button onClick={onClickEdit} disabled={isActive}>Edit</Button>
+              <Button onClick={onClickEdit} disabled={isActive.edit}>Edit</Button>
             </Col>
             <Col>
-              <Button onClick={onClickAddNew} disabled={!isActive}>Add new</Button>
+              <Button onClick={onClickAddNew} disabled={isActive.add}>Add new</Button>
             </Col>
             <Col>
-              <Button onClick={onclickApply}>Apply</Button>
+              <Button onClick={onclickApply} disabled={isActive.apply}>Apply</Button>
             </Col>
             <Col>
-              <Button onClick={onClickDelete} disabled={isActive}>Delete</Button>
+              <Button onClick={onClickDelete} disabled={isActive.delete}>Delete</Button>
             </Col>
+            <Col><Button onClick={onClickClean}>Clean</Button></Col>
             <Col sm={2}></Col>
           </Row>
         </Card.Body>

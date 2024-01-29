@@ -4,6 +4,7 @@ import TwoButtons from "../Components/TwoButtons";
 import TextText from "../Components/TextText";
 import { translation } from "../data";
 import Get from "../Controllers/Get";
+import DropdownButtons from "../Components/DropdownButtons";
 
 function SinglePatient() {
   const { patient } = useLoaderData();
@@ -25,6 +26,7 @@ function SinglePatient() {
           twoLabel={"Корректировать"}
           twoOnClick={() => navigate(`/patients/${patient.id}/edit`)}
         />
+        <DropdownButtons id={patient.id}/>
     </>
   );
 }
