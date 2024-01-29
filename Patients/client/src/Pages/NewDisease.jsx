@@ -5,13 +5,17 @@ import { useState } from "react";
 import { emptyDiagnosis } from "../data";
 import DiagnosisToStringInLine from "../Preparators/DiagnosisToStringInLine";
 import Get from "../Controllers/Get";
+import Post from "../Controllers/Post";
 
 function NewDisease() {
   const { id } = useParams();
   const { diseases } = useLoaderData();
   const navigate = useNavigate();
-  const [diagnosis, setDiagnosis] = useState(emptyDiagnosis);
-  const [isActive,setIsActive] = useState(true)
+  const [diagnosis, setDiagnosis] = useState({
+    ...emptyDiagnosis,
+    patientId: id,
+  });
+  const [isActive, setIsActive] = useState(true);
 
   function onPrepareDiagnosis({ value, name }) {
     if (!value) {
@@ -29,14 +33,16 @@ function NewDisease() {
     setIsActive(false);
   }
 
-  function onSave() {
+  async function onSave() {
     console.log(diagnosis);
-    setDiagnosis(emptyDiagnosis);
-    setIsActive(true)
-   // navigate(`/patients/${id}`)
+    const response = await createDiagnosis(diagnosis);
+    console.log(response);
+    setDiagnosis({ ...emptyDiagnosis, patientId: id });
+    setIsActive(true);
+    // navigate(`/patients/${id}`)
   }
-  function onClean(){
-    setDiagnosis(emptyDiagnosis);
+  function onClean() {
+    setDiagnosis({ ...emptyDiagnosis, patientId: id });
     setIsActive(true);
   }
 
@@ -52,15 +58,31 @@ function NewDisease() {
     </>
   );
 }
+async function createDiagnosis(diagnosis) {
+  console.log(JSON.stringify(diagnosis)) 
+  try {
+    const response = await Post({ path: "/diagnoses", body: diagnosis});
+    return response;
+  } catch (e) {}
+}
 
 async function getDiseases() {
   try {
-   return await Get({path:"/diseases"})
+    return await Get({ path: "/diseases" });
   } catch (e) {
     return {
-      main: [{id:1, name: "ИБС" }, {id:2, name: "ХРБС" }],
-      properties: [{id:1, name: "МА" }, {id:2, name: "ФП" }],
-      complications: [{id:1, name: "Н1" }, {id:2, name: "Н2" }],
+      main: [
+        { id: 1, name: "ИБС" },
+        { id: 2, name: "ХРБС" },
+      ],
+      properties: [
+        { id: 1, name: "МА" },
+        { id: 2, name: "ФП" },
+      ],
+      complications: [
+        { id: 1, name: "Н1" },
+        { id: 2, name: "Н2" },
+      ],
     };
   }
 }
