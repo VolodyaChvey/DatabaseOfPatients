@@ -1,13 +1,13 @@
 import { Dropdown, DropdownButton, Col, Row } from "react-bootstrap";
 
-export default function DropdownButtons({onClickOne,}) {
+export default function DropdownButtons({id}) {
   return (
     <>
       <Row className="mb-3">
         <Col sm={1}></Col>
         <Col sm={3}>
           <DropdownButton title="Добавить" id="bg-nested-dropdown">
-          <Dropdown.Item eventKey="1"  onClick={onClickOne}>
+          <Dropdown.Item eventKey="1"  href={"/diseases/patientId/"+id}>
               Диагноз
             </Dropdown.Item>
             <Dropdown.Item eventKey="2" href="#link1">

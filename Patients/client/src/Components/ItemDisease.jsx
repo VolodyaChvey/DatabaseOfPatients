@@ -1,11 +1,11 @@
 import TableDiseases from "./TableDiseases";
 import { useState } from "react";
-import Post from "../Controllers/Post";
 import Delete from "../Controllers/Delete";
-import Put from "../Controllers/Put";
 import PrepareDiagnosis from "./PrepareDiagnosis";
+import { useNavigate } from "react-router-dom";
 
 export default function ItemDisease({ itemDisease, name, onApply }) {
+  const navigate = useNavigate()
   const [value, setValue] = useState("");
   const [pattern, setPattern] = useState();
   const [isActive, setIsActive] = useState({ edit: true, add: true, apply: true, delete: true });
@@ -14,42 +14,22 @@ export default function ItemDisease({ itemDisease, name, onApply }) {
 
   function onChange(e) {
     let value = e.target.value;
-    if (value) { setIsActive({ ...isActive, apply: false }) }
     setValue(value);
-    if (itemDisease.map((d) => d.name).includes(value)) {
-      setIsActive({ ...isActive, edit: false, delete: false, add: true });
-      let disease = itemDisease.find((d) => d.name === value);
-      setPattern(disease);
-      setText(`pattern ${disease.name}`)
-    } else {
-      setIsActive({ ...isActive, add: false, apply: false })
-    }
+    if (value) { setIsActive({ ...isActive, apply: false, add: false }) }
   }
 
   function Apply() {
-    onApply({ value, name });
+    onApply({ pattern, name });
     setIsActive({ edit: true, add: true, apply: true, delete: true });
     setValue("");
     setPattern(null)
     setText("pattern")
   }
   async function onClickAddNew() {
-    let d = await createPatternDisease();
-    console.log(d)
-    add(d)
-    setIsActive({ ...isActive, add: true, edit: false, delete: false });
-    setPattern(d)
-    setText(`pattern ${d.name} сохранён`)
-    setTimeout(setText, 2000, `pattern ${d.name}`);
+    navigate("/pattern/new", { state: { itemDisease, pattern, name } })
   }
   async function onClickEdit() {
-    let d = await editPatternDisease();
-    edit(d)
-    setIsActive({ ...isActive, edit: true, add: true })
-    setPattern(d)
-    setText(`pattern ${d.name} изменён`)
-    setTimeout(setText, 2000, `pattern ${d.name}`);
-    console.log(value)
+    navigate("/pattern/new", { state: { itemDisease, pattern, name } })
   }
   async function onClickDelete() {
     await deletePatternDisease();
@@ -60,15 +40,7 @@ export default function ItemDisease({ itemDisease, name, onApply }) {
     setTimeout(setText, 2000, `pattern`);
     setPattern(null);
   }
-  function edit(disease) {
-    let dis = diseases.filter((d) => d !== pattern);
-    dis.unshift(disease);
-    setDiseases(dis);
-  }
-  function add(disease) {
-    diseases.unshift(disease);
-    setDiseases(diseases);
-  }
+
   function remove() {
     let d = diseases.filter((d) => d !== pattern);
     setDiseases(d);
@@ -109,22 +81,6 @@ export default function ItemDisease({ itemDisease, name, onApply }) {
     </>
   );
 
-  async function createPatternDisease() {
-    try {
-      return await Post({
-        path: `/diseases/${name}`,
-        body: { name: value },
-      });
-    } catch (e) { }
-  }
-  async function editPatternDisease() {
-    try {
-      return await Put({
-        path: `/diseases/${name}/${pattern.id}`,
-        body: { id: pattern.id, name: value },
-      });
-    } catch (e) { }
-  }
   async function deletePatternDisease() {
     try {
       await Delete({ path: `/diseases/${name}/${pattern.id}` });

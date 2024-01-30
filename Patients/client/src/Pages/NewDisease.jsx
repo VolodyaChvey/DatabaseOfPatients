@@ -1,4 +1,4 @@
-import { useLoaderData, useLocation, useNavigate, useParams } from "react-router-dom";
+import { useLoaderData, useParams } from "react-router-dom";
 import TextDiagnosis from "../Components/TextDiagnosis";
 import TabsDiseases from "../Components/TabsDiseases";
 import { useState } from "react";
@@ -9,39 +9,34 @@ import Post from "../Controllers/Post";
 
 function NewDisease() {
   const { id } = useParams();
-  const loc= useLocation().state;
-  console.log(loc)
   const { diseases } = useLoaderData();
-  const navigate = useNavigate();
   const [diagnosis, setDiagnosis] = useState({
     ...emptyDiagnosis,
     patientId: id,
   });
   const [isActive, setIsActive] = useState(true);
 
-  function onPrepareDiagnosis({ value, name }) {
-    if (!value) {
+  function onPrepareDiagnosis({ pattern, name }) {
+    console.log(pattern,name)
+    if (!pattern) {
       return;
     }
-    let addition = value ? value : "";
     if (name === "main") {
-      setDiagnosis({ ...diagnosis, main: addition });
+      setDiagnosis({ ...diagnosis, main: pattern });
+      console.log(diagnosis)
     } else {
-      if (!diagnosis[name].includes(addition)) {
-        diagnosis[name].push(addition);
+      if (!diagnosis[name].includes(pattern)) {
+        diagnosis[name].push(pattern);
         setDiagnosis({ ...diagnosis, [name]: diagnosis[name] });
       }
     }
     setIsActive(false);
   }
-
+  console.log(diagnosis)
   async function onSave() {
-    console.log(diagnosis);
-    const response = await createDiagnosis(diagnosis);
-    console.log(response);
+    await createDiagnosis(diagnosis);
     setDiagnosis({ ...emptyDiagnosis, patientId: id });
     setIsActive(true);
-    // navigate(`/patients/${id}`)
   }
   function onClean() {
     setDiagnosis({ ...emptyDiagnosis, patientId: id });
@@ -61,11 +56,11 @@ function NewDisease() {
   );
 }
 async function createDiagnosis(diagnosis) {
-  console.log(JSON.stringify(diagnosis)) 
+  console.log(JSON.stringify(diagnosis))
   try {
-    const response = await Post({ path: "/diagnoses", body: diagnosis});
+    const response = await Post({ path: "/diagnoses", body: diagnosis });
     return response;
-  } catch (e) {}
+  } catch (e) { }
 }
 
 async function getDiseases() {
