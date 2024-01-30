@@ -1,39 +1,42 @@
-
 import { useLoaderData, useNavigate } from "react-router-dom";
 import TwoButtons from "../Components/TwoButtons";
 import TextText from "../Components/TextText";
 import { translation } from "../data";
 import Get from "../Controllers/Get";
 import DropdownButtons from "../Components/DropdownButtons";
+import {diseasesLoader} from "./NewDisease"
 
 function SinglePatient() {
   const { patient } = useLoaderData();
   const navigate = useNavigate();
   const goBack = () => navigate(-1);
+
+  function onClickDiagnosis() {
+    let pattern = diseasesLoader();
+    navigate("/diseases/patientId/" + patient.id,{state:{patient,pattern}});
+  }
   return (
     <>
-        <TwoButtons oneLabel={"Go back"} oneOnClick={goBack} />
-        {Object.entries(patient)
-          .filter(([k, v]) => k !== "id")
-          .map(([k, v]) => (
-            <TextText key={k}
-             k={translation[k]}
-             v={v} />
-          ))}
-        <TwoButtons
-          oneLabel={"Удалить"}
-          oneOnClick={() => navigate(`/patients/${patient.id}/delete`)}
-          twoLabel={"Корректировать"}
-          twoOnClick={() => navigate(`/patients/${patient.id}/edit`)}
-        />
-        <DropdownButtons id={patient.id}/>
+      <TwoButtons oneLabel={"Go back"} oneOnClick={goBack} />
+      {Object.entries(patient)
+        .filter(([k, v]) => k !== "id")
+        .map(([k, v]) => (
+          <TextText key={k} k={translation[k]} v={v} />
+        ))}
+      <TwoButtons
+        oneLabel={"Удалить"}
+        oneOnClick={() => navigate(`/patients/${patient.id}/delete`)}
+        twoLabel={"Корректировать"}
+        twoOnClick={() => navigate(`/patients/${patient.id}/edit`)}
+      />
+      <DropdownButtons onClickOne={onClickDiagnosis} />
     </>
   );
 }
 
 async function getPatientById(id) {
   try {
-    return await Get({path:`/patients/${id}`})
+    return await Get({ path: `/patients/${id}` });
   } catch (e) {
     return {
       id: 101,

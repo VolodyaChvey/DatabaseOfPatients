@@ -1,4 +1,4 @@
-import { useLoaderData, useNavigate, useParams } from "react-router-dom";
+import { useLoaderData, useLocation, useNavigate, useParams } from "react-router-dom";
 import TextDiagnosis from "../Components/TextDiagnosis";
 import TabsDiseases from "../Components/TabsDiseases";
 import { useState } from "react";
@@ -9,6 +9,8 @@ import Post from "../Controllers/Post";
 
 function NewDisease() {
   const { id } = useParams();
+  const loc= useLocation().state;
+  console.log(loc)
   const { diseases } = useLoaderData();
   const navigate = useNavigate();
   const [diagnosis, setDiagnosis] = useState({
