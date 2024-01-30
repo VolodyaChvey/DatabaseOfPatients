@@ -4,17 +4,12 @@ import TextText from "../Components/TextText";
 import { translation } from "../data";
 import Get from "../Controllers/Get";
 import DropdownButtons from "../Components/DropdownButtons";
-import {diseasesLoader} from "./NewDisease"
 
 function SinglePatient() {
   const { patient } = useLoaderData();
   const navigate = useNavigate();
   const goBack = () => navigate(-1);
 
-  function onClickDiagnosis() {
-    let pattern = diseasesLoader();
-    navigate("/diseases/patientId/" + patient.id,{state:{patient,pattern}});
-  }
   return (
     <>
       <TwoButtons oneLabel={"Go back"} oneOnClick={goBack} />
@@ -29,7 +24,7 @@ function SinglePatient() {
         twoLabel={"Корректировать"}
         twoOnClick={() => navigate(`/patients/${patient.id}/edit`)}
       />
-      <DropdownButtons onClickOne={onClickDiagnosis} />
+      <DropdownButtons id={patient.id} />
     </>
   );
 }
