@@ -1,7 +1,7 @@
 package com.chvei.DoP.services.diseasesServices;
 
 import com.chvei.DoP.entity.patternsDiseases.MainDisease;
-import com.chvei.DoP.entity.patternsDiseases.Patterns;
+import com.chvei.DoP.DTO.Patterns;
 
 import java.util.List;
 

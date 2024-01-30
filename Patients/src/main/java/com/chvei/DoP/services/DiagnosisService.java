@@ -1,15 +1,14 @@
 package com.chvei.DoP.services;
 
-import com.chvei.DoP.entity.Diagnosis;
-import com.chvei.DoP.entity.patternsDiseases.Patterns;
+import com.chvei.DoP.DTO.DiagnosisDTO;
 
 import java.util.List;
 
 public interface DiagnosisService {
-    Diagnosis getDiagnosisById(Long id);
-    Diagnosis getDiagnosisByPatientId(Long id);
-    List<Diagnosis> getAllDiagnosis();
-    Diagnosis saveDiagnosis (Diagnosis diagnosis);
-    Diagnosis updateDiagnosis (Diagnosis diagnosis);
+    DiagnosisDTO getDiagnosisDTOById(Long id);
+    DiagnosisDTO getDiagnosisDTOByPatientId(Long id);
+    List<DiagnosisDTO> getAllDiagnosisDTO();
+    DiagnosisDTO saveDiagnosis (DiagnosisDTO diagnosisDTO);
+    DiagnosisDTO updateDiagnosis (DiagnosisDTO diagnosisDTO);
     void deleteDiagnosis(Long id);
 }

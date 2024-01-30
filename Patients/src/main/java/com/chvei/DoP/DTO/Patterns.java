@@ -1,4 +1,8 @@
-package com.chvei.DoP.entity.patternsDiseases;
+package com.chvei.DoP.DTO;
+
+import com.chvei.DoP.entity.patternsDiseases.ComplicationDisease;
+import com.chvei.DoP.entity.patternsDiseases.MainDisease;
+import com.chvei.DoP.entity.patternsDiseases.PropertyDisease;
 
 import java.util.ArrayList;
 import java.util.List;

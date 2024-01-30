@@ -2,7 +2,7 @@ package com.chvei.DoP.controllers;
 
 import com.chvei.DoP.entity.patternsDiseases.ComplicationDisease;
 import com.chvei.DoP.entity.patternsDiseases.MainDisease;
-import com.chvei.DoP.entity.patternsDiseases.Patterns;
+import com.chvei.DoP.DTO.Patterns;
 import com.chvei.DoP.entity.patternsDiseases.PropertyDisease;
 import com.chvei.DoP.services.diseasesServices.ComplicationDiseaseService;
 import com.chvei.DoP.services.diseasesServices.MainDiseaseService;

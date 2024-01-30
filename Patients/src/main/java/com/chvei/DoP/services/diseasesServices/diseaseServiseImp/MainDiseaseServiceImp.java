@@ -1,7 +1,7 @@
 package com.chvei.DoP.services.diseasesServices.diseaseServiseImp;
 
 import com.chvei.DoP.entity.patternsDiseases.MainDisease;
-import com.chvei.DoP.entity.patternsDiseases.Patterns;
+import com.chvei.DoP.DTO.Patterns;
 import com.chvei.DoP.repositories.diseasesRepositories.MainDiseaseRepository;
 import com.chvei.DoP.services.diseasesServices.ComplicationDiseaseService;
 import com.chvei.DoP.services.diseasesServices.MainDiseaseService;

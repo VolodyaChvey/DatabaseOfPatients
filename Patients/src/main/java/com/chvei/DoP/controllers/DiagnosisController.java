@@ -1,5 +1,6 @@
 package com.chvei.DoP.controllers;
 
+import com.chvei.DoP.DTO.DiagnosisDTO;
 import com.chvei.DoP.entity.Diagnosis;
 import com.chvei.DoP.services.DiagnosisService;
 import com.chvei.DoP.services.PatientService;
@@ -22,21 +23,20 @@ public class DiagnosisController {
     }
 
     @GetMapping("/{id}")
-    public Diagnosis getDiagnosisById(@PathVariable Long id) {
-        return diagnosisService.getDiagnosisById(id);
+    public DiagnosisDTO getDiagnosisById(@PathVariable Long id) {
+        return diagnosisService.getDiagnosisDTOById(id);
     }
     @GetMapping
-    public List<Diagnosis> getAllDiagnosis(){
-        return diagnosisService.getAllDiagnosis();
+    public List<DiagnosisDTO> getAllDiagnosis(){
+        return diagnosisService.getAllDiagnosisDTO();
     }
     @PostMapping
-    public Diagnosis createDiagnosis(@RequestBody Diagnosis diagnosis){
-        System.out.println("contr: "+diagnosis);
-        return diagnosisService.saveDiagnosis(diagnosis);
+    public DiagnosisDTO createDiagnosis(@RequestBody DiagnosisDTO diagnosisDTO){
+        return diagnosisService.saveDiagnosis(diagnosisDTO);
     }
     @PutMapping("/{id}")
-    public Diagnosis updateDiagnosis(@RequestBody Diagnosis diagnosis){
-        return diagnosisService.updateDiagnosis(diagnosis);
+    public DiagnosisDTO updateDiagnosis(@RequestBody DiagnosisDTO diagnosisDTO){
+        return diagnosisService.updateDiagnosis(diagnosisDTO);
     }
     @DeleteMapping("/{id}")
     public void deleteDiagnosis(@PathVariable Long id){
@@ -44,7 +44,7 @@ public class DiagnosisController {
     }
 
     @GetMapping("/patientId/{id}")
-    public Diagnosis getDiagnosisByPatientId(@PathVariable Long id){
-        return diagnosisService.getDiagnosisByPatientId(id);
+    public DiagnosisDTO getDiagnosisByPatientId(@PathVariable Long id){
+        return diagnosisService.getDiagnosisDTOByPatientId(id);
     }
 }
