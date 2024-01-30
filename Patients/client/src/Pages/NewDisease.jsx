@@ -6,6 +6,7 @@ import { emptyDiagnosis } from "../data";
 import DiagnosisToStringInLine from "../Preparators/DiagnosisToStringInLine";
 import Get from "../Controllers/Get";
 import Post from "../Controllers/Post";
+import { Row } from "react-bootstrap";
 
 function NewDisease() {
   const { id } = useParams();
@@ -15,16 +16,20 @@ function NewDisease() {
     patientId: id,
   });
   const [isActive, setIsActive] = useState(true);
+  const [danger, setDanger] = useState("");
 
   function onPrepareDiagnosis({ pattern, name }) {
-    console.log(pattern,name)
     if (!pattern) {
       return;
     }
     if (name === "main") {
-      setDiagnosis({ ...diagnosis, main: pattern });
-      console.log(diagnosis)
+      setDiagnosis({ ...diagnosis, [name]: pattern });
+      checkMain(true);
     } else {
+      if (Object.keys(diagnosis.main).length === 0) {
+        checkMain(false);
+        return;
+      }
       if (!diagnosis[name].includes(pattern)) {
         diagnosis[name].push(pattern);
         setDiagnosis({ ...diagnosis, [name]: diagnosis[name] });
@@ -32,17 +37,24 @@ function NewDisease() {
     }
     setIsActive(false);
   }
-  console.log(diagnosis)
+  function checkMain(bool) {
+    if (Object.keys(diagnosis.main).length > 0 || bool) {
+      setDanger("");
+    } else {
+      setDanger("Заполните основное заболевание");
+    }
+  }
   async function onSave() {
-    await createDiagnosis(diagnosis);
-    setDiagnosis({ ...emptyDiagnosis, patientId: id });
-    setIsActive(true);
+   let res= await createDiagnosis(diagnosis);
+   if(res){console.log(res)
+    //setDiagnosis({ ...emptyDiagnosis, patientId: id });
+    setIsActive(true)};
   }
   function onClean() {
     setDiagnosis({ ...emptyDiagnosis, patientId: id });
     setIsActive(true);
   }
-
+  console.log(diagnosis)
   return (
     <>
       <TextDiagnosis
@@ -51,16 +63,19 @@ function NewDisease() {
         onClickClean={onClean}
         isActive={isActive}
       />
+      <Row className="mb-3 text-center">
+        <h3>{danger}</h3>
+      </Row>
       <TabsDiseases diseases={diseases} onApply={onPrepareDiagnosis} />
     </>
   );
 }
 async function createDiagnosis(diagnosis) {
-  console.log(JSON.stringify(diagnosis))
+  console.log(JSON.stringify(diagnosis));
   try {
     const response = await Post({ path: "/diagnoses", body: diagnosis });
     return response;
-  } catch (e) { }
+  } catch (e) {}
 }
 
 async function getDiseases() {
