@@ -54,6 +54,7 @@ public class DiagnosisServiceImp implements DiagnosisService {
     public DiagnosisDTO saveDiagnosis(DiagnosisDTO diagnosisDTO) {
         Diagnosis diagnosis1 = diagnosisRepository.save(toEntity(diagnosisDTO));
         logger.log(Level.INFO, "Diagnosis " + diagnosis1.getMainDisease().getName() + " created");
+
         return toDTO(diagnosis1);
     }
 
