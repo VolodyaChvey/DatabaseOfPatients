@@ -6,13 +6,13 @@ export default function TabsDiseases({ diseases, onApply }) {
   return (
     <>
       <Tabs
-        defaultActiveKey="main"
+        defaultActiveKey="mainDisease"
         id="fill-tab-example"
         className="mb-3"
         justify
       >
         {Object.entries(diseases).map(([n, m]) => (
-          <Tab key={n} eventKey={n} title={n}>
+          <Tab key={n} eventKey={n} title={n }>
             <ItemDisease itemDisease={m} name={n} onApply={onApply} />
           </Tab>
         ))}

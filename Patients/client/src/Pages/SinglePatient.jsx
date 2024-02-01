@@ -15,6 +15,7 @@ function SinglePatient() {
       <TwoButtons oneLabel={"Go back"} oneOnClick={goBack} />
       {Object.entries(patient)
         .filter(([k, v]) => k !== "id")
+        .filter(([k, v]) => k !== "diagnosis")
         .map(([k, v]) => (
           <TextText key={k} k={translation[k]} v={v} />
         ))}
@@ -47,6 +48,7 @@ async function getPatientById(id) {
 async function patientLoader({ params }) {
   const id = params.id;
   const patient = await getPatientById(id);
+  console.log(patient)
   return { patient, id };
 }
 

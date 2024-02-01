@@ -16,7 +16,7 @@ export const emptyPatient = {
 };
 
 export const emptyDiagnosis = {
-  main: {},
+  mainDisease: {},
   properties: [],
   complications: [],
 }
