@@ -37,6 +37,7 @@ function NewDisease() {
   }
   function checkMain(bool) {
     if (Object.keys(diagnosis.mainDisease).length > 0 || bool) {
+      
       setDanger("");
     } else {
       setDanger("Заполните основное заболевание");
