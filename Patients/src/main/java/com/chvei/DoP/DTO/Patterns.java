@@ -8,16 +8,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Patterns {
-    private List<MainDisease> main = new ArrayList<>();
+    private List<MainDisease> mainDisease = new ArrayList<>();
     private List<PropertyDisease> properties = new ArrayList<>();
     private List<ComplicationDisease> complications =new ArrayList<>();
 
-    public List<MainDisease> getMain() {
-        return main;
+    public List<MainDisease> getMainDisease() {
+        return mainDisease;
     }
 
-    public void setMain(List<MainDisease> main) {
-        this.main = main;
+    public void setMainDisease(List<MainDisease> mainDisease) {
+        this.mainDisease = mainDisease;
     }
 
     public List<PropertyDisease> getProperties() {
@@ -39,7 +39,7 @@ public class Patterns {
     @Override
     public String toString() {
         return "Patterns{" +
-                "main=" + main +
+                "mainDisease=" + mainDisease +
                 ", properties=" + properties +
                 ", complications=" + complications +
                 '}';

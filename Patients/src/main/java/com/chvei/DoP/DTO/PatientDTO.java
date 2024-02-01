@@ -1,21 +1,12 @@
-package com.chvei.DoP.entity;
+package com.chvei.DoP.DTO;
 
-import jakarta.persistence.*;
-
-@Entity
-public class Patient {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+public class PatientDTO {
     private Long id;
     private String lastName;
     private String firstName;
     private String middleName;
     private String address;
-
-    @OneToOne (cascade = CascadeType.ALL)
-    @JoinColumn(name = "diagnosis_id",referencedColumnName = "id")
-    private Diagnosis diagnosis;
-
+    private Long diagnosisId;
 
     public Long getId() {
         return id;
@@ -57,22 +48,23 @@ public class Patient {
         this.address = address;
     }
 
-    public Diagnosis getDiagnosis() {
-        return diagnosis;
+    public Long getDiagnosisId() {
+        return diagnosisId;
     }
 
-    public void setDiagnosis(Diagnosis diagnosis) {
-        this.diagnosis = diagnosis;
+    public void setDiagnosisId(Long diagnosisId) {
+        this.diagnosisId = diagnosisId;
     }
 
     @Override
     public String toString() {
-        return "Patient{" +
+        return "PatientDTO{" +
                 "id=" + id +
                 ", lastName='" + lastName + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", middleName='" + middleName + '\'' +
                 ", address='" + address + '\'' +
+                ", diagnosisId=" + diagnosisId +
                 '}';
     }
 }

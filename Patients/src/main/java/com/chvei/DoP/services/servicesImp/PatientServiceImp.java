@@ -26,7 +26,7 @@ public class PatientServiceImp implements PatientService {
     }
 
     public Patient getPatientById(Long id) {
-        return patientRepository.findById(id).orElseThrow();
+        return  patientRepository.findById(id).orElseThrow();
     }
 
     public List<Patient> getAllPatient() {
