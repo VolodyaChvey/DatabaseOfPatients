@@ -1,9 +1,11 @@
 package com.chvei.DoP.entity.patternsDiseases;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.chvei.DoP.entity.Diagnosis;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class MainDisease extends Disease {
@@ -11,6 +13,19 @@ public class MainDisease extends Disease {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
+    @OneToMany(mappedBy = "mainDisease",fetch = FetchType.LAZY)
+    @JsonIgnore
+    private List<Diagnosis> diagnoses = new ArrayList<>();
+
+    public void addDiagnosis (Diagnosis diagnosis){
+        diagnoses.add(diagnosis);
+        diagnosis.setMainDisease(this);
+    }
+
+    public void removeDiagnosis (Diagnosis diagnosis){
+        diagnoses.remove(diagnosis);
+        diagnosis.setMainDisease(null);
+    }
 
     public Long getId() {
         return id;
@@ -26,6 +41,14 @@ public class MainDisease extends Disease {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<Diagnosis> getDiagnoses() {
+        return diagnoses;
+    }
+
+    public void setDiagnoses(List<Diagnosis> diagnoses) {
+        this.diagnoses = diagnoses;
     }
 
     @Override

@@ -1,4 +1,4 @@
-import { useLoaderData, useParams } from "react-router-dom";
+import { useLoaderData, useNavigate, useParams } from "react-router-dom";
 import TextDiagnosis from "../Components/TextDiagnosis";
 import TabsDiseases from "../Components/TabsDiseases";
 import { useState } from "react";
@@ -17,16 +17,17 @@ function NewDisease() {
   });
   const [isActive, setIsActive] = useState(true);
   const [danger, setDanger] = useState("");
+  const navigate = useNavigate();
 
   function onPrepareDiagnosis({ pattern, name }) {
     if (!pattern) {
       return;
     }
-    if (name === "main") {
+    if (name === "mainDisease") {
       setDiagnosis({ ...diagnosis, [name]: pattern });
       checkMain(true);
     } else {
-      if (Object.keys(diagnosis.main).length === 0) {
+      if (Object.keys(diagnosis.mainDisease).length === 0) {
         checkMain(false);
         return;
       }
@@ -45,16 +46,24 @@ function NewDisease() {
     }
   }
   async function onSave() {
-   let res= await createDiagnosis(diagnosis);
-   if(res){console.log(res)
-    //setDiagnosis({ ...emptyDiagnosis, patientId: id });
-    setIsActive(true)};
+    await createDiagnosis(diagnosis);
+    diagnosis.mainDisease = {};
+    diagnosis.properties.length = 0;
+    diagnosis.complications.length = 0;
+    setDiagnosis({ ...diagnosis });
+    setIsActive(true);
+    navigate("/patients/" + id);
   }
-  function onClean() {
-    setDiagnosis({ ...emptyDiagnosis, patientId: id });
+
+ async function onClean() {
+    await createDiagnosis(diagnosis);
+    diagnosis.mainDisease = {};
+    diagnosis.properties.length = 0;
+    diagnosis.complications.length = 0;
+    setDiagnosis({ ...diagnosis });
     setIsActive(true);
   }
-  console.log(diagnosis)
+
   return (
     <>
       <TextDiagnosis
@@ -69,15 +78,14 @@ function NewDisease() {
       <TabsDiseases diseases={diseases} onApply={onPrepareDiagnosis} />
     </>
   );
-}
-async function createDiagnosis(diagnosis) {
-  console.log(JSON.stringify(diagnosis));
-  try {
-    const response = await Post({ path: "/diagnoses", body: diagnosis });
-    return response;
-  } catch (e) {}
-}
 
+  async function createDiagnosis(diagnosis) {
+    try {
+      const response = await Post({ path: "/diagnoses", body: diagnosis });
+      return response;
+    } catch (e) {}
+  }
+}
 async function getDiseases() {
   try {
     return await Get({ path: "/diseases" });

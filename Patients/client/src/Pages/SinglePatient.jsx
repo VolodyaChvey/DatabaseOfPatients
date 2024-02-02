@@ -15,6 +15,7 @@ function SinglePatient() {
       <TwoButtons oneLabel={"Go back"} oneOnClick={goBack} />
       {Object.entries(patient)
         .filter(([k, v]) => k !== "id")
+        .filter(([k, v]) => k !== "diagnosis")
         .map(([k, v]) => (
           <TextText key={k} k={translation[k]} v={v} />
         ))}

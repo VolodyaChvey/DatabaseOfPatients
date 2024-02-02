@@ -52,22 +52,29 @@ public class DiagnosisServiceImp implements DiagnosisService {
 
     @Override
     public DiagnosisDTO saveDiagnosis(DiagnosisDTO diagnosisDTO) {
+        Diagnosis diagnosis = toEntity(diagnosisDTO);
+        diagnosis.getPatient().setDiagnosis(diagnosis);
+        diagnosis.getMainDisease().addDiagnosis(diagnosis);
         Diagnosis diagnosis1 = diagnosisRepository.save(toEntity(diagnosisDTO));
-        System.out.println(diagnosisDTO);
-        System.out.println("saveDiagnosis: " +diagnosis1);
-      //  logger.log(Level.INFO, "Diagnosis " + diagnosis1.getMainDisease().getName() + " created");
+        logger.log(Level.INFO, "Diagnosis " + diagnosis1.getMainDisease().getName() + " created");
         return toDTO(diagnosis1);
     }
 
     @Override
     public DiagnosisDTO updateDiagnosis(DiagnosisDTO diagnosisDTO) {
-        Diagnosis diagnosis1 = diagnosisRepository.save(toEntity(diagnosisDTO));
-        logger.log(Level.INFO, "Diagnosis " + diagnosis1.getMainDisease().getName() + " updated");
-        return toDTO(diagnosis1);
+        Diagnosis diagnosis = toEntity(diagnosisDTO);
+        Diagnosis diagnosis1 = diagnosisRepository.findById(diagnosis.getId()).orElseThrow();
+        diagnosis1.getMainDisease().removeDiagnosis(diagnosis1);
+        diagnosis.getMainDisease().addDiagnosis(diagnosis);
+        Diagnosis diagnosis2 = diagnosisRepository.save(diagnosis);
+        logger.log(Level.INFO, "Diagnosis " + diagnosis2.getMainDisease().getName() + " updated");
+        return toDTO(diagnosis2);
     }
 
     @Override
     public void deleteDiagnosis(Long id) {
+        Diagnosis diagnosis = diagnosisRepository.findById(id).orElseThrow();
+        diagnosis.getMainDisease().removeDiagnosis(diagnosis);
         diagnosisRepository.deleteById(id);
         logger.log(Level.INFO, "Diagnosis with id " + id + " deleted");
     }

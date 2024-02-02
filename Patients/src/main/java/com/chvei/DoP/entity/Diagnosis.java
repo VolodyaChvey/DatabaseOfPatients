@@ -3,6 +3,7 @@ package com.chvei.DoP.entity;
 import com.chvei.DoP.entity.patternsDiseases.ComplicationDisease;
 import com.chvei.DoP.entity.patternsDiseases.MainDisease;
 import com.chvei.DoP.entity.patternsDiseases.PropertyDisease;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -14,9 +15,10 @@ public class Diagnosis {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @OneToOne(mappedBy = "diagnosis")
+    @JsonIgnore
     private Patient patient;
-    @ManyToOne
-    @JoinColumn(name = "MAIN-DISEASE_ID")
+    @OneToOne
+    @JoinColumn(name = "mean-disease_id")
     private MainDisease mainDisease;
     @ManyToMany
     @JoinTable(name = "diagnosis_property-disease",
