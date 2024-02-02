@@ -23,6 +23,7 @@ function NewDisease() {
     if (!pattern) {
       return;
     }
+    
     if (name === "mainDisease") {
       setDiagnosis({ ...diagnosis, [name]: pattern });
       checkMain(true);
