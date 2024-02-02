@@ -4,6 +4,7 @@ import TextText from "../Components/TextText";
 import { translation } from "../data";
 import Get from "../Controllers/Get";
 import DropdownButtons from "../Components/DropdownButtons";
+import DiagnosisToStringInLine from "../Preparators/DiagnosisToStringInLine"
 
 function SinglePatient() {
   const { patient } = useLoaderData();
@@ -19,6 +20,8 @@ function SinglePatient() {
         .map(([k, v]) => (
           <TextText key={k} k={translation[k]} v={v} />
         ))}
+      <TextText k={"Диагноз"}
+       v={DiagnosisToStringInLine(patient.diagnosis)}/>
       <TwoButtons
         oneLabel={"Удалить"}
         oneOnClick={() => navigate(`/patients/${patient.id}/delete`)}

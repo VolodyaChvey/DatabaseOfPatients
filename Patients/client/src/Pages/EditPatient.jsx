@@ -7,6 +7,7 @@ import {
 import TwoButtons from "../Components/TwoButtons";
 import CostomForm from "../Components/CostomForm";
 import Put from "../Controllers/Put";
+import { DropdownButton } from "react-bootstrap";
 
 function EditPatient() {
   const { patient } = useLoaderData();
@@ -27,6 +28,7 @@ function EditPatient() {
         action={`/patients/${patient.id}/edit`}
         submitting={navigation.state === "submitting"}
       />
+     
     </>
   );
 }
