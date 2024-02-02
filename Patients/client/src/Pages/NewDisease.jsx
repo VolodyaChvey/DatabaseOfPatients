@@ -19,7 +19,7 @@ function NewDisease() {
   const [danger, setDanger] = useState("");
   const navigate = useNavigate();
 
-  function onPrepareDiagnosis({ pattern, name }) {
+  const onApply=({ pattern, name })=> {
     if (!pattern) {
       return;
     }
@@ -41,6 +41,7 @@ function NewDisease() {
         setIsActive(false);
       }
     }
+    console.log(diseases)
     function checkMain(bool) {
       if (Object.keys(diagnosis.mainDisease).length > 0 || bool) {
         setDanger("");
@@ -64,7 +65,7 @@ function NewDisease() {
       setDiagnosis({ ...diagnosis });
       setIsActive(true);
     }
-
+console.log(diagnosis)
     return (
       <>
         <TextDiagnosis
@@ -76,7 +77,7 @@ function NewDisease() {
         <Row className="mb-3 text-center">
           <h3>{danger}</h3>
         </Row>
-        <TabsDiseases diseases={diseases} onApply={onPrepareDiagnosis()} />
+        <TabsDiseases diseases={diseases} onApply={onApply} />
       </>
     );
   }
