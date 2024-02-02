@@ -1,5 +1,4 @@
 import { useLoaderData, useNavigate, useParams } from "react-router-dom";
-import { useLoaderData, useNavigate, useParams } from "react-router-dom";
 import TextDiagnosis from "../Components/TextDiagnosis";
 import TabsDiseases from "../Components/TabsDiseases";
 import { useState } from "react";
@@ -80,13 +79,6 @@ function NewDisease() {
         <TabsDiseases diseases={diseases} onApply={onPrepareDiagnosis} />
       </>
     );
-  }
-  async function createDiagnosis(diagnosis) {
-    try {
-      const response = await Post({ path: "/diagnoses", body: diagnosis });
-      console.log(response);
-      return response;
-    } catch (e) {}
   }
 
   async function createDiagnosis(diagnosis) {
