@@ -4,6 +4,7 @@ import com.chvei.DoP.entity.patternsDiseases.ComplicationDisease;
 import com.chvei.DoP.entity.patternsDiseases.MainDisease;
 import com.chvei.DoP.entity.patternsDiseases.PropertyDisease;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -16,9 +17,10 @@ public class Diagnosis {
     private Long id;
     @OneToOne(mappedBy = "diagnosis")
     @JsonIgnore
+    @JsonIgnore
     private Patient patient;
-    @ManyToOne
-    @JoinColumn(name = "main-disease_id")
+    @OneToOne
+    @JoinColumn(name = "mean-disease_id")
     private MainDisease mainDisease;
     @ManyToMany
     @JoinTable(name = "diagnosis_property-disease",

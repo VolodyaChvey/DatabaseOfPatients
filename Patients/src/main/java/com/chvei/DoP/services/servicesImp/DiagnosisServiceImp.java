@@ -61,7 +61,7 @@ public class DiagnosisServiceImp implements DiagnosisService {
         Diagnosis diagnosis = toEntity(diagnosisDTO);
         diagnosis.getPatient().setDiagnosis(diagnosis);
         diagnosis.getMainDisease().addDiagnosis(diagnosis);
-        Diagnosis diagnosis1 = diagnosisRepository.save(diagnosis);
+        Diagnosis diagnosis1 = diagnosisRepository.save(toEntity(diagnosisDTO));
         logger.log(Level.INFO, "Diagnosis " + diagnosis1.getMainDisease().getName() + " created");
         return toDTO(diagnosis1);
     }
@@ -79,6 +79,8 @@ public class DiagnosisServiceImp implements DiagnosisService {
 
     @Override
     public void deleteDiagnosis(Long id) {
+        Diagnosis diagnosis = diagnosisRepository.findById(id).orElseThrow();
+        diagnosis.getMainDisease().removeDiagnosis(diagnosis);
         Diagnosis diagnosis = diagnosisRepository.findById(id).orElseThrow();
         diagnosis.getMainDisease().removeDiagnosis(diagnosis);
         diagnosisRepository.deleteById(id);

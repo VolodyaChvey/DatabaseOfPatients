@@ -20,3 +20,13 @@ export const emptyDiagnosis = {
   properties: [],
   complications: [],
 }
+export const dataDropdown1 = [{
+  text:"Диагноз",
+  path:"/diseases/patientId/",
+},{
+  text:"Анализы",
+  path:"#link1"
+},{
+  text:"Осмотр",
+  path:"#link2"
+}]
