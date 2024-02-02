@@ -2,9 +2,12 @@ package com.chvei.DoP.services.servicesImp;
 
 import com.chvei.DoP.DTO.DiagnosisDTO;
 import com.chvei.DoP.entity.Diagnosis;
+import com.chvei.DoP.entity.Patient;
+import com.chvei.DoP.entity.patternsDiseases.MainDisease;
 import com.chvei.DoP.repositories.DiagnosisRepository;
 import com.chvei.DoP.repositories.PatientRepository;
 import com.chvei.DoP.services.DiagnosisService;
+import com.chvei.DoP.services.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,18 +17,21 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @Service
+
 public class DiagnosisServiceImp implements DiagnosisService {
     private final Logger logger = Logger.getLogger(DiagnosisServiceImp.class.getName());
     private DiagnosisRepository diagnosisRepository;
     private PatientRepository patientRepository;
+    private PatientService patientService;
 
     public DiagnosisServiceImp() {
     }
 
     @Autowired
-    public DiagnosisServiceImp(DiagnosisRepository diagnosisRepository, PatientRepository patientRepository) {
+    public DiagnosisServiceImp(DiagnosisRepository diagnosisRepository, PatientRepository patientRepository, PatientService patientService) {
         this.diagnosisRepository = diagnosisRepository;
         this.patientRepository = patientRepository;
+        this.patientService = patientService;
     }
 
     @Override
@@ -36,7 +42,7 @@ public class DiagnosisServiceImp implements DiagnosisService {
 
     @Override
     public DiagnosisDTO getDiagnosisDTOByPatientId(Long id) {
-        Diagnosis diagnosis = diagnosisRepository.findByPatient_Id(id).orElseThrow();
+        Diagnosis diagnosis = diagnosisRepository.findByPatient(id).orElseThrow();
         return toDTO(diagnosis);
     }
 
@@ -73,6 +79,8 @@ public class DiagnosisServiceImp implements DiagnosisService {
 
     @Override
     public void deleteDiagnosis(Long id) {
+        Diagnosis diagnosis = diagnosisRepository.findById(id).orElseThrow();
+        diagnosis.getMainDisease().removeDiagnosis(diagnosis);
         Diagnosis diagnosis = diagnosisRepository.findById(id).orElseThrow();
         diagnosis.getMainDisease().removeDiagnosis(diagnosis);
         diagnosisRepository.deleteById(id);

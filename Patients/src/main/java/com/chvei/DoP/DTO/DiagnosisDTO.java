@@ -23,12 +23,12 @@ public class DiagnosisDTO {
         this.id = id;
     }
 
-    public Long getPatientId(){
+    public Long getPatientId() {
         return patientId;
     }
 
-    public void setPatientId(Long patientId){
-        this.patientId= patientId;
+    public void setPatientId(Long patientId) {
+        this.patientId = patientId;
     }
 
     public MainDisease getMainDisease() {
@@ -57,10 +57,13 @@ public class DiagnosisDTO {
 
     @Override
     public String toString() {
-        return "Diagnosis{" +
+        return "DiagnosisDTO{" +
                 "id=" + id +
+                ", patientId=" + patientId +
                 ", mainDisease=" + mainDisease +
                 ", properties=" + properties +
                 ", complications=" + complications +
                 '}';
-    }}
+    }
+}
+

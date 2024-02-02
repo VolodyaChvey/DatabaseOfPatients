@@ -33,7 +33,7 @@ public class MainDiseaseServiceImp implements MainDiseaseService {
     @Override
     public Patterns getPatterns() {
         Patterns patterns = new Patterns();
-        patterns.setMain(getAllMainDisease());
+        patterns.setMainDisease(getAllMainDisease());
         patterns.setProperties(propertyDiseaseService.getAllPropertyDisease());
         patterns.setComplications(complicationDiseaseService.getAllComplicationDisease());
         logger.log(Level.INFO, "Patterns created");

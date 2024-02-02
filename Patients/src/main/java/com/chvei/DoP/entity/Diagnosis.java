@@ -4,6 +4,7 @@ import com.chvei.DoP.entity.patternsDiseases.ComplicationDisease;
 import com.chvei.DoP.entity.patternsDiseases.MainDisease;
 import com.chvei.DoP.entity.patternsDiseases.PropertyDisease;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ public class Diagnosis {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @OneToOne(mappedBy = "diagnosis")
+    @JsonIgnore
     @JsonIgnore
     private Patient patient;
     @OneToOne
@@ -30,6 +32,7 @@ public class Diagnosis {
             joinColumns = @JoinColumn(name = "diagnosis_id"),
             inverseJoinColumns = @JoinColumn(name = "complication-disease_id"))
     private List<ComplicationDisease> complications = new ArrayList<>();
+
 
     public Long getId() {
         return id;

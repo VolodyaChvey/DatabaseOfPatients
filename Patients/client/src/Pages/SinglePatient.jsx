@@ -48,6 +48,7 @@ async function getPatientById(id) {
 async function patientLoader({ params }) {
   const id = params.id;
   const patient = await getPatientById(id);
+  console.log(patient)
   return { patient, id };
 }
 

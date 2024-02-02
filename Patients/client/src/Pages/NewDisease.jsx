@@ -1,4 +1,5 @@
 import { useLoaderData, useNavigate, useParams } from "react-router-dom";
+import { useLoaderData, useNavigate, useParams } from "react-router-dom";
 import TextDiagnosis from "../Components/TextDiagnosis";
 import TabsDiseases from "../Components/TabsDiseases";
 import { useState } from "react";
@@ -23,62 +24,70 @@ function NewDisease() {
     if (!pattern) {
       return;
     }
-    
     if (name === "mainDisease") {
-      setDiagnosis({ ...diagnosis, [name]: pattern });
-      checkMain(true);
-    } else {
-      if (Object.keys(diagnosis.mainDisease).length === 0) {
-        checkMain(false);
-        return;
-      }
-      if (!diagnosis[name].includes(pattern)) {
-        diagnosis[name].push(pattern);
-        setDiagnosis({ ...diagnosis, [name]: diagnosis[name] });
+      if (name === "mainDisease") {
+        setDiagnosis({ ...diagnosis, [name]: pattern });
+        checkMain(true);
+      } else {
+        if (Object.keys(diagnosis.mainDisease).length === 0) {
+          if (Object.keys(diagnosis.mainDisease).length === 0) {
+            checkMain(false);
+            return;
+          }
+          if (!diagnosis[name].includes(pattern)) {
+            diagnosis[name].push(pattern);
+            setDiagnosis({ ...diagnosis, [name]: diagnosis[name] });
+          }
+        }
+        setIsActive(false);
       }
     }
-    setIsActive(false);
-  }
-  function checkMain(bool) {
-    if (Object.keys(diagnosis.main).length > 0 || bool) {
-      setDanger("");
-    } else {
-      setDanger("Заполните основное заболевание");
+    function checkMain(bool) {
+      if (Object.keys(diagnosis.mainDisease).length > 0 || bool) {
+        setDanger("");
+      } else {
+        setDanger("Заполните основное заболевание");
+      }
     }
-  }
-  async function onSave() {
-    await createDiagnosis(diagnosis);
-    diagnosis.mainDisease = {};
-    diagnosis.properties.length = 0;
-    diagnosis.complications.length = 0;
-    setDiagnosis({ ...diagnosis });
-    setIsActive(true);
-    navigate("/patients/" + id);
-  }
+    async function onSave() {
+      await createDiagnosis(diagnosis);
+      diagnosis.mainDisease = {};
+      diagnosis.properties.length = 0;
+      diagnosis.complications.length = 0;
+      setDiagnosis({ ...diagnosis });
+      setIsActive(true);
+      navigate("/patients/" + id);
+    }
+    function onClean() {
+      diagnosis.mainDisease = {};
+      diagnosis.properties.length = 0;
+      diagnosis.complications.length = 0;
+      setDiagnosis({ ...diagnosis });
+      setIsActive(true);
+    }
 
- async function onClean() {
-    await createDiagnosis(diagnosis);
-    diagnosis.mainDisease = {};
-    diagnosis.properties.length = 0;
-    diagnosis.complications.length = 0;
-    setDiagnosis({ ...diagnosis });
-    setIsActive(true);
+    return (
+      <>
+        <TextDiagnosis
+          diagnosis={DiagnosisToStringInLine(diagnosis)}
+          onClickSave={onSave}
+          onClickClean={onClean}
+          isActive={isActive}
+        />
+        <Row className="mb-3 text-center">
+          <h3>{danger}</h3>
+        </Row>
+        <TabsDiseases diseases={diseases} onApply={onPrepareDiagnosis} />
+      </>
+    );
   }
-
-  return (
-    <>
-      <TextDiagnosis
-        diagnosis={DiagnosisToStringInLine(diagnosis)}
-        onClickSave={onSave}
-        onClickClean={onClean}
-        isActive={isActive}
-      />
-      <Row className="mb-3 text-center">
-        <h3>{danger}</h3>
-      </Row>
-      <TabsDiseases diseases={diseases} onApply={onPrepareDiagnosis} />
-    </>
-  );
+  async function createDiagnosis(diagnosis) {
+    try {
+      const response = await Post({ path: "/diagnoses", body: diagnosis });
+      console.log(response);
+      return response;
+    } catch (e) {}
+  }
 
   async function createDiagnosis(diagnosis) {
     try {
@@ -92,7 +101,7 @@ async function getDiseases() {
     return await Get({ path: "/diseases" });
   } catch (e) {
     return {
-      main: [
+      mainDisease: [
         { id: 1, name: "ИБС" },
         { id: 2, name: "ХРБС" },
       ],
