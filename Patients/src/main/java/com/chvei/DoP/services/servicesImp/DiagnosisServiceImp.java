@@ -74,7 +74,7 @@ public class DiagnosisServiceImp implements DiagnosisService {
         diagnosis.getMainDisease().addDiagnosis(diagnosis);
         Diagnosis diagnosis2 = diagnosisRepository.save(diagnosis);
         logger.log(Level.INFO, "Diagnosis " + diagnosis2.getMainDisease().getName() + " updated");
-        return toDTO(diagnosis1);
+        return toDTO(diagnosis2);
     }
 
     @Override
