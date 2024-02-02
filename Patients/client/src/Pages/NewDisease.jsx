@@ -76,7 +76,7 @@ function NewDisease() {
         <Row className="mb-3 text-center">
           <h3>{danger}</h3>
         </Row>
-        <TabsDiseases diseases={diseases} onApply={onPrepareDiagnosis} />
+        <TabsDiseases diseases={diseases} onApply={onPrepareDiagnosis()} />
       </>
     );
   }
