@@ -81,8 +81,6 @@ public class DiagnosisServiceImp implements DiagnosisService {
     public void deleteDiagnosis(Long id) {
         Diagnosis diagnosis = diagnosisRepository.findById(id).orElseThrow();
         diagnosis.getMainDisease().removeDiagnosis(diagnosis);
-        Diagnosis diagnosis = diagnosisRepository.findById(id).orElseThrow();
-        diagnosis.getMainDisease().removeDiagnosis(diagnosis);
         diagnosisRepository.deleteById(id);
         logger.log(Level.INFO, "Diagnosis with id " + id + " deleted");
     }

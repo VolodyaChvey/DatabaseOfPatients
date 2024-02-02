@@ -27,19 +27,6 @@ public class MainDisease extends Disease {
         diagnosis.setMainDisease(null);
     }
 
-    @OneToMany(mappedBy = "mainDisease",fetch = FetchType.LAZY)
-    @JsonIgnore
-    private List<Diagnosis> diagnoses = new ArrayList<>();
-
-    public void addDiagnosis (Diagnosis diagnosis){
-        diagnoses.add(diagnosis);
-        diagnosis.setMainDisease(this);
-    }
-    public void removeDiagnosis(Diagnosis diagnosis){
-        diagnoses.remove(diagnosis);
-        diagnosis.setMainDisease(null);
-    }
-
     public Long getId() {
         return id;
     }

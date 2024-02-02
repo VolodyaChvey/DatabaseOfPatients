@@ -17,7 +17,6 @@ public class Diagnosis {
     private Long id;
     @OneToOne(mappedBy = "diagnosis")
     @JsonIgnore
-    @JsonIgnore
     private Patient patient;
     @OneToOne
     @JoinColumn(name = "mean-disease_id")
