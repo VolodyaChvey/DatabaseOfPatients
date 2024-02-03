@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import TableDiseases from "../Components/TableDiseases";
 import TextInput from "../Components/TextInput";
+import Get from "../Controllers/Get";
 
 function Diseases() {
   const { diseases } = useLoaderData();
@@ -12,6 +13,7 @@ function Diseases() {
   }
 
   function showDiseases(diseases) {
+    console.log(diseases)
     return diseases.filter((d) => {
       return d.name.toLowerCase().includes(valueInput)
     }).slice(0, 9);
@@ -29,9 +31,9 @@ function Diseases() {
   );
 }
 
-async function getDiseases() {
+async function getDiagnoses() {
   try {
-    const response = await fetch(`http://localhost:8080/diseases`);
+    const response = await Get({path:"/diagnoses"});
     return response.json();
   } catch (e) {
     return [
@@ -47,12 +49,12 @@ async function getDiseases() {
   }
 }
 
-async function diseasesLoader() {
-  const diseases = await getDiseases();
+async function diagnosesLoader() {
+  const diseases = await getDiagnoses();
   if (!diseases.length) {
     /* throw  ({ message: 'Not Found!', reason: "Wrong url" }, { status: 404 })*/
   }
   return { diseases };
 }
 
-export { Diseases, diseasesLoader };
+export { Diseases, diagnosesLoader };

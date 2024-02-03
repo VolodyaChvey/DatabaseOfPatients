@@ -11,7 +11,7 @@ import { AddPatient, newPatientAction } from "./Pages/AddPatient";
 import { EditPatient, updatePatientAction } from "./Pages/EditPatient";
 import DeletePatient from "./Pages/DeletePatient";
 import { NewDisease, diseasesLoader } from "./Pages/NewDisease";
-import {Diseases} from "./Pages/Diseases";
+import {Diseases,diagnosesLoader} from "./Pages/Diseases";
 import CreatePattern from "./Pages/CreatePattern";
 
 const router = createBrowserRouter(
@@ -24,7 +24,7 @@ const router = createBrowserRouter(
       <Route path="patients/:id/edit" element={<EditPatient />} action={updatePatientAction} loader={patientLoader} />
       <Route path="patients/:id/delete" element={<DeletePatient />} />
       <Route path="diseases/patientId/:id" element={<NewDisease />} loader={diseasesLoader} />
-      <Route path="diseases" element={<Diseases/>} loader={diseasesLoader}/>
+      <Route path="diseases" element={<Diseases/>} loader={diagnosesLoader}/>
       <Route path="pattern/new" element={<CreatePattern/>}/>
     </Route>
   )
