@@ -1,4 +1,4 @@
-import TableDiseases from "./TableDiseases";
+import TableDiseases from "./TableDiagnoses";
 import { useContext, useState } from "react";
 import Delete from "../Controllers/Delete";
 import PrepareDiagnosis from "./PrepareDiagnosis";
