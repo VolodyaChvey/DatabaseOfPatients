@@ -47,13 +47,14 @@ public class DiagnosisServiceImp implements DiagnosisService {
     }
 
     @Override
-    public List<DiagnosisDTO> getAllDiagnosisDTO() {
+    public List<Diagnosis> getAllDiagnosisDTO() {
         List<Diagnosis> diagnosisList = diagnosisRepository.findAll();
-        List<DiagnosisDTO> diagnosisDTOList = new ArrayList<>();
+        System.out.println(diagnosisList);
+      /*  List<DiagnosisDTO> diagnosisDTOList = new ArrayList<>();
         for (Diagnosis diagnosis : diagnosisList) {
             diagnosisDTOList.add(toDTO(diagnosis));
-        }
-        return diagnosisDTOList;
+        }*/
+        return diagnosisList;
     }
 
     @Override
@@ -79,8 +80,8 @@ public class DiagnosisServiceImp implements DiagnosisService {
 
     @Override
     public void deleteDiagnosis(Long id) {
-        Diagnosis diagnosis = diagnosisRepository.findById(id).orElseThrow();
-        diagnosis.getMainDisease().removeDiagnosis(diagnosis);
+       /* Diagnosis diagnosis = diagnosisRepository.findById(id).orElseThrow();
+        diagnosis.getMainDisease().removeDiagnosis(diagnosis);*/
         diagnosisRepository.deleteById(id);
         logger.log(Level.INFO, "Diagnosis with id " + id + " deleted");
     }

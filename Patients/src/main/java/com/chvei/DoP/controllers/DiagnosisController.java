@@ -27,7 +27,7 @@ public class DiagnosisController {
         return diagnosisService.getDiagnosisDTOById(id);
     }
     @GetMapping
-    public List<DiagnosisDTO> getAllDiagnosis(){
+    public List<Diagnosis> getAllDiagnosis(){
         return diagnosisService.getAllDiagnosisDTO();
     }
     @PostMapping
