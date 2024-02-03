@@ -15,9 +15,10 @@ public class Diagnosis {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @OneToOne(mappedBy = "diagnosis",fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "diagnosis")
+    @JsonIgnore
     private Patient patient;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "mean-disease_id")
     private MainDisease mainDisease;
     @ManyToMany

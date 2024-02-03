@@ -62,8 +62,6 @@ public class DiagnosisServiceImp implements DiagnosisService {
         diagnosis.getPatient().setDiagnosis(diagnosis);
         diagnosis.getMainDisease().addDiagnosis(diagnosis);
         Diagnosis diagnosis1 = diagnosisRepository.save(diagnosis);
-        System.out.println(diagnosis1);
-        System.out.println(diagnosis);
         logger.log(Level.INFO, "Diagnosis " + diagnosis1.getMainDisease().getName() + " created");
         return toDTO(diagnosis1);
     }
