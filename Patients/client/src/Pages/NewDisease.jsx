@@ -22,30 +22,29 @@ function NewDisease() {
   const navigate = useNavigate();
 
   function onApply({ pattern, name }) {
+    console.log({ pattern, name });
     if (!pattern) {
       return;
     }
+
     if (name === "mainDisease") {
-      if (name === "mainDisease") {
-        setDiagnosis({ ...diagnosis, [name]: pattern });
-        checkMain(true);
-      } else {
-        if (Object.keys(diagnosis.mainDisease).length === 0) {
-          if (Object.keys(diagnosis.mainDisease).length === 0) {
-            checkMain(false);
-            return;
-          }
-          if (!diagnosis[name].includes(pattern)) {
-            diagnosis[name].push(pattern);
-            setDiagnosis({ ...diagnosis, [name]: diagnosis[name] });
-          }
-        }
+      setDiagnosis({ ...diagnosis, [name]: pattern });
+      checkMain(true);
+    } else {
+      console.log({ pattern, name });
+      if (!Object.keys(diagnosis.mainDisease).length === 0) {
+        checkMain(false);
+        return;
+      }
+      if (!diagnosis[name].includes(pattern)) {
+        diagnosis[name].push(pattern);
+        setDiagnosis({ ...diagnosis, [name]: diagnosis[name] });
       }
     }
+
     setIsActive(false);
   }
 
-  console.log(diseases);
   function checkMain(bool) {
     if (Object.keys(diagnosis.mainDisease).length > 0 || bool) {
       setDanger("");

@@ -4,8 +4,6 @@ import Delete from "../Controllers/Delete";
 import PrepareDiagnosis from "./PrepareDiagnosis";
 import { useNavigate } from "react-router-dom";
 import { DiseaseContext } from "../context";
-import { NewDisease } from "../Pages/NewDisease";
-
 
 export default function ItemDisease({ itemDisease, name }) {
   const navigate = useNavigate();
@@ -20,7 +18,6 @@ export default function ItemDisease({ itemDisease, name }) {
   const [diseases, setDiseases] = useState(itemDisease);
   const [text, setText] = useState("pattern");
   const onApply = useContext(DiseaseContext);
-  console.log(onApply);
 
   function onChange(e) {
     let value = e.target.value;
@@ -29,9 +26,8 @@ export default function ItemDisease({ itemDisease, name }) {
       setIsActive({ ...isActive, apply: false, add: false });
     }
   }
-
   function Apply() {
-   onApply({ pattern, name });
+    onApply({ pattern, name });
     setIsActive({ edit: true, add: true, apply: true, delete: true });
     setValue("");
     setPattern(null);
