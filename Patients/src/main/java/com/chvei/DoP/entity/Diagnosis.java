@@ -15,8 +15,7 @@ public class Diagnosis {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @OneToOne(mappedBy = "diagnosis")
-    @JsonIgnore
+    @OneToOne(mappedBy = "diagnosis",fetch = FetchType.LAZY)
     private Patient patient;
     @OneToOne
     @JoinColumn(name = "mean-disease_id")
