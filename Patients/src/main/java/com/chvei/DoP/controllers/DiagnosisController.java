@@ -24,8 +24,8 @@ public class DiagnosisController {
     }
 
     @GetMapping("/{id}")
-    public DiagnosisDTO getDiagnosisById(@PathVariable Long id) {
-        return diagnosisService.getDiagnosisDTOById(id);
+    public Diagnosis getDiagnosisById(@PathVariable Long id) {
+        return diagnosisService.getDiagnosisById(id);
     }
     @GetMapping
     public List<Diagnosis> getAllDiagnosis(){
@@ -45,8 +45,9 @@ public class DiagnosisController {
     }
 
     @GetMapping("/patientId/{id}")
-    public DiagnosisDTO getDiagnosisByPatientId(@PathVariable Long id){
-        return diagnosisService.getDiagnosisDTOByPatientId(id);
+    public Diagnosis getDiagnosisByPatientId(@PathVariable Long id){
+        return diagnosisService.getDiagnosisByPatientId(id);
     }
+
 
 }

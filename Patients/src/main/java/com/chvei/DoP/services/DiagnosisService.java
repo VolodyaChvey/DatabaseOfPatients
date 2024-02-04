@@ -6,8 +6,8 @@ import com.chvei.DoP.entity.Diagnosis;
 import java.util.List;
 
 public interface DiagnosisService {
-    DiagnosisDTO getDiagnosisDTOById(Long id);
-    DiagnosisDTO getDiagnosisDTOByPatientId(Long id);
+    Diagnosis getDiagnosisById(Long id);
+    Diagnosis getDiagnosisByPatientId(Long id);
     List<Diagnosis> getAllDiagnosisDTO();
     DiagnosisDTO saveDiagnosis (DiagnosisDTO diagnosisDTO);
     DiagnosisDTO updateDiagnosis (DiagnosisDTO diagnosisDTO);

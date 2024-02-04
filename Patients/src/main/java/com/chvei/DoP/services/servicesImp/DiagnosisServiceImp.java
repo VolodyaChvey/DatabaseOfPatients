@@ -35,15 +35,15 @@ public class DiagnosisServiceImp implements DiagnosisService {
     }
 
     @Override
-    public DiagnosisDTO getDiagnosisDTOById(Long id) {
-        Diagnosis diagnosis = diagnosisRepository.findById(id).orElseThrow();
-        return toDTO(diagnosis);
+    public Diagnosis getDiagnosisById(Long id) {
+        return diagnosisRepository.findById(id).orElseThrow();
     }
 
     @Override
-    public DiagnosisDTO getDiagnosisDTOByPatientId(Long id) {
-        Diagnosis diagnosis = diagnosisRepository.findByPatient(id).orElseThrow();
-        return toDTO(diagnosis);
+    public Diagnosis getDiagnosisByPatientId(Long id) {
+        String name="dsfg";
+        System.out.println(diagnosisRepository.findAllByMainDisease_name(name));
+        return diagnosisRepository.findByPatient_id(id).orElseThrow();
     }
 
     @Override
@@ -80,8 +80,8 @@ public class DiagnosisServiceImp implements DiagnosisService {
 
     @Override
     public void deleteDiagnosis(Long id) {
-       /* Diagnosis diagnosis = diagnosisRepository.findById(id).orElseThrow();
-        diagnosis.getMainDisease().removeDiagnosis(diagnosis);*/
+        Diagnosis diagnosis = diagnosisRepository.findById(id).orElseThrow();
+        diagnosis.getMainDisease().removeDiagnosis(diagnosis);
         diagnosisRepository.deleteById(id);
         logger.log(Level.INFO, "Diagnosis with id " + id + " deleted");
     }

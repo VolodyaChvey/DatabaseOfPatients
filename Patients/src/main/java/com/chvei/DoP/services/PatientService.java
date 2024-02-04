@@ -5,6 +5,8 @@ import com.chvei.DoP.entity.Patient;
 import java.util.List;
 
 public interface PatientService {
+    List<Patient> getAllPatientsByMainDisease(String name);
+
     Patient getPatientById(Long id);
 
     List<Patient> getAllPatient();
