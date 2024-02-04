@@ -12,4 +12,5 @@ public interface DiagnosisService {
     DiagnosisDTO saveDiagnosis (DiagnosisDTO diagnosisDTO);
     DiagnosisDTO updateDiagnosis (DiagnosisDTO diagnosisDTO);
     void deleteDiagnosis(Long id);
+
 }

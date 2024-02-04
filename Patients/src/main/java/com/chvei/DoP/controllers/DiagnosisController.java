@@ -2,6 +2,7 @@ package com.chvei.DoP.controllers;
 
 import com.chvei.DoP.DTO.DiagnosisDTO;
 import com.chvei.DoP.entity.Diagnosis;
+import com.chvei.DoP.entity.patternsDiseases.MainDisease;
 import com.chvei.DoP.services.DiagnosisService;
 import com.chvei.DoP.services.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,4 +48,5 @@ public class DiagnosisController {
     public DiagnosisDTO getDiagnosisByPatientId(@PathVariable Long id){
         return diagnosisService.getDiagnosisDTOByPatientId(id);
     }
+
 }

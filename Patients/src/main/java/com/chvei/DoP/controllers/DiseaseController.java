@@ -4,6 +4,7 @@ import com.chvei.DoP.entity.patternsDiseases.ComplicationDisease;
 import com.chvei.DoP.entity.patternsDiseases.MainDisease;
 import com.chvei.DoP.DTO.Patterns;
 import com.chvei.DoP.entity.patternsDiseases.PropertyDisease;
+import com.chvei.DoP.services.DiseaseService;
 import com.chvei.DoP.services.diseasesServices.ComplicationDiseaseService;
 import com.chvei.DoP.services.diseasesServices.MainDiseaseService;
 import com.chvei.DoP.services.diseasesServices.PropertyDiseaseService;
@@ -18,15 +19,22 @@ public class DiseaseController {
     private MainDiseaseService mainDiseaseService;
     private PropertyDiseaseService propertyDiseaseService;
     private ComplicationDiseaseService complicationDiseaseService;
+    private DiseaseService diseaseService;
 
     public DiseaseController() {
     }
 
     @Autowired
-    public DiseaseController(MainDiseaseService mainDiseaseService, PropertyDiseaseService propertyDiseaseService, ComplicationDiseaseService complicationDiseaseService) {
+    public DiseaseController(MainDiseaseService mainDiseaseService, PropertyDiseaseService propertyDiseaseService, ComplicationDiseaseService complicationDiseaseService, DiseaseService diseaseService) {
         this.mainDiseaseService = mainDiseaseService;
         this.propertyDiseaseService = propertyDiseaseService;
         this.complicationDiseaseService = complicationDiseaseService;
+        this.diseaseService = diseaseService;
+    }
+
+    @GetMapping("/ActualMainDiseases")
+    public List<MainDisease> getAllActualMainDiseases() {
+        return diseaseService.getAllActualMainDisease();
     }
 
     @GetMapping
