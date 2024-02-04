@@ -15,24 +15,22 @@ function Diagnoses() {
     setValueInput(e.target.value);
   }
   async function onClick(id) {
-    // await Delete({ path: "/diagnoses/" + id });
+    setCotout(true)
   }
   function TextForTable() {
     if (cotout) {
       return diagnoses.map((d) => d.mainDisease.name);
     }
-  
   }
 
-  /*  function showDiseases(diagnoses) {
-    console.log(diagnoses);
+  function showDiseases() {
     return diagnoses
       .filter((d) => {
-        return d.mainDisease.name.toLowerCase().includes(valueInput);
+        return d.name.toLowerCase().includes(valueInput);
       })
+      .map((d) => d.name)
       .slice(0, 9);
-  }*/
-  console.log(diagnoses);
+  }
   return (
     <>
       <TextInput
@@ -41,14 +39,18 @@ function Diagnoses() {
         onChange={onHandleChange}
       />
       <h3 className="m-3">Список заболеваний</h3>
-      <TableDiagnoses arrText={diagnoses} onClick={onClick} />
+      <TableDiagnoses arrText={showDiseases()} onClick={onClick} />
     </>
   );
+  async function getPatientsByMainDisease({name}){
+const resp = await Get({path:""})
+  }
 }
 
 async function getDiagnoses() {
   try {
-    return await Get({ path: "/diagnoses/FG" });
+    return await Get({ path: "/diseases/main" });
+   
   } catch (e) {
     return demoDiagnoses;
   }
