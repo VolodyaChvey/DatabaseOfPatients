@@ -31,42 +31,5 @@ export const dataDropdown1 = [{
   path:"#link2"
 }];
 export const demoDiagnoses = [
-  {
-      "id": 352,
-      "mainDisease": {
-          "name": "dsfg",
-          "id": 57
-      },
-      "properties": [
-          {
-              "name": "МА",
-              "id": 53
-          }
-      ],
-      "complications": [
-          {
-              "name": "Н2",
-              "id": 4
-          }
-      ]
-  },
-  {
-      "id": 402,
-      "mainDisease": {
-          "name": "tuy",
-          "id": 60
-      },
-      "properties": [
-          {
-              "name": "МА",
-              "id": 53
-          }
-      ],
-      "complications": [
-          {
-              "name": "Н3",
-              "id": 5
-          }
-      ]
-  }
+"ИБС", "ХРБС"
 ]

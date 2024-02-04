@@ -1,4 +1,4 @@
-import TableDiseases from "./TableDiagnoses";
+import TableDiseases from "./TableDiseases";
 import { useContext, useState } from "react";
 import Delete from "../Controllers/Delete";
 import PrepareDiagnosis from "./PrepareDiagnosis";
@@ -55,6 +55,7 @@ export default function ItemDisease({ itemDisease, name }) {
   }
 
   function onClickTable(disease) {
+    console.log(disease)
     setValue(disease.name);
     setPattern(disease);
     setIsActive({ edit: false, add: true, apply: false, delete: false });
@@ -69,7 +70,7 @@ export default function ItemDisease({ itemDisease, name }) {
   function showDiseases() {
     return diseases
       .filter((d) => d.name.toLowerCase().includes(value.toLowerCase()))
-      .slice(0, 9);
+      .slice(0, 9)
   }
 
   return (

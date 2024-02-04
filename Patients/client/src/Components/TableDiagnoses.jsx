@@ -1,18 +1,15 @@
-
 import { Table } from "react-bootstrap";
 
-export default function TableDiagnoses({ diagnoses, onClick }) {
-  console.log(diagnoses)
-  return (
+export default function TableDiagnoses({arrText,onClick}){
+return (
     <Table striped bordered hover className="text-center">
-      <tbody>
-        {diagnoses.map(d => (
-          <tr key={d.id} onClick={() => onClick(d.id)}>
-            <th>{d.id}</th>
-            <th>{d.mainDisease?.name}</th>
-          </tr>
-        ))}
-      </tbody>
+        <tbody>
+            {arrText.map(t=>(
+                <tr key={t}>
+                    <th onClick={onClick(t)}>{t}</th>
+                </tr>
+            ))}
+        </tbody>
     </Table>
-  );
+)
 }

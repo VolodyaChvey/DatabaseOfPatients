@@ -6,7 +6,7 @@ export default function Layout(){
         <header>
             <NavLink to="/">Home</NavLink>
             <NavLink to="/patients">Patients</NavLink>
-            <NavLink>Diseases</NavLink>
+            <NavLink to="/diseases">Diseases</NavLink>
         </header>
         <main className="container">
             <Outlet/>
