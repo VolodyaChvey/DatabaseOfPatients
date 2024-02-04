@@ -25,11 +25,19 @@ public class PatientServiceImp implements PatientService {
         this.patientRepository = patientRepository;
     }
 
+    @Override
+    public List<Patient> getAllPatientsByMainDisease(String name) {
+        return null;
+    }
+
     public Patient getPatientById(Long id) {
         return  patientRepository.findById(id).orElseThrow();
     }
 
     public List<Patient> getAllPatient() {
+
+        //System.out.println(patientRepository.findAllByDiagnosis_id());
+
         return patientRepository.findAll();
     }
 

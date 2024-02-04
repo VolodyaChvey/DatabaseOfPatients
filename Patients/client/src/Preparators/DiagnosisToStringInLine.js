@@ -1,4 +1,7 @@
 export default function DiagnosisToStringInLine(diagnosis) {
+  if(diagnosis===null||Object.keys(diagnosis).length===0){
+    return ""
+  }
   let mainString = "";
   let propertyString = "";
   let complicationString = "";

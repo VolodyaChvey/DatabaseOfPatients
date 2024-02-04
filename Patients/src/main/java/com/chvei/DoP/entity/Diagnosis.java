@@ -18,8 +18,8 @@ public class Diagnosis {
     @OneToOne(mappedBy = "diagnosis")
     @JsonIgnore
     private Patient patient;
-    @OneToOne
-    @JoinColumn(name = "mean-disease_id")
+    @ManyToOne
+    @JoinColumn(name = "mean-disease_id",nullable = false)
     private MainDisease mainDisease;
     @ManyToMany
     @JoinTable(name = "diagnosis_property-disease",

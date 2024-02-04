@@ -2,6 +2,7 @@ package com.chvei.DoP.controllers;
 
 import com.chvei.DoP.DTO.DiagnosisDTO;
 import com.chvei.DoP.entity.Diagnosis;
+import com.chvei.DoP.entity.patternsDiseases.MainDisease;
 import com.chvei.DoP.services.DiagnosisService;
 import com.chvei.DoP.services.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,11 +24,11 @@ public class DiagnosisController {
     }
 
     @GetMapping("/{id}")
-    public DiagnosisDTO getDiagnosisById(@PathVariable Long id) {
-        return diagnosisService.getDiagnosisDTOById(id);
+    public Diagnosis getDiagnosisById(@PathVariable Long id) {
+        return diagnosisService.getDiagnosisById(id);
     }
     @GetMapping
-    public List<DiagnosisDTO> getAllDiagnosis(){
+    public List<Diagnosis> getAllDiagnosis(){
         return diagnosisService.getAllDiagnosisDTO();
     }
     @PostMapping
@@ -44,7 +45,9 @@ public class DiagnosisController {
     }
 
     @GetMapping("/patientId/{id}")
-    public DiagnosisDTO getDiagnosisByPatientId(@PathVariable Long id){
-        return diagnosisService.getDiagnosisDTOByPatientId(id);
+    public Diagnosis getDiagnosisByPatientId(@PathVariable Long id){
+        return diagnosisService.getDiagnosisByPatientId(id);
     }
+
+
 }

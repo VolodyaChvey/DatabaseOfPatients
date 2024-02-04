@@ -2,7 +2,7 @@ import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import ItemDisease from "./ItemDisease";
 
-export default function TabsDiseases({ diseases, onApply }) {
+export default function TabsDiseases({ diseases }) {
   return (
     <>
       <Tabs
@@ -12,8 +12,8 @@ export default function TabsDiseases({ diseases, onApply }) {
         justify
       >
         {Object.entries(diseases).map(([n, m]) => (
-          <Tab key={n} eventKey={n} title={n }>
-            <ItemDisease itemDisease={m} name={n} onApply={onApply} />
+          <Tab key={n} eventKey={n} title={n}>
+            <ItemDisease itemDisease={m} name={n} />
           </Tab>
         ))}
       </Tabs>

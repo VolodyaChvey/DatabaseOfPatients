@@ -35,25 +35,26 @@ public class DiagnosisServiceImp implements DiagnosisService {
     }
 
     @Override
-    public DiagnosisDTO getDiagnosisDTOById(Long id) {
-        Diagnosis diagnosis = diagnosisRepository.findById(id).orElseThrow();
-        return toDTO(diagnosis);
+    public Diagnosis getDiagnosisById(Long id) {
+        return diagnosisRepository.findById(id).orElseThrow();
     }
 
     @Override
-    public DiagnosisDTO getDiagnosisDTOByPatientId(Long id) {
-        Diagnosis diagnosis = diagnosisRepository.findByPatient(id).orElseThrow();
-        return toDTO(diagnosis);
+    public Diagnosis getDiagnosisByPatientId(Long id) {
+        String name="dsfg";
+        System.out.println(diagnosisRepository.findAllByMainDisease_name(name));
+        return diagnosisRepository.findByPatient_id(id).orElseThrow();
     }
 
     @Override
-    public List<DiagnosisDTO> getAllDiagnosisDTO() {
+    public List<Diagnosis> getAllDiagnosisDTO() {
         List<Diagnosis> diagnosisList = diagnosisRepository.findAll();
-        List<DiagnosisDTO> diagnosisDTOList = new ArrayList<>();
+        System.out.println(diagnosisList);
+      /*  List<DiagnosisDTO> diagnosisDTOList = new ArrayList<>();
         for (Diagnosis diagnosis : diagnosisList) {
             diagnosisDTOList.add(toDTO(diagnosis));
-        }
-        return diagnosisDTOList;
+        }*/
+        return diagnosisList;
     }
 
     @Override
@@ -61,7 +62,7 @@ public class DiagnosisServiceImp implements DiagnosisService {
         Diagnosis diagnosis = toEntity(diagnosisDTO);
         diagnosis.getPatient().setDiagnosis(diagnosis);
         diagnosis.getMainDisease().addDiagnosis(diagnosis);
-        Diagnosis diagnosis1 = diagnosisRepository.save(toEntity(diagnosisDTO));
+        Diagnosis diagnosis1 = diagnosisRepository.save(diagnosis);
         logger.log(Level.INFO, "Diagnosis " + diagnosis1.getMainDisease().getName() + " created");
         return toDTO(diagnosis1);
     }

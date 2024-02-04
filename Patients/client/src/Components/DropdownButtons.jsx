@@ -3,7 +3,6 @@ import { dataDropdown1 } from "../data";
 
 export default function DropdownButtons({ id }) {
   const title = "Добавить"
-  console.log(id)
   return (
     <>
       <Row className="mb-3">
@@ -11,7 +10,7 @@ export default function DropdownButtons({ id }) {
         <Col sm={3}>
           <DropdownButton title={title} id="bg-nested-dropdown">
             {dataDropdown1.map(data => (
-              <Dropdown.Item eventKey={data.text} href={data.path + id}>
+              <Dropdown.Item key={data.text} eventKey={data.text} href={data.path + id}>
                 {data.text}
               </Dropdown.Item>
             ))}

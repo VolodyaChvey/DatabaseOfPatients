@@ -8,7 +8,7 @@ export default function PrepareDiagnosis({
   isActive,
   onClickEdit,
   onClickAddNew,
-  onclickApply,
+  onClickApply,
   onClickDelete,
   onClickClean,
 }) {
@@ -26,7 +26,7 @@ export default function PrepareDiagnosis({
               <Button onClick={onClickAddNew} disabled={isActive.add}>Add new</Button>
             </Col>
             <Col>
-              <Button onClick={onclickApply} disabled={isActive.apply}>Apply</Button>
+              <Button onClick={onClickApply} disabled={isActive.apply}>Apply</Button>
             </Col>
             <Col>
               <Button onClick={onClickDelete} disabled={isActive.delete}>Delete</Button>

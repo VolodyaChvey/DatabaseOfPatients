@@ -7,6 +7,7 @@ import DiagnosisToStringInLine from "../Preparators/DiagnosisToStringInLine";
 import Get from "../Controllers/Get";
 import Post from "../Controllers/Post";
 import { Row } from "react-bootstrap";
+import { DiseaseContext } from "../context";
 
 function NewDisease() {
   const { id } = useParams();
@@ -17,69 +18,73 @@ function NewDisease() {
   });
   const [isActive, setIsActive] = useState(true);
   const [danger, setDanger] = useState("");
+  // const [data, setPattern] = useState({ pattern: "", name: "" });
   const navigate = useNavigate();
 
-  function onPrepareDiagnosis({ pattern, name }) {
+  function onApply({ pattern, name }) {
+    console.log({ pattern, name });
     if (!pattern) {
       return;
     }
+
     if (name === "mainDisease") {
-      if (name === "mainDisease") {
-        setDiagnosis({ ...diagnosis, [name]: pattern });
-        checkMain(true);
-      } else {
-        if (Object.keys(diagnosis.mainDisease).length === 0) {
-          if (Object.keys(diagnosis.mainDisease).length === 0) {
-            checkMain(false);
-            return;
-          }
-          if (!diagnosis[name].includes(pattern)) {
-            diagnosis[name].push(pattern);
-            setDiagnosis({ ...diagnosis, [name]: diagnosis[name] });
-          }
-        }
-        setIsActive(false);
+      setDiagnosis({ ...diagnosis, [name]: pattern });
+      checkMain(true);
+    } else {
+      console.log({ pattern, name });
+      if (!Object.keys(diagnosis.mainDisease).length === 0) {
+        checkMain(false);
+        return;
       }
-    }
-    function checkMain(bool) {
-      if (Object.keys(diagnosis.mainDisease).length > 0 || bool) {
-        setDanger("");
-      } else {
-        setDanger("Заполните основное заболевание");
+      if (!diagnosis[name].includes(pattern)) {
+        diagnosis[name].push(pattern);
+        setDiagnosis({ ...diagnosis, [name]: diagnosis[name] });
       }
-    }
-    async function onSave() {
-      await createDiagnosis(diagnosis);
-      diagnosis.mainDisease = {};
-      diagnosis.properties.length = 0;
-      diagnosis.complications.length = 0;
-      setDiagnosis({ ...diagnosis });
-      setIsActive(true);
-      navigate("/patients/" + id);
-    }
-    function onClean() {
-      diagnosis.mainDisease = {};
-      diagnosis.properties.length = 0;
-      diagnosis.complications.length = 0;
-      setDiagnosis({ ...diagnosis });
-      setIsActive(true);
     }
 
-    return (
-      <>
-        <TextDiagnosis
-          diagnosis={DiagnosisToStringInLine(diagnosis)}
-          onClickSave={onSave}
-          onClickClean={onClean}
-          isActive={isActive}
-        />
-        <Row className="mb-3 text-center">
-          <h3>{danger}</h3>
-        </Row>
-        <TabsDiseases diseases={diseases} onApply={onPrepareDiagnosis()} />
-      </>
-    );
+    setIsActive(false);
   }
+
+  function checkMain(bool) {
+    if (Object.keys(diagnosis.mainDisease).length > 0 || bool) {
+      setDanger("");
+    } else {
+      setDanger("Заполните основное заболевание");
+    }
+  }
+  async function onSave() {
+    await createDiagnosis(diagnosis);
+    diagnosis.mainDisease = {};
+    diagnosis.properties.length = 0;
+    diagnosis.complications.length = 0;
+    setDiagnosis({ ...diagnosis });
+    setIsActive(true);
+    navigate("/patients/" + id);
+  }
+  function onClean() {
+    diagnosis.mainDisease = {};
+    diagnosis.properties.length = 0;
+    diagnosis.complications.length = 0;
+    setDiagnosis({ ...diagnosis });
+    setIsActive(true);
+  }
+  console.log(diagnosis);
+  return (
+    <>
+      <TextDiagnosis
+        diagnosis={DiagnosisToStringInLine(diagnosis)}
+        onClickSave={onSave}
+        onClickClean={onClean}
+        isActive={isActive}
+      />
+      <Row className="mb-3 text-center">
+        <h3>{danger}</h3>
+      </Row>
+      <DiseaseContext.Provider value={onApply}>
+        <TabsDiseases diseases={diseases} />
+      </DiseaseContext.Provider>
+    </>
+  );
 
   async function createDiagnosis(diagnosis) {
     try {
