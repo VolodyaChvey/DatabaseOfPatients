@@ -41,20 +41,17 @@ public class DiagnosisServiceImp implements DiagnosisService {
 
     @Override
     public Diagnosis getDiagnosisByPatientId(Long id) {
-        String name="dsfg";
-        System.out.println(diagnosisRepository.findAllByMainDisease_name(name));
         return diagnosisRepository.findByPatient_id(id).orElseThrow();
     }
 
     @Override
-    public List<Diagnosis> getAllDiagnosisDTO() {
-        List<Diagnosis> diagnosisList = diagnosisRepository.findAll();
-        System.out.println(diagnosisList);
-      /*  List<DiagnosisDTO> diagnosisDTOList = new ArrayList<>();
-        for (Diagnosis diagnosis : diagnosisList) {
-            diagnosisDTOList.add(toDTO(diagnosis));
-        }*/
-        return diagnosisList;
+    public List<Diagnosis> getAllDiagnosesByMainDiseaseName(String name) {
+        return diagnosisRepository.findAllByMainDisease_name(name);
+    }
+
+    @Override
+    public List<Diagnosis> getAllDiagnoses() {
+        return diagnosisRepository.findAll();
     }
 
     @Override

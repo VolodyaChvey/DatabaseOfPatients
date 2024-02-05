@@ -27,27 +27,35 @@ public class DiagnosisController {
     public Diagnosis getDiagnosisById(@PathVariable Long id) {
         return diagnosisService.getDiagnosisById(id);
     }
+
     @GetMapping
-    public List<Diagnosis> getAllDiagnosis(){
-        return diagnosisService.getAllDiagnosisDTO();
+    public List<Diagnosis> getAllDiagnosis() {
+        return diagnosisService.getAllDiagnoses();
     }
+
     @PostMapping
-    public DiagnosisDTO createDiagnosis(@RequestBody DiagnosisDTO diagnosisDTO){
+    public DiagnosisDTO createDiagnosis(@RequestBody DiagnosisDTO diagnosisDTO) {
         return diagnosisService.saveDiagnosis(diagnosisDTO);
     }
+
     @PutMapping("/{id}")
-    public DiagnosisDTO updateDiagnosis(@RequestBody DiagnosisDTO diagnosisDTO){
+    public DiagnosisDTO updateDiagnosis(@RequestBody DiagnosisDTO diagnosisDTO) {
         return diagnosisService.updateDiagnosis(diagnosisDTO);
     }
+
     @DeleteMapping("/{id}")
-    public void deleteDiagnosis(@PathVariable Long id){
+    public void deleteDiagnosis(@PathVariable Long id) {
         diagnosisService.deleteDiagnosis(id);
     }
 
     @GetMapping("/patientId/{id}")
-    public Diagnosis getDiagnosisByPatientId(@PathVariable Long id){
+    public Diagnosis getDiagnosisByPatientId(@PathVariable Long id) {
         return diagnosisService.getDiagnosisByPatientId(id);
     }
 
+    @GetMapping("/mainDiseaseName/{name}")
+    public List<Diagnosis> getDiagnosesByMainDiseaseName(@PathVariable String name) {
+        return diagnosisService.getAllDiagnosesByMainDiseaseName(name);
+    }
 
 }
