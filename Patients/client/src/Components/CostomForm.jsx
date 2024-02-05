@@ -23,7 +23,7 @@ export default function CostomForm({ action, patient, submitting }) {
         
         <Col sm={2}>Диагноз:</Col>
         <Col sm={1}></Col>
-        <Col sm={9}>{DiagnosisToStringInLine(patient.diagnosis)}</Col>
+        <Col sm={9}>{DiagnosisToStringInLine(formPatient.diagnosis)}</Col>
       </Row>
       <TextInput
         type={"submit"}

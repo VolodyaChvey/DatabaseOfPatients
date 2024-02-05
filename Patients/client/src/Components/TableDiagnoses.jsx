@@ -6,7 +6,7 @@ return (
         <tbody>
             {arrText.map(t=>(
                 <tr key={t}>
-                    <th onClick={onClick(t)}>{t}</th>
+                    <th onClick={()=>onClick(t)}>{t}</th>
                 </tr>
             ))}
         </tbody>

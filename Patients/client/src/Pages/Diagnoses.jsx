@@ -3,28 +3,28 @@ import { useLoaderData } from "react-router-dom";
 import TableDiagnoses from "../Components/TableDiagnoses";
 import TextInput from "../Components/TextInput";
 import Get from "../Controllers/Get";
-//import Delete from "../Controllers/Delete";
-import { demoDiagnoses } from "../data";
+import { demoDiagnoses, demoDiagnoses1 } from "../data";
+import DiagnosisToStringInLine from "../Preparators/DiagnosisToStringInLine";
 
 function Diagnoses() {
-  const { diagnoses } = useLoaderData();
+  const { disease } = useLoaderData();
   const [valueInput, setValueInput] = useState("");
-  const [cotout, setCotout] = useState(false);
+  const [diagnoses, setDiagnoses] = useState([]);
 
   function onHandleChange(e) {
     setValueInput(e.target.value);
   }
-  async function onClick(id) {
-    setCotout(true)
-  }
-  function TextForTable() {
-    if (cotout) {
-      return diagnoses.map((d) => d.mainDisease.name);
-    }
+  async function onClick(name) {
+    const response = await getPatientsByMainDisease(name)
+    setDiagnoses(response)
   }
 
+
   function showDiseases() {
-    return diagnoses
+    if (diagnoses.length > 0) {
+      return diagnoses.map(d => DiagnosisToStringInLine(d))
+    }
+    return disease
       .filter((d) => {
         return d.name.toLowerCase().includes(valueInput);
       })
@@ -42,26 +42,29 @@ function Diagnoses() {
       <TableDiagnoses arrText={showDiseases()} onClick={onClick} />
     </>
   );
-  async function getPatientsByMainDisease({name}){
-const resp = await Get({path:""})
+  async function getPatientsByMainDisease(name) {
+    try { return await Get({ path: "/diagnoses/mainDiseaseName/" + name }) }
+    catch (e) {
+      return demoDiagnoses1;
+    }
   }
 }
 
 async function getDiagnoses() {
   try {
     return await Get({ path: "/diseases/main" });
-   
+
   } catch (e) {
     return demoDiagnoses;
   }
 }
 
 async function diagnosesLoader() {
-  const diagnoses = await getDiagnoses();
-  if (!diagnoses.length) {
+  const disease = await getDiagnoses();
+  if (!disease.length) {
     /* throw  ({ message: 'Not Found!', reason: "Wrong url" }, { status: 404 })*/
   }
-  return { diagnoses };
+  return { disease };
 }
 
 export { Diagnoses, diagnosesLoader };
