@@ -18,7 +18,15 @@ function Diagnoses() {
     const response = await getPatientsByMainDisease(name)
     setDiagnoses(response)
   }
-
+function showLabel(){
+  let label="Список "
+  if((diagnoses.length > 0)){
+    label+="диагнозов"
+  }else{
+    label+="болезноей"
+  }
+  return label
+}
 
   function showDiseases() {
     if (diagnoses.length > 0) {
@@ -34,11 +42,11 @@ function Diagnoses() {
   return (
     <>
       <TextInput
-        text={"Поиск заболевания"}
+        text={showLabel}
         value={valueInput}
         onChange={onHandleChange}
       />
-      <h3 className="m-3">Список заболеваний</h3>
+      <h3 className="m-3">{"Список"+(diagnoses.length > 0)?"Список диагнозов":"Список заболеваний"}</h3>
       <TableDiagnoses arrText={showDiseases()} onClick={onClick} />
     </>
   );
