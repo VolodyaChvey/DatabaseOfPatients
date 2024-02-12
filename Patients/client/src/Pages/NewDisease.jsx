@@ -18,11 +18,9 @@ function NewDisease() {
   });
   const [isActive, setIsActive] = useState(true);
   const [danger, setDanger] = useState("");
-  // const [data, setPattern] = useState({ pattern: "", name: "" });
   const navigate = useNavigate();
 
   function onApply({ pattern, name }) {
-    console.log({ pattern, name });
     if (!pattern) {
       return;
     }
@@ -31,7 +29,6 @@ function NewDisease() {
       setDiagnosis({ ...diagnosis, [name]: pattern });
       checkMain(true);
     } else {
-      console.log({ pattern, name });
       if (!Object.keys(diagnosis.mainDisease).length === 0) {
         checkMain(false);
         return;
@@ -54,11 +51,7 @@ function NewDisease() {
   }
   async function onSave() {
     await createDiagnosis(diagnosis);
-    diagnosis.mainDisease = {};
-    diagnosis.properties.length = 0;
-    diagnosis.complications.length = 0;
-    setDiagnosis({ ...diagnosis });
-    setIsActive(true);
+    onClean();
     navigate("/patients/" + id);
   }
   function onClean() {
@@ -68,7 +61,6 @@ function NewDisease() {
     setDiagnosis({ ...diagnosis });
     setIsActive(true);
   }
-  console.log(diagnosis);
   return (
     <>
       <TextDiagnosis

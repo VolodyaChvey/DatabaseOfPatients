@@ -55,7 +55,6 @@ export default function ItemDisease({ itemDisease, name }) {
   }
 
   function onClickTable(disease) {
-    console.log(disease)
     setValue(disease.name);
     setPattern(disease);
     setIsActive({ edit: false, add: true, apply: false, delete: false });

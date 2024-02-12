@@ -40,3 +40,6 @@
   color: white;
   cursor: default;
 }
+p:hover {
+text-decoration: underline;
+}

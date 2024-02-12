@@ -3,13 +3,23 @@ import TwoButtons from "../Components/TwoButtons";
 import TextText from "../Components/TextText";
 import { translation } from "../data";
 import Get from "../Controllers/Get";
+import Put from "../Controllers/Put";
 import DropdownButtons from "../Components/DropdownButtons";
-import DiagnosisToStringInLine from "../Preparators/DiagnosisToStringInLine"
+import DiagnosisToStringInLine from "../Preparators/DiagnosisToStringInLine";
+import TabsSinglePatient from "../Components/SinglePatient/TabsSinglePatient";
+import { PatientContext } from "../context";
+import { useState } from "react";
 
 function SinglePatient() {
-  const { patient } = useLoaderData();
+  const { pat } = useLoaderData();
+  const [patient, setPatient] = useState(pat);
   const navigate = useNavigate();
   const goBack = () => navigate(-1);
+
+  async function onEdit({ name, val }) {
+    const responce = await editPatient({ ...patient, [name]: val });
+    setPatient(responce);
+  }
 
   return (
     <>
@@ -20,8 +30,7 @@ function SinglePatient() {
         .map(([k, v]) => (
           <TextText key={k} k={translation[k]} v={v} />
         ))}
-      <TextText k={"Диагноз"}
-       v={DiagnosisToStringInLine(patient.diagnosis)}/>
+      <TextText k={"Диагноз"} v={DiagnosisToStringInLine(patient.diagnosis)} />
       <TwoButtons
         oneLabel={"Удалить"}
         oneOnClick={() => navigate(`/patients/${patient.id}/delete`)}
@@ -29,8 +38,17 @@ function SinglePatient() {
         twoOnClick={() => navigate(`/patients/${patient.id}/edit`)}
       />
       <DropdownButtons id={patient.id} />
+      <PatientContext.Provider value={[patient, onEdit]}>
+        <TabsSinglePatient />
+      </PatientContext.Provider>
     </>
   );
+  async function editPatient(body) {
+    return await Put({
+      path: "/patients/" + patient.id,
+      body: body,
+    });
+  }
 }
 
 async function getPatientById(id) {
@@ -50,8 +68,8 @@ async function getPatientById(id) {
 
 async function patientLoader({ params }) {
   const id = params.id;
-  const patient = await getPatientById(id);
-  return { patient, id };
+  const pat = await getPatientById(id);
+  return { pat, id };
 }
 
 export { SinglePatient, patientLoader };
