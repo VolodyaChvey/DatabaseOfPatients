@@ -19,7 +19,7 @@ public class Diagnosis {
     @JsonIgnore
     private Patient patient;
     @ManyToOne
-    @JoinColumn(name = "mean-disease_id",nullable = false)
+    @JoinColumn(name = "mean-disease_id", nullable = false)
     private MainDisease mainDisease;
     @ManyToMany
     @JoinTable(name = "diagnosis_property-disease",
