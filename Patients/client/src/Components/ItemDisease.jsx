@@ -18,7 +18,6 @@ export default function ItemDisease({ itemDisease, name }) {
   const [diseases, setDiseases] = useState(itemDisease);
   const [text, setText] = useState("pattern");
   const onApply = useContext(DiseaseContext);
-
   function onChange(e) {
     let value = e.target.value;
     setValue(value);

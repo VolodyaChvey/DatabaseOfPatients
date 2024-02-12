@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button, Col, Row } from "react-bootstrap";
 
-export default function TextTextButton({mainDisease}){
+export default function TextTextButton({mainDisease, onClick}){
     const [edit,setEdit] = useState(false)
 
     return(
@@ -11,7 +11,7 @@ export default function TextTextButton({mainDisease}){
             <Col></Col>
             <Col>{mainDisease.name}</Col>
             <Col></Col>
-            <Col>{edit?<Button>Изменить</Button>:""}</Col>
+            <Col>{edit?<Button onClick={onClick}>Изменить</Button>:""}</Col>
         </Row>
     )
 }
