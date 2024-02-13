@@ -10,8 +10,8 @@ public interface DiagnosisService {
     Diagnosis getDiagnosisByPatientId(Long id);
     List<Diagnosis> getAllDiagnosesByMainDiseaseName(String name);
     List<Diagnosis> getAllDiagnoses();
-    DiagnosisDTO saveDiagnosis (DiagnosisDTO diagnosisDTO);
-    DiagnosisDTO updateDiagnosis (DiagnosisDTO diagnosisDTO);
+    Diagnosis saveDiagnosis (Diagnosis diagnosis);
+    Diagnosis updateDiagnosis (Diagnosis diagnosis);
     void deleteDiagnosis(Long id);
 
 }

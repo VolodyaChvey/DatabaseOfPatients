@@ -34,13 +34,13 @@ public class DiagnosisController {
     }
 
     @PostMapping
-    public DiagnosisDTO createDiagnosis(@RequestBody DiagnosisDTO diagnosisDTO) {
-        return diagnosisService.saveDiagnosis(diagnosisDTO);
+    public Diagnosis createDiagnosis(@RequestBody Diagnosis diagnosis) {
+        return diagnosisService.saveDiagnosis(diagnosis);
     }
 
     @PutMapping("/{id}")
-    public DiagnosisDTO updateDiagnosis(@RequestBody DiagnosisDTO diagnosisDTO) {
-        return diagnosisService.updateDiagnosis(diagnosisDTO);
+    public Diagnosis updateDiagnosis(@RequestBody Diagnosis diagnosis) {
+        return diagnosisService.updateDiagnosis(diagnosis);
     }
 
     @DeleteMapping("/{id}")
