@@ -5,13 +5,12 @@ import TextTextButton from "./TextTextButton";
 import ChangeMainDisease from "./ChangeMainDisease";
 import TableDiseases from "../TableDiseases";
 import Get from "../../Controllers/Get";
-import Put from "../../Controllers/Put";
-
 
 export default function DiagnosisDetails() {
     const [diagnosis, setDiagnosis] = useState(useContext(PatientContext)[0].diagnosis);
+    const onEditDiagnosis = useContext(PatientContext)[2]
     const [disease, setDisease] = useState();
-    const [danger,setDanger] = useState("");
+    const [danger, setDanger] = useState("");
     const [edit, setEdit] = useState(false);
     const [data, setData] = useState();
     const [name, setName] = useState();
@@ -23,19 +22,20 @@ export default function DiagnosisDetails() {
         setName("mainDisease");
         setEdit(true);
     }
-    async function ChosenMainDisease() {
-        if(!value){
+    function ChosenMainDisease() {
+        if (!value) {
             setDanger("Выберите основное заболевание")
             return
         }
-        setDiagnosis({ ...diagnosis, [name]: disease })
+      setDiagnosis({ ...diagnosis, [name]: disease })
+        onEditDiagnosis({ ...diagnosis, [name]: disease });
         setEdit(false);
         setValue("");
-        await putDiagnosis();
     }
 
+
     function onChange(e) {
-        if(e.target.value){
+        if (e.target.value) {
             setDanger("");
         }
         setValue(e.target.value);
@@ -52,7 +52,6 @@ export default function DiagnosisDetails() {
             .filter((d) => d.name.toLowerCase().includes(value.toLowerCase()))
             .slice(0, 9)
     }
-    console.log(diagnosis)
     return (
         <Card>
             <CardBody>
@@ -60,6 +59,7 @@ export default function DiagnosisDetails() {
                     <>
                         <ChangeMainDisease danger={danger} value={value} onChange={onChange} onClick={ChosenMainDisease} />
                         <TableDiseases diseases={showDiseases()} onClick={selectedDisease} />
+
                     </>
                 ) : (
                     <TextTextButton
@@ -72,8 +72,5 @@ export default function DiagnosisDetails() {
     );
     async function getAllMainDisease() {
         return await Get({ path: "/diseases/main" });
-    }
-    async function putDiagnosis() {
-        return await Put({ path: "/diagnoses/" + diagnosis.id, body: diagnosis })
     }
 }

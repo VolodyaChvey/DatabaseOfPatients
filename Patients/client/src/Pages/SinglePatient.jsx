@@ -20,6 +20,10 @@ function SinglePatient() {
     const responce = await editPatient({ ...patient, [name]: val });
     setPatient(responce);
   }
+  async function onEditDiagnosis(diagnosis) {
+    const responce = await editDiagnosis(diagnosis)
+    setPatient({ ...patient, diagnosis: responce })
+  }
 
   return (
     <>
@@ -38,7 +42,7 @@ function SinglePatient() {
         twoOnClick={() => navigate(`/patients/${patient.id}/edit`)}
       />
       <DropdownButtons id={patient.id} />
-      <PatientContext.Provider value={[patient, onEdit]}>
+      <PatientContext.Provider value={[patient, onEdit, onEditDiagnosis]}>
         <TabsSinglePatient />
       </PatientContext.Provider>
     </>
@@ -46,7 +50,13 @@ function SinglePatient() {
   async function editPatient(body) {
     return await Put({
       path: "/patients/" + patient.id,
-      body: body,
+      body: body
+    });
+  }
+  async function editDiagnosis(body) {
+    return await Put({
+      path: "/diagnoses/" + patient.diagnosis.id,
+      body: body
     });
   }
 }
