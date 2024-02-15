@@ -42,27 +42,27 @@ public class DiseaseController {
         return mainDiseaseService.getPatterns();
     }
 
-    @GetMapping("/main")
+    @GetMapping("/mainDiseases")
     public List<MainDisease> getAllMainDisease() {
         return mainDiseaseService.getAllMainDisease();
     }
 
-    @GetMapping("/main/{id}")
+    @GetMapping("/mainDiseases/{id}")
     public MainDisease getMainDiseaseById(@PathVariable Long id) {
         return mainDiseaseService.getMainDiseaseById(id);
     }
 
-    @PostMapping("/main")
+    @PostMapping("/mainDiseases")
     public MainDisease createMainDisease(@RequestBody MainDisease mainDisease) {
         return mainDiseaseService.saveMainDisease(mainDisease);
     }
 
-    @PutMapping("/main/{id}")
+    @PutMapping("/mainDiseases/{id}")
     public MainDisease updateMainDisease(@RequestBody MainDisease mainDisease) {
         return mainDiseaseService.updateMainDisease(mainDisease);
     }
 
-    @DeleteMapping("/main/{id}")
+    @DeleteMapping("/mainDiseases/{id}")
     public void deleteMainDisease(@PathVariable Long id) {
         mainDiseaseService.deleteMainDisease(id);
     }
