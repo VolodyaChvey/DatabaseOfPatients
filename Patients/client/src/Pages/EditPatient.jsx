@@ -9,7 +9,7 @@ import CostomForm from "../Components/CostomForm";
 import Put from "../Controllers/Put";
 
 function EditPatient() {
-  const { patient } = useLoaderData();
+  const { pat } = useLoaderData();
   const navigation = useNavigation();
   const navigate = useNavigate();
   const data = useActionData();
@@ -23,8 +23,8 @@ function EditPatient() {
         </div>
       )}
       <CostomForm
-        patient={patient}
-        action={`/patients/${patient.id}/edit`}
+        patient={pat}
+        action={`/patients/${pat.id}/edit`}
         submitting={navigation.state === "submitting"}
       />
      

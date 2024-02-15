@@ -5,6 +5,8 @@ import TextTextButton from "./TextTextButton";
 import ChangeMainDisease from "./ChangeMainDisease";
 import TableDiseases from "../TableDiseases";
 import Get from "../../Controllers/Get";
+import TwoButtons from "../TwoButtons";
+import { useNavigate } from "react-router-dom";
 
 export default function DiagnosisDetails() {
     const [diagnosis, setDiagnosis] = useState(useContext(PatientContext)[0].diagnosis);
@@ -15,6 +17,7 @@ export default function DiagnosisDetails() {
     const [data, setData] = useState();
     const [name, setName] = useState();
     const [value, setValue] = useState("");
+    const navigate = useNavigate();
 
     async function onClickMainDisease() {
         const resp = await getAllMainDisease();
@@ -24,15 +27,14 @@ export default function DiagnosisDetails() {
     }
     function ChosenMainDisease() {
         if (!value) {
-            setDanger("Выберите основное заболевание")
+            setDanger("Выберите заболевание")
             return
         }
-      setDiagnosis({ ...diagnosis, [name]: disease })
+        setDiagnosis({ ...diagnosis, [name]: disease })
         onEditDiagnosis({ ...diagnosis, [name]: disease });
         setEdit(false);
         setValue("");
     }
-
 
     function onChange(e) {
         if (e.target.value) {
@@ -52,6 +54,10 @@ export default function DiagnosisDetails() {
             .filter((d) => d.name.toLowerCase().includes(value.toLowerCase()))
             .slice(0, 9)
     }
+    function onClickNew() {
+        let nam = name === "mainDisease" ? "mainDiseases" : name;
+        navigate("/pattern/new", { state: { itemDisease: data, pattern: disease, name: nam } })
+    }
     return (
         <Card>
             <CardBody>
@@ -59,11 +65,12 @@ export default function DiagnosisDetails() {
                     <>
                         <ChangeMainDisease danger={danger} value={value} onChange={onChange} onClick={ChosenMainDisease} />
                         <TableDiseases diseases={showDiseases()} onClick={selectedDisease} />
-
+                        <TwoButtons oneLabel={"Edit"} oneOnClick={onClickNew} twoLabel={"Add new"} twoOnClick={onClickNew} />
                     </>
                 ) : (
                     <TextTextButton
-                        mainDisease={diagnosis.mainDisease}
+                        diseases={[diagnosis.mainDisease]}
+                        
                         onClick={onClickMainDisease}
                     />
                 )}
@@ -71,6 +78,6 @@ export default function DiagnosisDetails() {
         </Card>
     );
     async function getAllMainDisease() {
-        return await Get({ path: "/diseases/main" });
+        return await Get({ path: "/diseases/mainDiseases" });
     }
 }

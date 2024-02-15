@@ -61,7 +61,7 @@ function Diagnoses() {
 
 async function getDiagnoses() {
   try {
-    return await Get({ path: "/diseases/main" });
+    return await Get({ path: "/diseases/mainDiseases" });
   } catch (e) {
     return demoDiagnoses;
   }

@@ -33,9 +33,11 @@ export default function ItemDisease({ itemDisease, name }) {
     setText("pattern");
   }
   async function onClickAddNew() {
-    navigate("/pattern/new", { state: { itemDisease, pattern, name } });
+    name=name==="mainDisease"?"mainDiseases":name;
+    navigate("/pattern/new", { state: { itemDisease, pattern, name} });
   }
   async function onClickEdit() {
+    name=name==="mainDisease"?"mainDiseases":name;
     navigate("/pattern/new", { state: { itemDisease, pattern, name } });
   }
   async function onClickDelete() {

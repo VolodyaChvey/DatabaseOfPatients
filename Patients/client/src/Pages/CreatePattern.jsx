@@ -6,12 +6,12 @@ import Post from "../Controllers/Post";
 import Put from "../Controllers/Put";
 
 export default function CreatePattern() {
-    const { itemDisease, pattern, name} = useLocation().state;
+    const { itemDisease, pattern, name } = useLocation().state;
     const textLabel = pattern ? "Edit pattern" : "Create new pattern"
     const navigate = useNavigate();
     const [value, setValue] = useState(pattern ? pattern.name : "");
     const [text, setText] = useState("")
-
+    console.log({ itemDisease, pattern, name })
     function onChange(e) {
         setValue(e.target.value);
     }
