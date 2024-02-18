@@ -35,9 +35,6 @@ public class PatientServiceImp implements PatientService {
     }
 
     public List<Patient> getAllPatient() {
-
-        //System.out.println(patientRepository.findAllByDiagnosis_id());
-
         return patientRepository.findAll();
     }
 

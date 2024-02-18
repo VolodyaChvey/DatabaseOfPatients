@@ -1,6 +1,9 @@
 package com.chvei.DoP.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 public class Patient {
@@ -12,10 +15,30 @@ public class Patient {
     private String middleName;
     private String address;
 
-    @OneToOne (cascade = CascadeType.ALL)
-    @JoinColumn(name = "diagnosis_id",referencedColumnName = "id")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "diagnosis_id", referencedColumnName = "id")
     private Diagnosis diagnosis;
+    @OneToMany(mappedBy = "patient", fetch = FetchType.LAZY)
+    @JsonIgnore
+    private List<Visit> visits;
 
+    public void addVisit(Visit visit) {
+        visits.add(visit);
+        visit.setPatient(this);
+    }
+
+    public void removeVisit(Visit visit) {
+        visits.remove(visit);
+        visit.setPatient(null);
+    }
+
+    public List<Visit> getVisits() {
+        return visits;
+    }
+
+    public void setVisits(List<Visit> visits) {
+        this.visits = visits;
+    }
 
     public Long getId() {
         return id;

@@ -1,20 +1,14 @@
-import { useLoaderData, useNavigate } from "react-router-dom";
-import TwoButtons from "../Components/TwoButtons";
-import TextText from "../Components/TextText";
-import { translation } from "../data";
+import { useLoaderData} from "react-router-dom";
 import Get from "../Controllers/Get";
 import Put from "../Controllers/Put";
-import DropdownButtons from "../Components/DropdownButtons";
-import DiagnosisToStringInLine from "../Preparators/DiagnosisToStringInLine";
 import TabsSinglePatient from "../Components/SinglePatient/TabsSinglePatient";
 import { PatientContext } from "../context";
 import { useState } from "react";
+import HeaderSingle from "../Components/SinglePatient/HeaderSingle";
 
 function SinglePatient() {
   const { pat } = useLoaderData();
   const [patient, setPatient] = useState(pat);
-  const navigate = useNavigate();
-  const goBack = () => navigate(-1);
 
   async function onEdit({ name, val }) {
     const responce = await editPatient({ ...patient, [name]: val });
@@ -27,22 +21,8 @@ function SinglePatient() {
 
   return (
     <>
-      <TwoButtons oneLabel={"Go back"} oneOnClick={goBack} />
-      {Object.entries(patient)
-        .filter(([k, v]) => k !== "id")
-        .filter(([k, v]) => k !== "diagnosis")
-        .map(([k, v]) => (
-          <TextText key={k} k={translation[k]} v={v} />
-        ))}
-      <TextText k={"Диагноз"} v={DiagnosisToStringInLine(patient.diagnosis)} />
-      <TwoButtons
-        oneLabel={"Удалить"}
-        oneOnClick={() => navigate(`/patients/${patient.id}/delete`)}
-        twoLabel={"Корректировать"}
-        twoOnClick={() => navigate(`/patients/${patient.id}/edit`)}
-      />
-      <DropdownButtons id={patient.id} />
       <PatientContext.Provider value={[patient, onEdit, onEditDiagnosis]}>
+        <HeaderSingle />
         <TabsSinglePatient />
       </PatientContext.Provider>
     </>

@@ -1,6 +1,7 @@
 import { Tab, Tabs } from "react-bootstrap";
 import PassportDetails from "./PassportDetails";
 import DiagnosisDetails from "./DiagnosisDetails";
+import VisitsDetails from "./VisitsDetails";
 
 export default function TabsSinglePatient() {
   return (
@@ -11,7 +12,9 @@ export default function TabsSinglePatient() {
       <Tab eventKey="2" title="Диагноз">
         <DiagnosisDetails />
       </Tab>
-      <Tab eventKey="3" title="Осмотры"></Tab>
+      <Tab eventKey="3" title="Осмотры">
+        <VisitsDetails />
+      </Tab>
     </Tabs>
   );
 }
