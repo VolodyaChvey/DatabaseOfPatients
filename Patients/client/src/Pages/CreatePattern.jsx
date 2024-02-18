@@ -11,7 +11,6 @@ export default function CreatePattern() {
     const navigate = useNavigate();
     const [value, setValue] = useState(pattern ? pattern.name : "");
     const [text, setText] = useState("")
-    console.log({ itemDisease, pattern, name })
     function onChange(e) {
         setValue(e.target.value);
     }

@@ -4,6 +4,9 @@ export const translation = {
   firstName: "Имя",
   address: "Адрес",
   diagnosis: "Диагноз",
+  mainDisease: "Основное заболевание",
+  properties: "properties",
+  complications: "Осложнения"
 };
 
 export const emptyPatient = {
