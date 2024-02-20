@@ -4,6 +4,7 @@ import com.chvei.DoP.DTO.DiagnosisDTO;
 import com.chvei.DoP.entity.Diagnosis;
 import com.chvei.DoP.entity.Patient;
 import com.chvei.DoP.entity.patternsDiseases.MainDisease;
+import com.chvei.DoP.exceptions.ResourceNotFoundException;
 import com.chvei.DoP.repositories.DiagnosisRepository;
 import com.chvei.DoP.repositories.PatientRepository;
 import com.chvei.DoP.services.DiagnosisService;
@@ -36,12 +37,14 @@ public class DiagnosisServiceImp implements DiagnosisService {
 
     @Override
     public Diagnosis getDiagnosisById(Long id) {
-        return diagnosisRepository.findById(id).orElseThrow();
+        return diagnosisRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Diagnosis with id " + id + " not found"));
     }
 
     @Override
     public Diagnosis getDiagnosisByPatientId(Long id) {
-        return diagnosisRepository.findByPatient_id(id).orElseThrow();
+        return diagnosisRepository.findByPatient_id(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Diagnosis with patient_id " + id + " not found"));
     }
 
     @Override
@@ -75,7 +78,7 @@ public class DiagnosisServiceImp implements DiagnosisService {
 
     @Override
     public void deleteDiagnosis(Long id) {
-        Diagnosis diagnosis = diagnosisRepository.findById(id).orElseThrow();
+        Diagnosis diagnosis = getDiagnosisById(id);
         diagnosis.getMainDisease().removeDiagnosis(diagnosis);
         diagnosisRepository.deleteById(id);
         logger.log(Level.INFO, "Diagnosis with id " + id + " deleted");

@@ -1,6 +1,7 @@
 package com.chvei.DoP.services.servicesImp;
 
 import com.chvei.DoP.entity.Patient;
+import com.chvei.DoP.exceptions.ResourceNotFoundException;
 import com.chvei.DoP.repositories.PatientRepository;
 
 import java.util.logging.Level;
@@ -31,7 +32,8 @@ public class PatientServiceImp implements PatientService {
     }
 
     public Patient getPatientById(Long id) {
-        return  patientRepository.findById(id).orElseThrow();
+        return patientRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Patient with id " + id + " not found"));
     }
 
     public List<Patient> getAllPatient() {
