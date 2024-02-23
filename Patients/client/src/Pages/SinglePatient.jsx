@@ -1,4 +1,4 @@
-import { useLoaderData} from "react-router-dom";
+import { useLoaderData } from "react-router-dom";
 import Get from "../Controllers/Get";
 import Put from "../Controllers/Put";
 import TabsSinglePatient from "../Components/SinglePatient/TabsSinglePatient";
@@ -7,8 +7,7 @@ import { useState } from "react";
 import HeaderSingle from "../Components/SinglePatient/HeaderSingle";
 
 function SinglePatient() {
-  const { pat } = useLoaderData();
-  const [patient, setPatient] = useState(pat);
+  const [patient, setPatient] = useState(useLoaderData());
 
   async function onEdit({ name, val }) {
     const responce = await editPatient({ ...patient, [name]: val });
@@ -57,9 +56,7 @@ async function getPatientById(id) {
 }
 
 async function patientLoader({ params }) {
-  const id = params.id;
-  const pat = await getPatientById(id);
-  return { pat, id };
+  return await getPatientById(params.id);
 }
 
 export { SinglePatient, patientLoader };

@@ -13,6 +13,8 @@ export default function ChangeDiseases({ patientDiseases, diseases, name, GoBack
     const [disease, setDisease] = useState({});
     const navigate = useNavigate();
 
+
+
     function onDelete(dis) {
         onDeleteDisease({ name, disease: dis });
         setDel(0);

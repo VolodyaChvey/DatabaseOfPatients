@@ -1,6 +1,4 @@
 import TwoButtons from "../Components/TwoButtons";
-//import { useState } from "react";
-//import { emptyPatient } from "../data";
 import CostomForm from "../Components/CostomForm";
 import { useActionData, useNavigate, useNavigation } from "react-router-dom";
 import DropdownButtons from "../Components/DropdownButtons";
@@ -11,30 +9,12 @@ function AddPatient() {
   const navigate = useNavigate();
   const data = useActionData();
 
- /* const [patient, setPatient] = useState({
-    ...emptyPatient,
-  });
-  function onHandleChange(e) {
-    setPatient({
-      ...patient,
-      [e.target.name]: e.target.value,
-    });
-  }
-  async function onSave() {
-    try {
-      // const res =
-      await fetch(`http://localhost:8080/patients`, {
-        method: "POST",
-        body: JSON.stringify(patient),
-      });
-    } catch (e) {} 
-    console.log(patient);
-  }*/
   return (
     <>
       <TwoButtons oneLabel={"Go back"} oneOnClick={() => navigate(-1)} />
       {data?.message && <div style={{ color: "blue" }} className="text-center">{data.message}</div>}
       <CostomForm action={"/patients/new"} submitting={navigation.state === "submitting"} />
+      
       <DropdownButtons />
     </>
   );
