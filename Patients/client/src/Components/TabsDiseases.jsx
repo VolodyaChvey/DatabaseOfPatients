@@ -1,8 +1,8 @@
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import ItemDisease from "./ItemDisease";
+export default function TabsDiseases({diseases}) {
 
-export default function TabsDiseases({ diseases }) {
   return (
     <>
       <Tabs

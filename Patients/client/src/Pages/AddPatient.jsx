@@ -3,8 +3,9 @@ import CostomForm from "../Components/CostomForm";
 import { useActionData, useNavigate } from "react-router-dom";
 import DropdownButtons from "../Components/DropdownButtons";
 import Post from "../Controllers/Post";
+import Get from "../Controllers/Get";
 import HeaderSingle from "../Components/HeaderSingle";
-import TabsAddPatient from "../Components/AddPatient/TabsAddPatient";
+
 
 function AddPatient() {
   const navigate = useNavigate();
@@ -17,6 +18,7 @@ function AddPatient() {
       ) : (
         <TwoButtons oneLabel={"Go back"} oneOnClick={() => navigate(-1)} />
       )}
+
       {data?.message && (
         <>
           <div style={{ color: "blue" }} className="text-center">
@@ -24,7 +26,9 @@ function AddPatient() {
           </div>
         </>
       )}
-      {data ? data?.patient && <TabsAddPatient /> : <CostomForm action={"/patients/new"} />}
+ 
+        <CostomForm action={"/patients/new"} />
+    
       {data?.patient && <DropdownButtons id={data.patient.id} />}
     </>
   );
@@ -35,6 +39,11 @@ async function createPatient(patient) {
   } catch (e) {
     return patient;
   }
+}
+async function getDiseases() {
+  try {
+    return await Get({ path: "/diseases" });
+  } catch (e) {}
 }
 
 async function newPatientAction({ request }) {
@@ -51,8 +60,10 @@ async function newPatientAction({ request }) {
   };
 
   const newPatient = await createPatient(formPatient);
+  const diseases = await getDiseases();
 
   return {
+    diseases,
     patient: { ...newPatient },
     message: `Данные пациента ${newPatient.lastName} успешно сохранены`,
   };

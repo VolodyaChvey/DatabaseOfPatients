@@ -1,4 +1,4 @@
-import { useLoaderData, useNavigate, useParams } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import TextDiagnosis from "../Components/TextDiagnosis";
 import TabsDiseases from "../Components/TabsDiseases";
 import { useState } from "react";
@@ -8,14 +8,12 @@ import Get from "../Controllers/Get";
 import Post from "../Controllers/Post";
 import { Row } from "react-bootstrap";
 import { DiseaseContext } from "../context";
+import TwoButtons from "../Components/TwoButtons";
+import PatientToString from "../Preparators/PatientToString";
 
 function NewDisease() {
-  const { id } = useParams();
-  const { diseases } = useLoaderData();
-  const [diagnosis, setDiagnosis] = useState({
-    ...emptyDiagnosis,
-    patientId: id,
-  });
+  const { diseases, patient } = useLoaderData();
+  const [diagnosis, setDiagnosis] = useState({ ...emptyDiagnosis });
   const [isActive, setIsActive] = useState(true);
   const [danger, setDanger] = useState("");
   const navigate = useNavigate();
@@ -52,7 +50,7 @@ function NewDisease() {
   async function onSave() {
     await createDiagnosis(diagnosis);
     onClean();
-    navigate("/patients/" + id);
+    navigate("/patients/" + patient.id);
   }
   function onClean() {
     diagnosis.mainDisease = {};
@@ -63,6 +61,9 @@ function NewDisease() {
   }
   return (
     <>
+      {" "}
+      <TwoButtons oneLabel={"Go back"} oneOnClick={() => navigate(-1)} />
+      <h3 className="mb-3">{PatientToString(patient)}</h3>
       <TextDiagnosis
         diagnosis={DiagnosisToStringInLine(diagnosis)}
         onClickSave={onSave}
@@ -80,7 +81,10 @@ function NewDisease() {
 
   async function createDiagnosis(diagnosis) {
     try {
-      const response = await Post({ path: "/diagnoses", body: diagnosis });
+      const response = await Post({
+        path: "/diagnoses",
+        body: { ...diagnosis, patientId: patient.id },
+      });
       return response;
     } catch (e) {}
   }
@@ -105,10 +109,16 @@ async function getDiseases() {
     };
   }
 }
+async function getPatientById(id) {
+  try {
+    return await Get({ path: `/patients/${id}` });
+  } catch (e) {}
+}
 
-async function diseasesLoader() {
+async function diseasesLoader({ params }) {
   const diseases = await getDiseases();
-  return { diseases };
+  const patient = await getPatientById(params.id);
+  return { diseases, patient };
 }
 
 export { NewDisease, diseasesLoader };
