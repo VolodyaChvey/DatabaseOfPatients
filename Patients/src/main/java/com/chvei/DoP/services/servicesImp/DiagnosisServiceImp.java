@@ -58,7 +58,9 @@ public class DiagnosisServiceImp implements DiagnosisService {
     }
 
     @Override
-    public Diagnosis saveDiagnosis(Diagnosis diagnosis) {
+    public Diagnosis saveDiagnosis(DiagnosisDTO diagnosisDTO) {
+        System.out.println();
+        Diagnosis diagnosis = toEntity(diagnosisDTO);
         diagnosis.getPatient().setDiagnosis(diagnosis);
         diagnosis.getMainDisease().addDiagnosis(diagnosis);
         Diagnosis diagnosis1 = diagnosisRepository.save(diagnosis);

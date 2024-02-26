@@ -34,7 +34,7 @@ public class DiagnosisController {
     }
 
     @PostMapping
-    public Diagnosis createDiagnosis(@RequestBody Diagnosis diagnosis) {
+    public Diagnosis createDiagnosis(@RequestBody DiagnosisDTO diagnosis) {
         return diagnosisService.saveDiagnosis(diagnosis);
     }
 
