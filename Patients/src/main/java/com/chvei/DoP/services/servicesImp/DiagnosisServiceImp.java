@@ -59,8 +59,7 @@ public class DiagnosisServiceImp implements DiagnosisService {
 
     @Override
     public Diagnosis saveDiagnosis(DiagnosisDTO diagnosisDTO) {
-        System.out.println();
-        Diagnosis diagnosis = toEntity(diagnosisDTO);
+        Diagnosis diagnosis= toEntity(diagnosisDTO);
         diagnosis.getPatient().setDiagnosis(diagnosis);
         diagnosis.getMainDisease().addDiagnosis(diagnosis);
         Diagnosis diagnosis1 = diagnosisRepository.save(diagnosis);
@@ -70,7 +69,7 @@ public class DiagnosisServiceImp implements DiagnosisService {
 
     @Override
     public Diagnosis updateDiagnosis(Diagnosis diagnosis) {
-        Diagnosis diagnosis1 = diagnosisRepository.findById(diagnosis.getId()).orElseThrow();
+        Diagnosis diagnosis1 = getDiagnosisById(diagnosis.getId());
         diagnosis1.getMainDisease().removeDiagnosis(diagnosis1);
         diagnosis.getMainDisease().addDiagnosis(diagnosis);
         Diagnosis diagnosis2 = diagnosisRepository.save(diagnosis);
