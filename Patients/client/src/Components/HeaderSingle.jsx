@@ -1,13 +1,11 @@
-import { useContext } from "react";
-import { PatientContext } from "../../context";
-import { useNavigate } from "react-router-dom";
-import TwoButtons from "../TwoButtons";
-import PatientToString from "../../Preparators/PatientToString";
-import TextText from "../TextText";
-import DiagnosisToStringInLine from "../../Preparators/DiagnosisToStringInLine";
 
-export default function HeaderSingle() {
-  const patient = useContext(PatientContext)[0];
+import { useNavigate } from "react-router-dom";
+import TwoButtons from "./TwoButtons";
+import PatientToString from "../Preparators/PatientToString";
+import TextText from "./TextText";
+import DiagnosisToStringInLine from "../Preparators/DiagnosisToStringInLine";
+
+export default function HeaderSingle({patient}) {
   const navigate = useNavigate();
   return (
     <>

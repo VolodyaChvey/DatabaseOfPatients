@@ -1,10 +1,8 @@
 import { Form } from "react-router-dom";
 import { emptyPatient, translation } from "../data";
 import TextInput from "./TextInput";
-import DiagnosisToStringInLine from "../Preparators/DiagnosisToStringInLine";
-import { Row, Col } from "react-bootstrap";
 
-export default function CostomForm({ action, patient, submitting }) {
+export default function CostomForm({ action, patient}) {
   const formPatient = patient ? patient : emptyPatient;
   return (
     <Form method="post" action={action}>
@@ -19,16 +17,9 @@ export default function CostomForm({ action, patient, submitting }) {
             defaultValue={v}
           />
         ))}
-      <Row className="mb-3">
-        
-        <Col sm={2}>Диагноз:</Col>
-        <Col sm={1}></Col>
-        <Col sm={9}>{DiagnosisToStringInLine(formPatient.diagnosis)}</Col>
-      </Row>
       <TextInput
         type={"submit"}
         value={"Сохранить"}
-        disabled={submitting}
         className={"btn btn-primary"}
       />
     </Form>

@@ -4,7 +4,7 @@ import Put from "../Controllers/Put";
 import TabsSinglePatient from "../Components/SinglePatient/TabsSinglePatient";
 import { PatientContext } from "../context";
 import { useState } from "react";
-import HeaderSingle from "../Components/SinglePatient/HeaderSingle";
+import HeaderSingle from "../Components/HeaderSingle";
 
 function SinglePatient() {
   const [patient, setPatient] = useState(useLoaderData());
@@ -14,14 +14,14 @@ function SinglePatient() {
     setPatient(responce);
   }
   async function onEditDiagnosis(diagnosis) {
-    const responce = await editDiagnosis(diagnosis)
-    setPatient({ ...patient, diagnosis: responce })
+    const responce = await editDiagnosis(diagnosis);
+    setPatient({ ...patient, diagnosis: responce });
   }
 
   return (
     <>
+      <HeaderSingle patient={patient} />
       <PatientContext.Provider value={[patient, onEdit, onEditDiagnosis]}>
-        <HeaderSingle />
         <TabsSinglePatient />
       </PatientContext.Provider>
     </>
@@ -29,13 +29,13 @@ function SinglePatient() {
   async function editPatient(body) {
     return await Put({
       path: "/patients/" + patient.id,
-      body: body
+      body: body,
     });
   }
   async function editDiagnosis(body) {
     return await Put({
       path: "/diagnoses/" + patient.diagnosis.id,
-      body: body
+      body: body,
     });
   }
 }
