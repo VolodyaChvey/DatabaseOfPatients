@@ -4,6 +4,7 @@ import { useActionData, useNavigate } from "react-router-dom";
 import DropdownButtons from "../Components/DropdownButtons";
 import Post from "../Controllers/Post";
 import HeaderSingle from "../Components/HeaderSingle";
+import TabsAddPatient from "../Components/AddPatient/TabsAddPatient";
 
 function AddPatient() {
   const navigate = useNavigate();
@@ -23,7 +24,7 @@ function AddPatient() {
           </div>
         </>
       )}
-      <CostomForm action={"/patients/new"} />
+      {data ? data?.patient && <TabsAddPatient /> : <CostomForm action={"/patients/new"} />}
       {data?.patient && <DropdownButtons id={data.patient.id} />}
     </>
   );
