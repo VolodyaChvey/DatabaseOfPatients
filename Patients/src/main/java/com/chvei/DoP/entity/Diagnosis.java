@@ -4,7 +4,6 @@ import com.chvei.DoP.entity.patternsDiseases.ComplicationDisease;
 import com.chvei.DoP.entity.patternsDiseases.MainDisease;
 import com.chvei.DoP.entity.patternsDiseases.PropertyDisease;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -15,6 +14,7 @@ public class Diagnosis {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    private  String code;
     @OneToOne(mappedBy = "diagnosis")
     @JsonIgnore
     private Patient patient;
@@ -39,6 +39,14 @@ public class Diagnosis {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public Patient getPatient() {
@@ -77,6 +85,7 @@ public class Diagnosis {
     public String toString() {
         return "Diagnosis{" +
                 "id=" + id +
+                ", code='" + code + '\'' +
                 ", mainDisease=" + mainDisease +
                 ", properties=" + properties +
                 ", complications=" + complications +
