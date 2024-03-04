@@ -1,37 +1,30 @@
 import TwoButtons from "../Components/TwoButtons";
-import CostomForm from "../Components/CostomForm";
+import CostomForm from "../Components/AddPatient/CostomForm";
 import { useActionData, useNavigate } from "react-router-dom";
-import DropdownButtons from "../Components/DropdownButtons";
+import DropdownButtons from "../Components/AddPatient/DropdownButtons";
 import Post from "../Controllers/Post";
-import Get from "../Controllers/Get";
 import HeaderSingle from "../Components/HeaderSingle";
+import TimeoutText from "../Components/AddPatient/TimeoutText";
 
 
 function AddPatient() {
   const navigate = useNavigate();
   const data = useActionData();
+  const showCostomForm = data ? Object.keys(data).includes("patient") : false
 
-  return (
-    <>
-      {data ? (
-        data?.patient && <HeaderSingle patient={data.patient} />
-      ) : (
+  return (<>
+    {showCostomForm ?
+      <>
+        <HeaderSingle patient={data.patient} />
+        <TimeoutText text={data.message} />
+        <DropdownButtons id={data.patient.id} />
+      </> :
+      <>
         <TwoButtons oneLabel={"Go back"} oneOnClick={() => navigate(-1)} />
-      )}
-
-      {data?.message && (
-        <>
-          <div style={{ color: "blue" }} className="text-center">
-            {data.message}
-          </div>
-        </>
-      )}
- 
+        {data?.message && <TimeoutText text={data.message} />}
         <CostomForm action={"/patients/new"} />
-    
-      {data?.patient && <DropdownButtons id={data.patient.id} />}
-    </>
-  );
+      </>}
+  </>);
 }
 async function createPatient(patient) {
   try {
@@ -39,11 +32,6 @@ async function createPatient(patient) {
   } catch (e) {
     return patient;
   }
-}
-async function getDiseases() {
-  try {
-    return await Get({ path: "/diseases" });
-  } catch (e) {}
 }
 
 async function newPatientAction({ request }) {
@@ -60,10 +48,8 @@ async function newPatientAction({ request }) {
   };
 
   const newPatient = await createPatient(formPatient);
-  const diseases = await getDiseases();
 
   return {
-    diseases,
     patient: { ...newPatient },
     message: `Данные пациента ${newPatient.lastName} успешно сохранены`,
   };

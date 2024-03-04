@@ -8,7 +8,6 @@ import { SinglePatient, patientLoader } from "./Pages/SinglePatient";
 import { Patients, patientsLoader } from './Pages/Patients';
 import ErrorPage from './Pages/ErrorPage';
 import { AddPatient, newPatientAction } from "./Pages/AddPatient";
-import { EditPatient, updatePatientAction } from "./Pages/EditPatient";
 import DeletePatient from "./Pages/DeletePatient";
 import { NewDisease, diseasesLoader } from "./Pages/NewDisease";
 import {Diagnoses,diagnosesLoader} from "./Pages/Diagnoses";
@@ -21,7 +20,6 @@ const router = createBrowserRouter(
       <Route path="patients" element={<Patients />} loader={patientsLoader} errorElement={<ErrorPage />} />
       <Route path="patients/:id" element={<SinglePatient />} loader={patientLoader} />
       <Route path="patients/new" element={<AddPatient />} action={newPatientAction} />
-      <Route path="patients/:id/edit" element={<EditPatient />} action={updatePatientAction} loader={patientLoader} />
       <Route path="patients/:id/delete" element={<DeletePatient />} />
       <Route path="diseases/patientId/:id" element={<NewDisease />} loader={diseasesLoader} />
       <Route path="diseases" element={<Diagnoses/>} loader={diagnosesLoader}/>

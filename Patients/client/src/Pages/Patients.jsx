@@ -69,7 +69,7 @@ async function getPatients() {
 async function patientsLoader() {
   const patients = await getPatients();
   if (!patients.length) {
-    /* throw  ({ message: 'Not Found!', reason: "Wrong url" }, { status: 404 })*/
+     throw Error ({ message: 'Not Found!', reason: "Wrong url" }, { status: 404 })
   }
   return { patients };
 }

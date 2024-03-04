@@ -1,10 +1,9 @@
 import { Dropdown, DropdownButton, Col, Row } from "react-bootstrap";
-import { dataDropdown1 } from "../data";
+import { dataDropdown1 } from "../../data";
 
 export default function DropdownButtons({ id }) {
   const title = "Добавить"
   return (
-    <>
       <Row className="mb-3">
         <Col sm={1}></Col>
         <Col sm={3}>
@@ -16,8 +15,6 @@ export default function DropdownButtons({ id }) {
             ))}
           </DropdownButton>
         </Col>
-        <Col sm={6}></Col>
       </Row>
-    </>
   );
 }

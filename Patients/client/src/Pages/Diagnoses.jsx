@@ -15,7 +15,7 @@ function Diagnoses() {
     setValueInput(e.target.value);
   }
   async function onClick(name) {
-    const response = await getPatientsByMainDisease(name);
+    const response = await getDiagnosesByMainDisease(name);
     setDiagnoses(response);
   }
   function showLabel() {
@@ -50,7 +50,7 @@ function Diagnoses() {
       <TableDiagnoses arrText={showDiseases()} onClick={onClick} />
     </>
   );
-  async function getPatientsByMainDisease(name) {
+  async function getDiagnosesByMainDisease(name) {
     try {
       return await Get({ path: "/diagnoses/mainDiseaseName/" + name });
     } catch (e) {

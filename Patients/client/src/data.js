@@ -10,12 +10,10 @@ export const translation = {
 };
 
 export const emptyPatient = {
-  id: "",
   lastName: "",
   firstName: "",
   middleName: "",
   address: "",
-  diagnosis: "",
 };
 
 export const emptyDiagnosis = {

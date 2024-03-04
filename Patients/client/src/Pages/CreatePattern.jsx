@@ -6,6 +6,7 @@ import Post from "../Controllers/Post";
 import Put from "../Controllers/Put";
 import Get from "../Controllers/Get";
 import TextTimeout from "../Components/TextTimeout";
+import TextInput from "../Components/TextInput"
 
 export default function CreatePattern() {
     const { pattern, name } = useLocation().state;
@@ -54,10 +55,9 @@ export default function CreatePattern() {
             <Row className="mb-3 text-center" >
                 <input style={{ textAlign: "center" }} value={value} onChange={onChange} />
             </Row>
+            {name === "mainDiseases" && <TextInput text={"Код МКБ: "} />}
             <TextTimeout text={text} setText={setText} />
-            <Row className="mb-3 text-center" >
-                <TwoButtons oneLabel={"Go back"} oneOnClick={GoBack} twoLabel={"Сохранить"} twoOnClick={onSave} />
-            </Row>
+            <TwoButtons oneLabel={"Go back"} oneOnClick={GoBack} twoLabel={"Сохранить"} twoOnClick={onSave} />
         </>
     )
     async function createPatternDisease() {

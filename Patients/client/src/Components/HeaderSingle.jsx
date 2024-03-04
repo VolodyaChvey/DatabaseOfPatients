@@ -12,6 +12,7 @@ export default function HeaderSingle({patient}) {
       <TwoButtons oneLabel={"Go back"} oneOnClick={() => navigate(-1)} />
       <h3 className="mb-3">{PatientToString(patient)}</h3>
       <TextText k={"Диагноз:"} v={DiagnosisToStringInLine(patient.diagnosis)}/>
+      <TextText k={"Код МКБ:"} v={patient.diagnosis.code}/>
       <TwoButtons oneLabel={"Удалить"} oneOnClick={() => navigate(`/patients/${patient.id}/delete`)}/>
     </>
   );
