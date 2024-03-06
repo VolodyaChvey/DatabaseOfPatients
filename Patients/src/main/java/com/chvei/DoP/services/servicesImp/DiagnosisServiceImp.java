@@ -89,6 +89,7 @@ public class DiagnosisServiceImp implements DiagnosisService {
         DiagnosisDTO diagnosisDTO = new DiagnosisDTO();
         diagnosisDTO.setId(diagnosis.getId());
         diagnosisDTO.setPatientId(diagnosis.getPatient().getId());
+        diagnosisDTO.setCode(diagnosisDTO.getCode());
         diagnosisDTO.setMainDisease(diagnosis.getMainDisease());
         diagnosisDTO.setProperties(diagnosis.getProperties());
         diagnosisDTO.setComplications(diagnosis.getComplications());
@@ -99,6 +100,7 @@ public class DiagnosisServiceImp implements DiagnosisService {
         Diagnosis diagnosis = new Diagnosis();
         diagnosis.setId((null == diagnosisDTO.getId()) ? diagnosisDTO.getId() : null);
         diagnosis.setPatient(patientRepository.findById(diagnosisDTO.getPatientId()).orElseThrow());
+        diagnosis.setCode(diagnosisDTO.getCode());
         diagnosis.setMainDisease(diagnosisDTO.getMainDisease());
         diagnosis.setProperties(diagnosisDTO.getProperties());
         diagnosis.setComplications(diagnosisDTO.getComplications());

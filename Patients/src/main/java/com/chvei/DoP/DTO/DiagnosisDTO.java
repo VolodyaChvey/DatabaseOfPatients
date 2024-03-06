@@ -11,6 +11,7 @@ import java.util.List;
 public class DiagnosisDTO {
     private Long id;
     private Long patientId;
+    private String code;
     private MainDisease mainDisease;
     private List<PropertyDisease> properties = new ArrayList<>();
     private List<ComplicationDisease> complications = new ArrayList<>();
@@ -29,6 +30,14 @@ public class DiagnosisDTO {
 
     public void setPatientId(Long patientId) {
         this.patientId = patientId;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public MainDisease getMainDisease() {
@@ -60,6 +69,7 @@ public class DiagnosisDTO {
         return "DiagnosisDTO{" +
                 "id=" + id +
                 ", patientId=" + patientId +
+                ", code='" + code + '\'' +
                 ", mainDisease=" + mainDisease +
                 ", properties=" + properties +
                 ", complications=" + complications +
