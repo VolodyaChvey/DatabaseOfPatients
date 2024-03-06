@@ -6,6 +6,7 @@ import Get from "../../Controllers/Get";
 import ChangeDiseases from "./ChangeDiseases";
 import { useNavigate } from "react-router-dom";
 import OneButton from "../OneButton";
+import TextStringButtton from "./TextStringButton";
 
 export default function DiagnosisDetails() {
   const patient = useContext(PatientContext)[0];
@@ -29,8 +30,8 @@ export default function DiagnosisDetails() {
 
   function onChosenDisease({ name, disease }) {
     if (name === "mainDisease") {
-      setDiagnosis({ ...diagnosis, [name]: disease });
-      onEditDiagnosis({ ...diagnosis, [name]: disease });
+      setDiagnosis({ ...diagnosis, [name]: disease, code: disease.code });
+      onEditDiagnosis({ ...diagnosis, [name]: disease, code: disease.code });
     } else {
       diagnosis[name].push(disease);
       setDiagnosis({ ...diagnosis });
@@ -40,17 +41,20 @@ export default function DiagnosisDetails() {
   }
 
   async function onEditDisease(name) {
-    let responce = [];
-    if (name === "mainDisease") {
-      responce = await getAllMainDisease();
-    }
-    if (name === "properties") {
-      responce = await getAllProperties();
-    }
+    let path;
+    name === "mainDisease"
+      ? (path = "/diseases/mainDiseases")
+      : (path = "/diseases/" + name);
+    let responce = await Get({ path });
     setData(responce);
     setName(name);
     setEdit(true);
   }
+  async function onEditCode(value) {
+    setDiagnosis({ ...diagnosis, code: value });
+    onEditDiagnosis({ ...diagnosis, code: value });
+  }
+
   return (
     <Card>
       {diagnosis ? (
@@ -70,6 +74,11 @@ export default function DiagnosisDetails() {
             />
           ) : (
             <>
+              <TextStringButtton
+                text={diagnosis.code}
+                name={"code"}
+                onClick={onEditCode}
+              />
               <TextTextButton
                 diseases={[diagnosis.mainDisease]}
                 name={"mainDisease"}
@@ -99,10 +108,4 @@ export default function DiagnosisDetails() {
       )}
     </Card>
   );
-  async function getAllMainDisease() {
-    return await Get({ path: "/diseases/mainDiseases" });
-  }
-  async function getAllProperties() {
-    return await Get({ path: "/diseases/properties" });
-  }
 }

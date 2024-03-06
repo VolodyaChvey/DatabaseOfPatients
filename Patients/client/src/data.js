@@ -6,7 +6,8 @@ export const translation = {
   diagnosis: "Диагноз",
   mainDisease: "Основное заболевание",
   properties: "properties",
-  complications: "Осложнения"
+  complications: "Осложнения",
+  code: "Код МКБ: ",
 };
 
 export const emptyPatient = {
@@ -20,62 +21,65 @@ export const emptyDiagnosis = {
   mainDisease: {},
   properties: [],
   complications: [],
-}
-export const dataDropdown1 = [{
-  text: "Диагноз",
-  path: "/diseases/patientId/",
-}, {
-  text: "Анализы",
-  path: "#link1"
-}, {
-  text: "Осмотр",
-  path: "#link2"
-}];
+};
+export const dataDropdown1 = [
+  {
+    text: "Диагноз",
+    path: "/diseases/patientId/",
+  },
+  {
+    text: "Анализы",
+    path: "#link1",
+  },
+  {
+    text: "Осмотр",
+    path: "#link2",
+  },
+];
 export const demoDiagnoses = [
-
   {
-    "name": "ИБС:",
-    "id": 56
+    name: "ИБС:",
+    id: 56,
   },
   {
-    "name": "dsfg",
-    "id": 57
+    name: "dsfg",
+    id: 57,
   },
   {
-    "name": "ghj",
-    "id": 58
+    name: "ghj",
+    id: 58,
   },
   {
-    "name": "fghj",
-    "id": 59
+    name: "fghj",
+    id: 59,
   },
   {
-    "name": "tuy",
-    "id": 60
+    name: "tuy",
+    id: 60,
   },
   {
-    "name": "ser",
-    "id": 61
+    name: "ser",
+    id: 61,
   },
-]
+];
 export const demoDiagnoses1 = [
   {
-    "id": 1402,
-    "mainDisease": {
-      "name": "werg",
-      "id": 5
+    id: 1402,
+    mainDisease: {
+      name: "werg",
+      id: 5,
     },
-    "properties": [
+    properties: [
       {
-        "name": "dfgh",
-        "id": 2
-      }
+        name: "dfgh",
+        id: 2,
+      },
     ],
-    "complications": [
+    complications: [
       {
-        "name": "H1",
-        "id": 1
-      }
-    ]
-  }
-]
+        name: "H1",
+        id: 1,
+      },
+    ],
+  },
+];

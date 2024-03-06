@@ -10,11 +10,13 @@ import { Row } from "react-bootstrap";
 import { DiseaseContext } from "../context";
 import TwoButtons from "../Components/TwoButtons";
 import PatientToString from "../Preparators/PatientToString";
+import TextInput from "../Components/TextInput";
 
 function NewDisease() {
   const { diseases, patient } = useLoaderData();
   const [diagnosis, setDiagnosis] = useState({ ...emptyDiagnosis });
   const [isActive, setIsActive] = useState(true);
+  const [code, setCode] = useState();
   const [danger, setDanger] = useState("");
   const navigate = useNavigate();
 
@@ -24,7 +26,8 @@ function NewDisease() {
     }
 
     if (name === "mainDisease") {
-      setDiagnosis({ ...diagnosis, [name]: pattern });
+      setDiagnosis({ ...diagnosis, [name]: pattern, code: pattern.code });
+      setCode(pattern.code);
       checkMain(true);
     } else {
       if (!Object.keys(diagnosis.mainDisease).length === 0) {
@@ -47,6 +50,12 @@ function NewDisease() {
       setDanger("Заполните основное заболевание");
     }
   }
+
+  function onChange(e) {
+    let value = e.target.value;
+    setCode(value);
+    setDiagnosis({ ...diagnosis, code: value });
+  }
   async function onSave() {
     await createDiagnosis(diagnosis);
     onClean();
@@ -57,6 +66,7 @@ function NewDisease() {
     diagnosis.properties.length = 0;
     diagnosis.complications.length = 0;
     setDiagnosis({ ...diagnosis });
+    setCode("");
     setIsActive(true);
   }
   return (
@@ -70,6 +80,7 @@ function NewDisease() {
         onClickClean={onClean}
         isActive={isActive}
       />
+      <TextInput text={"Код МКБ: "} value={code} onChange={onChange} />
       <Row className="mb-3 text-center">
         <h3>{danger}</h3>
       </Row>
