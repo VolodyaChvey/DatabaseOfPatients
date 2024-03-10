@@ -13,6 +13,7 @@ public class Visit {
     @JoinColumn(name = "patient_id", nullable = false)
     private Patient patient;
     private Date date;
+    private String text;
 
     public Date getDate() {
         return date;
@@ -36,5 +37,22 @@ public class Visit {
 
     public void setPatient(Patient patient) {
         this.patient = patient;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    @Override
+    public String toString() {
+        return "Visit{" +
+                "id=" + id +
+                ", date=" + date +
+                ", text='" + text + '\'' +
+                '}';
     }
 }
