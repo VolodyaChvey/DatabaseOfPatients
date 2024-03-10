@@ -10,8 +10,9 @@ import ErrorPage from './Pages/ErrorPage';
 import { AddPatient, newPatientAction } from "./Pages/AddPatient";
 import DeletePatient from "./Pages/DeletePatient";
 import { NewDisease, diseasesLoader } from "./Pages/NewDisease";
-import {Diagnoses,diagnosesLoader} from "./Pages/Diagnoses";
+import { Diagnoses, diagnosesLoader } from "./Pages/Diagnoses";
 import CreatePattern from "./Pages/CreatePattern";
+import {NewVisit, visitLoader} from "./Pages/NewVisit";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -22,8 +23,9 @@ const router = createBrowserRouter(
       <Route path="patients/new" element={<AddPatient />} action={newPatientAction} />
       <Route path="patients/:id/delete" element={<DeletePatient />} />
       <Route path="diseases/patientId/:id" element={<NewDisease />} loader={diseasesLoader} />
-      <Route path="diseases" element={<Diagnoses/>} loader={diagnosesLoader}/>
-      <Route path="pattern/new" element={<CreatePattern/>}/>
+      <Route path="diseases" element={<Diagnoses />} loader={diagnosesLoader} />
+      <Route path="pattern/new" element={<CreatePattern />} />
+      <Route path="visits/patientId/:id" element={<NewVisit/>} loader={visitLoader}/>
     </Route>
   )
 )
