@@ -33,7 +33,7 @@ export const dataDropdown1 = [
   },
   {
     text: "Осмотр",
-    path: "#link2",
+    path: "/visits/patientId/",
   },
 ];
 export const demoDiagnoses = [

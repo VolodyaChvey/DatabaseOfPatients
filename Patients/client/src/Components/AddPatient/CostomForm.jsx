@@ -2,7 +2,7 @@ import { Form } from "react-router-dom";
 import { emptyPatient, translation } from "../../data";
 import TextInput from "../TextInput";
 
-export default function CostomForm({ action}) {
+export default function CostomForm({action}) {
   return (
     <Form method="post" action={action}>
       {Object.entries(emptyPatient)
