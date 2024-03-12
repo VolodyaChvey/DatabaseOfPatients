@@ -98,7 +98,7 @@ public class DiagnosisServiceImp implements DiagnosisService {
 
     public Diagnosis toEntity(DiagnosisDTO diagnosisDTO) {
         Diagnosis diagnosis = new Diagnosis();
-        diagnosis.setId((null == diagnosisDTO.getId()) ? diagnosisDTO.getId() : null);
+        diagnosis.setId(diagnosisDTO.getId());
         diagnosis.setPatient(patientRepository.findById(diagnosisDTO.getPatientId()).orElseThrow());
         diagnosis.setCode(diagnosisDTO.getCode());
         diagnosis.setMainDisease(diagnosisDTO.getMainDisease());

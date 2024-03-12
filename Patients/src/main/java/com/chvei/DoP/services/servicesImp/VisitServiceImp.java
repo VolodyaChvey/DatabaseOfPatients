@@ -1,5 +1,6 @@
 package com.chvei.DoP.services.servicesImp;
 
+import com.chvei.DoP.DTO.VisitDTO;
 import com.chvei.DoP.entity.Patient;
 import com.chvei.DoP.entity.Visit;
 import com.chvei.DoP.exceptions.ResourceNotFoundException;
@@ -29,47 +30,74 @@ public class VisitServiceImp implements VisitService {
     }
 
     @Override
-    public List<Visit> getVisitsByPatientId(Long id) {
-        return visitRepository.findByPatient_Id(id);
+    public List<VisitDTO> getVisitsByPatientId(Long id) {
+        return visitRepository.findByPatient_Id(id)
+                .stream()
+                .map(this::toDTO)
+                .toList();
     }
 
     @Override
-    public Visit getVisitById(Long id) {
-        return visitRepository.findById(id)
+    public VisitDTO getVisitById(Long id) {
+        Visit visit = visitRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Visit with id " + id + " not found"));
+        return toDTO(visit);
     }
 
     @Override
-    public List<Visit> getAllVisits() {
-        return visitRepository.findAll();
+    public List<VisitDTO> getAllVisits() {
+        return visitRepository.findAll()
+                .stream()
+                .map(this::toDTO)
+                .toList();
     }
 
     @Override
-    public Visit saveVisit(Visit visit) {
-        Patient patient = patientService.getPatientById(visit.getPatient().getId());
-        Visit visit1 = visitRepository.save(visit);
-        patient.addVisit(visit1);
-        logger.log(Level.INFO, "Visit to " + patient.getLastName() + " " + visit1.getDate() + " saved");
-        return visit1;
+    public VisitDTO saveVisit(VisitDTO visitDTO) {
+        Patient patient = patientService.getPatientById(visitDTO.getPatientId());
+        Visit visit = visitRepository.save(toEntity(visitDTO));
+        patient.addVisit(visit);
+        logger.log(Level.INFO, "Visit to " + patient.getLastName() + " " + visit.getCreated() + " saved");
+        return toDTO(visit);
     }
 
     @Override
-    public Visit updateVisit(Visit visit) {
-        Patient patient = patientService.getPatientById(visit.getPatient().getId());
-        Visit visit1 = getVisitById(visit.getId());
+    public VisitDTO updateVisit(VisitDTO visitDTO) {
+        Patient patient = patientService.getPatientById(visitDTO.getPatientId());
+        Visit visit1 = visitRepository.findById(visitDTO.getId())
+                .orElseThrow(() -> new ResourceNotFoundException("Visit with id " + visitDTO.getId() + " not found"));
         patient.removeVisit(visit1);
-        Visit visit2 = visitRepository.save(visit);
+        Visit visit2 = visitRepository.save(toEntity(visitDTO));
         patient.addVisit(visit2);
-        logger.log(Level.INFO, "Visit to " + patient.getLastName() + " " + visit1.getDate() + " update");
-        return visit2;
+        logger.log(Level.INFO, "Visit to " + patient.getLastName() + " " + visit1.getCreated() + " update");
+        return toDTO(visit2);
     }
 
     @Override
     public void deleteVisit(Long id) {
-        Visit visit = getVisitById(id);
+        Visit visit = visitRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Visit with id " + id + " not found"));
         Patient patient = patientService.getPatientById(visit.getPatient().getId());
         patient.removeVisit(visit);
         visitRepository.deleteById(id);
-        logger.log(Level.INFO, "Visit to " + patient.getLastName() + " " + visit.getDate() + " delete");
+        logger.log(Level.INFO, "Visit to " + patient.getLastName() + " " + visit.getCreated() + " delete");
+    }
+
+    public VisitDTO toDTO(Visit visit) {
+        VisitDTO visitDTO = new VisitDTO();
+        visitDTO.setId(visit.getId());
+        visitDTO.setText(visit.getText());
+        visitDTO.setPatientId(visit.getPatient().getId());
+        visitDTO.setCreated(visit.getCreated());
+        return visitDTO;
+    }
+
+    public Visit toEntity(VisitDTO visitDTO) {
+        Visit visit = new Visit();
+        visit.setId(visitDTO.getId());
+        visit.setCreated(visitDTO.getCreated());
+        visit.setText(visitDTO.getText());
+        visit.setPatient(patientService.getPatientById(visitDTO.getPatientId()));
+        return visit;
     }
 }

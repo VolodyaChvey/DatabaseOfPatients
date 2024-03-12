@@ -1,5 +1,6 @@
 package com.chvei.DoP.controllers;
 
+import com.chvei.DoP.DTO.VisitDTO;
 import com.chvei.DoP.entity.Visit;
 import com.chvei.DoP.services.VisitService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("*/visits")
+@RequestMapping("/visits")
 public class VisitController {
     private VisitService visitService;
 
@@ -21,23 +22,23 @@ public class VisitController {
     }
 
     @GetMapping("/{id}")
-    public Visit getVisitById(@PathVariable Long id) {
+    public VisitDTO getVisitById(@PathVariable Long id) {
         return visitService.getVisitById(id);
     }
 
     @GetMapping
-    public List<Visit> getAllVisit() {
+    public List<VisitDTO> getAllVisit() {
         return visitService.getAllVisits();
     }
 
     @PostMapping
-    public Visit createVisit(@RequestBody Visit visit) {
-        return visitService.saveVisit(visit);
+    public VisitDTO createVisit(@RequestBody VisitDTO visitDTO) {
+        return visitService.saveVisit(visitDTO);
     }
 
     @PutMapping("/{id}")
-    public Visit updateVisit(@RequestBody Visit visit) {
-        return visitService.updateVisit(visit);
+    public VisitDTO updateVisit(@RequestBody VisitDTO visitDTO) {
+        return visitService.updateVisit(visitDTO);
     }
 
     @DeleteMapping("/{id}")

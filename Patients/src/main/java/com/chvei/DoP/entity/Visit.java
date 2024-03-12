@@ -2,6 +2,7 @@ package com.chvei.DoP.entity;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -12,16 +13,8 @@ public class Visit {
     @ManyToOne
     @JoinColumn(name = "patient_id", nullable = false)
     private Patient patient;
-    private Date date;
+    private LocalDate created;
     private String text;
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
 
     public Long getId() {
         return id;
@@ -39,6 +32,14 @@ public class Visit {
         this.patient = patient;
     }
 
+    public LocalDate getCreated() {
+        return created;
+    }
+
+    public void setCreated(LocalDate created) {
+        this.created = created;
+    }
+
     public String getText() {
         return text;
     }
@@ -51,7 +52,7 @@ public class Visit {
     public String toString() {
         return "Visit{" +
                 "id=" + id +
-                ", date=" + date +
+                ", date=" + created +
                 ", text='" + text + '\'' +
                 '}';
     }

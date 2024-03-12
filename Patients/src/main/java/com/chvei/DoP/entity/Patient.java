@@ -3,6 +3,7 @@ package com.chvei.DoP.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -14,6 +15,7 @@ public class Patient {
     private String firstName;
     private String middleName;
     private String address;
+    private LocalDate registration;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "diagnosis_id", referencedColumnName = "id")
@@ -88,6 +90,14 @@ public class Patient {
         this.diagnosis = diagnosis;
     }
 
+    public LocalDate getRegistration() {
+        return registration;
+    }
+
+    public void setRegistration(LocalDate registration) {
+        this.registration = registration;
+    }
+
     @Override
     public String toString() {
         return "Patient{" +
@@ -96,6 +106,7 @@ public class Patient {
                 ", firstName='" + firstName + '\'' +
                 ", middleName='" + middleName + '\'' +
                 ", address='" + address + '\'' +
+                ", registration=" + registration +
                 '}';
     }
 }
