@@ -45,4 +45,9 @@ public class VisitController {
     public void deleteVisit(@PathVariable Long id) {
         visitService.deleteVisit(id);
     }
+
+    @GetMapping("/patient/{patientId}")
+    public List<VisitDTO> getVisitByPatientId(@PathVariable Long patientId){
+        return visitService.getVisitsByPatientId(patientId);
+    }
 }

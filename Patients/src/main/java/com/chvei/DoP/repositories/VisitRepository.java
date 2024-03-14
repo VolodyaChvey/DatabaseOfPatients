@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface VisitRepository extends JpaRepository<Visit, Long> {
     List<Visit> findByPatient_Id(Long id);
+   // List<Visit> first10ByPatient_idByOrderByCreatedDesc(Long id);
 }
