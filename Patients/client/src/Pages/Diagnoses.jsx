@@ -3,7 +3,6 @@ import { useLoaderData } from "react-router-dom";
 import TableDiagnoses from "../Components/TableDiagnoses";
 import TextInput from "../Components/TextInput";
 import Get from "../Controllers/Get";
-import { demoDiagnoses, demoDiagnoses1 } from "../data";
 import DiagnosisToStringInLine from "../Preparators/DiagnosisToStringInLine";
 
 function Diagnoses() {
@@ -51,27 +50,16 @@ function Diagnoses() {
     </>
   );
   async function getDiagnosesByMainDisease(name) {
-    try {
-      return await Get({ path: "/diagnoses/mainDiseaseName/" + name });
-    } catch (e) {
-      return demoDiagnoses1;
-    }
+    return await Get({ path: "/diagnoses/mainDiseaseName/" + name });
   }
 }
 
 async function getDiagnoses() {
-  try {
-    return await Get({ path: "/diseases/mainDiseases" });
-  } catch (e) {
-    return demoDiagnoses;
-  }
+  return await Get({ path: "/diseases/mainDiseases" });
 }
 
 async function diagnosesLoader() {
   const disease = await getDiagnoses();
-  if (!disease.length) {
-    /* throw  ({ message: 'Not Found!', reason: "Wrong url" }, { status: 404 })*/
-  }
   return { disease };
 }
 

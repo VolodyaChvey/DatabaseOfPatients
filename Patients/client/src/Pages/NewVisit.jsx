@@ -12,7 +12,7 @@ function NewVisit() {
   const navigate = useNavigate();
   const data = useActionData();
   const end = data?.visit ? true : false;
-  
+
   useEffect(() => {
     if (end) {
       let timeout = setTimeout(navigate, 3000, -1);
@@ -33,18 +33,14 @@ function NewVisit() {
 }
 
 async function getPatientById(id) {
-  try {
-    return await Get({ path: `/patients/${id}` });
-  } catch (e) {}
+  return await Get({ path: `/patients/${id}` });
 }
 async function visitLoader({ params }) {
   const patient = await getPatientById(params.id);
   return patient;
 }
 async function createVisit(visit) {
-  try {
-    return await Post({ path: "/visits", body: visit });
-  } catch (e) {}
+  return await Post({ path: "/visits", body: visit });
 }
 
 async function newVisitAction({ request }) {

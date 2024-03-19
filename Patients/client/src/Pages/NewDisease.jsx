@@ -91,39 +91,17 @@ function NewDisease() {
   );
 
   async function createDiagnosis(diagnosis) {
-    try {
-      const response = await Post({
-        path: "/diagnoses",
-        body: { ...diagnosis, patientId: patient.id },
-      });
-      return response;
-    } catch (e) {}
+    return await Post({
+      path: "/diagnoses",
+      body: { ...diagnosis, patientId: patient.id },
+    });
   }
 }
 async function getDiseases() {
-  try {
-    return await Get({ path: "/diseases" });
-  } catch (e) {
-    return {
-      mainDisease: [
-        { id: 1, name: "ИБС" },
-        { id: 2, name: "ХРБС" },
-      ],
-      properties: [
-        { id: 1, name: "МА" },
-        { id: 2, name: "ФП" },
-      ],
-      complications: [
-        { id: 1, name: "Н1" },
-        { id: 2, name: "Н2" },
-      ],
-    };
-  }
+  return await Get({ path: "/diseases" });
 }
 async function getPatientById(id) {
-  try {
-    return await Get({ path: `/patients/${id}` });
-  } catch (e) {}
+  return await Get({ path: `/patients/${id}` });
 }
 
 async function diseasesLoader({ params }) {

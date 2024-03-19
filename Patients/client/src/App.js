@@ -16,7 +16,7 @@ import {NewVisit, newVisitAction, visitLoader} from "./Pages/NewVisit";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path='/' element={<Layout />}>
+    <Route path='/' element={<Layout />} errorElement={<ErrorPage/>}>
       <Route index element={<StartPage />} />
       <Route path="patients" element={<Patients />} loader={patientsLoader} errorElement={<ErrorPage />} />
       <Route path="patients/:id" element={<SinglePatient />} loader={patientLoader} />

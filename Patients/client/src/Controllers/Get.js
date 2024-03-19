@@ -1,4 +1,5 @@
-export default async function Get({path}){
-const response = await fetch(`http://localhost:8080${path}`);
-return response.json()
+import Request from "./Request";
+
+export default async function Get({ path }) {
+  return await Request(fetch(`http://localhost:8080${path}`));
 }

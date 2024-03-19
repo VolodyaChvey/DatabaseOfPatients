@@ -95,19 +95,15 @@ export default function CreatePattern() {
     </>
   );
   async function createPatternDisease(body) {
-    try {
-      return await Post({
-        path: `/diseases/${name}`,
-        body,
-      });
-    } catch (e) {}
+    return await Post({
+      path: `/diseases/${name}`,
+      body,
+    });
   }
   async function editPatternDisease(body) {
-    try {
-      return await Put({
-        path: `/diseases/${name}/${pattern.id}`,
-        body,
-      });
-    } catch (e) {}
+    return await Put({
+      path: `/diseases/${name}/${pattern.id}`,
+      body,
+    });
   }
 }

@@ -41,18 +41,7 @@ function SinglePatient() {
 }
 
 async function getPatientById(id) {
-  try {
-    return await Get({ path: `/patients/${id}` });
-  } catch (e) {
-    return {
-      id: 101,
-      lastName: "Иванов",
-      firstName: "Иван",
-      middleName: "Иванович",
-      address: "Иванова 34",
-      diagnosis: "",
-    };
-  }
+  return await Get({ path: `/patients/${id}` });
 }
 
 async function patientLoader({ params }) {

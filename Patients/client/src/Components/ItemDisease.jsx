@@ -33,11 +33,11 @@ export default function ItemDisease({ itemDisease, name }) {
     setText("pattern");
   }
   async function onClickAddNew() {
-    name=name==="mainDisease"?"mainDiseases":name;
-    navigate("/pattern/new", { state: { itemDisease, pattern, name} });
+    name = name === "mainDisease" ? "mainDiseases" : name;
+    navigate("/pattern/new", { state: { itemDisease, pattern, name } });
   }
   async function onClickEdit() {
-    name=name==="mainDisease"?"mainDiseases":name;
+    name = name === "mainDisease" ? "mainDiseases" : name;
     navigate("/pattern/new", { state: { itemDisease, pattern, name } });
   }
   async function onClickDelete() {
@@ -70,7 +70,7 @@ export default function ItemDisease({ itemDisease, name }) {
   function showDiseases() {
     return diseases
       .filter((d) => d.name.toLowerCase().includes(value.toLowerCase()))
-      .slice(0, 9)
+      .slice(0, 9);
   }
 
   return (
@@ -91,8 +91,6 @@ export default function ItemDisease({ itemDisease, name }) {
   );
 
   async function deletePatternDisease() {
-    try {
-      await Delete({ path: `/diseases/${name}/${pattern.id}` });
-    } catch (e) {}
+    await Delete({ path: `/diseases/${name}/${pattern.id}` });
   }
 }

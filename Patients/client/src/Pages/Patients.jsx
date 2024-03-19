@@ -1,6 +1,6 @@
 import { Suspense, useState } from "react";
 import { Await, useLoaderData } from "react-router";
-import { useNavigate } from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 import TablePatients from "../Components/TablePatients";
 import TextInput from "../Components/TextInput";
 import TwoButtons from "../Components/TwoButtons";
@@ -44,33 +44,11 @@ function Patients() {
 }
 
 async function getPatients() {
-  try {
     return await Get({ path: "/patients" });
-  } catch (e) {
-    return [
-      {
-        id: 101,
-        lastName: "Иванов",
-        firstName: "Иван",
-        middleName: "Иванович",
-        address: "Иванова 34",
-      },
-      {
-        id: 102,
-        lastName: "Петров",
-        firstName: "Петр",
-        middleName: "Петрович",
-        address: "Ленинская 12",
-      },
-    ];
-  }
 }
 
 async function patientsLoader() {
   const patients = await getPatients();
-  if (!patients.length) {
-     throw Error ({ message: 'Not Found!', reason: "Wrong url" }, { status: 404 })
-  }
   return { patients };
 }
 

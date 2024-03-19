@@ -6,32 +6,31 @@ import Post from "../Controllers/Post";
 import HeaderSingle from "../Components/HeaderSingle";
 import TimeoutText from "../Components/AddPatient/TimeoutText";
 
-
 function AddPatient() {
   const navigate = useNavigate();
   const data = useActionData();
-  const showCostomForm = data ? Object.keys(data).includes("patient") : false
+  const showCostomForm = data ? Object.keys(data).includes("patient") : false;
 
-  return (<>
-    {showCostomForm ?
-      <>
-        <HeaderSingle patient={data.patient} />
-        <TimeoutText text={data.message} />
-        <DropdownButtons id={data.patient.id} />
-      </> :
-      <>
-        <TwoButtons oneLabel={"Go back"} oneOnClick={() => navigate(-1)} />
-        {data?.message && <TimeoutText text={data.message} />}
-        <CostomForm action={"/patients/new"} />
-      </>}
-  </>);
+  return (
+    <>
+      {showCostomForm ? (
+        <>
+          <HeaderSingle patient={data.patient} />
+          <TimeoutText text={data.message} />
+          <DropdownButtons id={data.patient.id} />
+        </>
+      ) : (
+        <>
+          <TwoButtons oneLabel={"Go back"} oneOnClick={() => navigate(-1)} />
+          {data?.message && <TimeoutText text={data.message} />}
+          <CostomForm action={"/patients/new"} />
+        </>
+      )}
+    </>
+  );
 }
 async function createPatient(patient) {
-  try {
-    return await Post({ path: "/patients", body: patient });
-  } catch (e) {
-    return patient;
-  }
+  return await Post({ path: "/patients", body: patient });
 }
 
 async function newPatientAction({ request }) {

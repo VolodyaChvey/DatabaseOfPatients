@@ -7,6 +7,7 @@ import DiagnosisToStringInLine from "../Preparators/DiagnosisToStringInLine";
 
 export default function HeaderSingle({patient}) {
   const navigate = useNavigate();
+  console.log(patient)
   return (
     <>
       <TwoButtons oneLabel={"Go back"} oneOnClick={() => navigate(-1)} />
