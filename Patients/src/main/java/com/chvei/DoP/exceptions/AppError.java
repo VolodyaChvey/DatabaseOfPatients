@@ -1,23 +1,23 @@
 package com.chvei.DoP.exceptions;
 
 public class AppError {
-    private int statusCode;
+    private String statusText;
     private String message;
 
     public AppError() {
     }
 
-    public AppError(int statusCode, String message) {
-        this.statusCode = statusCode;
+    public AppError(String statusText, String message) {
+        this.statusText = statusText;
         this.message = message;
     }
 
-    public int getStatusCode() {
-        return statusCode;
+    public String getStatusText() {
+        return statusText;
     }
 
-    public void setStatusCode(int statusCode) {
-        this.statusCode = statusCode;
+    public void setStatusText(String statusText) {
+        this.statusText = statusText;
     }
 
     public String getMessage() {

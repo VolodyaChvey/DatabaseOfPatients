@@ -49,7 +49,7 @@ public class DiagnosisServiceImp implements DiagnosisService {
 
     @Override
     public List<Diagnosis> getAllDiagnosesByMainDiseaseName(String name) {
-        return diagnosisRepository.findAllByMainDisease_name(name);
+        return diagnosisRepository.findDistinctByMainDisease_name(name);
     }
 
     @Override
@@ -78,11 +78,12 @@ public class DiagnosisServiceImp implements DiagnosisService {
     }
 
     @Override
-    public void deleteDiagnosis(Long id) {
+    public boolean deleteDiagnosis(Long id) {
         Diagnosis diagnosis = getDiagnosisById(id);
         diagnosis.getMainDisease().removeDiagnosis(diagnosis);
         diagnosisRepository.deleteById(id);
         logger.log(Level.INFO, "Diagnosis with id " + id + " deleted");
+        return diagnosisRepository.existsById(id);
     }
 
     public DiagnosisDTO toDTO(Diagnosis diagnosis) {

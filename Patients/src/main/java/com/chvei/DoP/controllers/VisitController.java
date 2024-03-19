@@ -42,12 +42,21 @@ public class VisitController {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteVisit(@PathVariable Long id) {
-        visitService.deleteVisit(id);
+    public boolean deleteVisit(@PathVariable Long id) {
+      return  visitService.deleteVisit(id);
     }
 
     @GetMapping("/patient/{patientId}")
-    public List<VisitDTO> getVisitByPatientId(@PathVariable Long patientId){
+    public List<VisitDTO> getVisitsByPatientId(@PathVariable Long patientId) {
         return visitService.getVisitsByPatientId(patientId);
+    }
+
+    @GetMapping("/patient/lastTen/{patientId}")
+    public List<VisitDTO> getLastTenVisitsByPatientId(@PathVariable Long patientId) {
+        return visitService.getFirstTenVisitsByPatientIdDesc(patientId);
+    }
+    @GetMapping("/patient/count/{patientId}")
+    public int getCountByPatientId(@PathVariable Long patientId){
+        return visitService.getCountByPatientID(patientId);
     }
 }

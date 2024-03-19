@@ -2,11 +2,13 @@ package com.chvei.DoP.services.servicesImp;
 
 import com.chvei.DoP.entity.Patient;
 import com.chvei.DoP.exceptions.ResourceNotFoundException;
+import com.chvei.DoP.exceptions.UnacceptableActionException;
 import com.chvei.DoP.repositories.PatientRepository;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.chvei.DoP.repositories.VisitRepository;
 import com.chvei.DoP.services.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,13 +19,15 @@ import java.util.List;
 public class PatientServiceImp implements PatientService {
     private final Logger logger = Logger.getLogger(PatientServiceImp.class.getName());
     private PatientRepository patientRepository;
+    private VisitRepository visitRepository;
 
     public PatientServiceImp() {
     }
 
     @Autowired
-    public PatientServiceImp(PatientRepository patientRepository) {
+    public PatientServiceImp(PatientRepository patientRepository, VisitRepository visitRepository) {
         this.patientRepository = patientRepository;
+        this.visitRepository = visitRepository;
     }
 
     @Override
@@ -52,8 +56,20 @@ public class PatientServiceImp implements PatientService {
         return upPatient;
     }
 
-    public void deletePatient(Long id) {
+    public boolean deletePatient(Long id) {
         patientRepository.deleteById(id);
-        logger.log(Level.INFO, "Patient with id " + id + " deleted");
+        boolean delete = patientRepository.existsById(id);
+        if (!delete) {
+            logger.log(Level.INFO, "Patient with id " + id + " deleted");
+        }
+        return delete;
+    }
+
+    @Override
+    public Patient registration(Patient patient) {
+        if (visitRepository.existsByCreatedAndPatient_Id(patient.getRegistration(), patient.getId())) {
+            throw new UnacceptableActionException("The patient has already been registered");
+        }
+        return null;
     }
 }

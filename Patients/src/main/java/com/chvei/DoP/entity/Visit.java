@@ -15,6 +15,7 @@ public class Visit {
     private Patient patient;
     private LocalDate created;
     private String text;
+    private boolean registration;
 
     public Long getId() {
         return id;
@@ -48,12 +49,22 @@ public class Visit {
         this.text = text;
     }
 
+    public boolean isRegistration() {
+        return registration;
+    }
+
+    public void setRegistration(boolean registration) {
+        this.registration = registration;
+    }
+
     @Override
     public String toString() {
         return "Visit{" +
                 "id=" + id +
-                ", date=" + created +
+                ", patient=" + patient +
+                ", created=" + created +
                 ", text='" + text + '\'' +
+                ", registration=" + registration +
                 '}';
     }
 }

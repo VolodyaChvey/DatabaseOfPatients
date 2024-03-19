@@ -44,8 +44,8 @@ public class DiagnosisController {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteDiagnosis(@PathVariable Long id) {
-        diagnosisService.deleteDiagnosis(id);
+    public boolean deleteDiagnosis(@PathVariable Long id) {
+       return diagnosisService.deleteDiagnosis(id);
     }
 
     @GetMapping("/patientId/{id}")

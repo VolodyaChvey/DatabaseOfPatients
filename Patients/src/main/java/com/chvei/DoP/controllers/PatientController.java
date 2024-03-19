@@ -41,7 +41,11 @@ public class PatientController {
     }
 
     @DeleteMapping("/{id}")
-    public void deletePatient(@PathVariable Long id) {
-        patientService.deletePatient(id);
+    public boolean deletePatient(@PathVariable Long id) {
+        return patientService.deletePatient(id);
+    }
+    @PutMapping("/registration")
+    public Patient registration(@RequestBody Patient patient){
+        return patientService.registration(patient);
     }
 }

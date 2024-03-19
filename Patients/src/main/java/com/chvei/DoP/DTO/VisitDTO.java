@@ -7,6 +7,7 @@ public class VisitDTO {
     private Long patientId;
     private String text;
     private LocalDate created;
+    private boolean registration;
 
     public Long getId() {
         return id;
@@ -40,6 +41,14 @@ public class VisitDTO {
         this.created = created;
     }
 
+    public boolean isRegistration() {
+        return registration;
+    }
+
+    public void setRegistration(boolean registration) {
+        this.registration = registration;
+    }
+
     @Override
     public String toString() {
         return "VisitDTO{" +
@@ -47,6 +56,7 @@ public class VisitDTO {
                 ", patientId=" + patientId +
                 ", text='" + text + '\'' +
                 ", created=" + created +
+                ", registration=" + registration +
                 '}';
     }
 }

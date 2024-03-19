@@ -12,6 +12,6 @@ public interface DiagnosisService {
     List<Diagnosis> getAllDiagnoses();
     Diagnosis saveDiagnosis (DiagnosisDTO diagnosisDTO);
     Diagnosis updateDiagnosis (Diagnosis diagnosis);
-    void deleteDiagnosis(Long id);
+    boolean deleteDiagnosis(Long id);
 
 }
