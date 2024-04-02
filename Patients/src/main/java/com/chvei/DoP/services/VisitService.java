@@ -7,6 +7,7 @@ import java.util.List;
 public interface VisitService {
     int getCountByPatientID(Long id);
     List<VisitDTO> getFirstTenVisitsByPatientIdDesc(Long id);
+    List<VisitDTO> getFirstFiveVisitsByPatientIdAsc(Long id);
     List<VisitDTO> getVisitsByPatientId(Long id);
     VisitDTO getVisitById (Long id);
     List<VisitDTO> getAllVisits();

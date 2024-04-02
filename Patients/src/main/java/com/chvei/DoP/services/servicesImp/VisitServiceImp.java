@@ -46,6 +46,14 @@ public class VisitServiceImp implements VisitService {
     }
 
     @Override
+    public List<VisitDTO> getFirstFiveVisitsByPatientIdAsc(Long id) {
+        return visitRepository.findFirst5ByPatient_IdOrderByCreatedAsc(id)
+                .stream()
+                .map(this::toDTO)
+                .toList();
+    }
+
+    @Override
     public List<VisitDTO> getVisitsByPatientId(Long id) {
         return visitRepository.findByPatient_Id(id, descending)
                 .stream()

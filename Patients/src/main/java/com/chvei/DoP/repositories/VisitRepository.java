@@ -12,6 +12,8 @@ public interface VisitRepository extends JpaRepository<Visit, Long> {
 
     List<Visit> findFirst10ByPatient_IdOrderByCreatedDesc(Long id);
 
+    List<Visit> findFirst5ByPatient_IdOrderByCreatedAsc(Long id);
+
     int countAllByPatient_Id(Long id);
 
     Visit findByCreated(LocalDate localDate);
