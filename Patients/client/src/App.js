@@ -13,6 +13,7 @@ import { NewDisease, diseasesLoader } from "./Pages/NewDisease";
 import { Diagnoses, diagnosesLoader } from "./Pages/Diagnoses";
 import CreatePattern from "./Pages/CreatePattern";
 import {NewVisit, newVisitAction, visitLoader} from "./Pages/NewVisit";
+import RegistrationRatient from "./Pages/RegistrationPatient";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -26,6 +27,7 @@ const router = createBrowserRouter(
       <Route path="diseases" element={<Diagnoses />} loader={diagnosesLoader} />
       <Route path="pattern/new" element={<CreatePattern />} />
       <Route path="visits/patientId/:id" element={<NewVisit/>} loader={visitLoader} action={newVisitAction}/>
+      <Route path="patients/registration/:id" element={<RegistrationRatient/>} loader={patientLoader}/>
     </Route>
   )
 )
