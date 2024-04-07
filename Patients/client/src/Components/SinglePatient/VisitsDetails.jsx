@@ -6,9 +6,11 @@ import { useNavigate } from "react-router-dom";
 import Get from "../../Controllers/Get";
 import TableVisits from "../TableVisits";
 import TextText from "../TextText";
+import Put from "../../Controllers/Put";
 
 export default function VisitsDetails() {
   const patient = useContext(PatientContext)[0];
+  const onEdit = useContext(PatientContext)[1];
   const navigate = useNavigate();
   const [visits, setVisits] = useState();
   const [count, setCount] = useState();
@@ -29,8 +31,15 @@ export default function VisitsDetails() {
   function onAll() {
     getAllVisits(patient.id);
   }
+  async function noRegistration() {
+    onEdit({ name: "registration", val: null })
+    let v = await getVisitByPatientRegistration()
+    console.log(v)
+    updateVisit({ ...v, registration: false })
+  }
   return (
     <Card>
+      {patient.registration ? <OneButton label={"Снять с учёта"} onClick={noRegistration} /> : ""}
       {count ? (
         <>
           <TextText k={"Всего визитов"} v={count} />
@@ -71,5 +80,12 @@ export default function VisitsDetails() {
   async function getCount(patientId) {
     const responce = await Get({ path: "/visits/patient/count/" + patientId });
     setCount(responce);
+  }
+  async function getVisitByPatientRegistration() {
+    return await Get({ path: "/visits/patient/registration/" + patient.id })
+  }
+  async function updateVisit(visit) {
+    const responce = await Put({ path: "/visits/" + visit.id, body: visit })
+    console.log(responce)
   }
 }
