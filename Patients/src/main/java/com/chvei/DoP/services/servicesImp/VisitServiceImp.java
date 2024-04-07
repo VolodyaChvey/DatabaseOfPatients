@@ -69,6 +69,11 @@ public class VisitServiceImp implements VisitService {
     }
 
     @Override
+    public VisitDTO getVisitByPatientIdByRegistration(Long id) {
+        return toDTO(visitRepository.findByPatient_idByCreated(id));
+    }
+
+    @Override
     public List<VisitDTO> getAllVisits() {
         return visitRepository.findAll()
                 .stream()
@@ -96,7 +101,7 @@ public class VisitServiceImp implements VisitService {
         patient.removeVisit(visit1);
         Visit visit2 = visitRepository.save(toEntity(visitDTO));
         patient.addVisit(visit2);
-        logger.log(Level.INFO, "Visit to " + patient.getLastName() + " " + visit1.getCreated() + " update");
+        logger.log(Level.INFO, "Visit to " + patient.getLastName() + " " + visit2.getCreated() + " update");
         return toDTO(visit2);
     }
 
@@ -133,7 +138,7 @@ public class VisitServiceImp implements VisitService {
         visit.setCreated(visitDTO.getCreated());
         visit.setText(visitDTO.getText());
         visit.setPatient(patientService.getPatientById(visitDTO.getPatientId()));
-        visit.setRegistration(visit.isRegistration());
+        visit.setRegistration(visitDTO.isRegistration());
         return visit;
     }
 }

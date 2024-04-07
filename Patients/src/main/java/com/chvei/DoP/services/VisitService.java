@@ -10,6 +10,7 @@ public interface VisitService {
     List<VisitDTO> getFirstFiveVisitsByPatientIdAsc(Long id);
     List<VisitDTO> getVisitsByPatientId(Long id);
     VisitDTO getVisitById (Long id);
+    VisitDTO getVisitByPatientIdByRegistration(Long id);
     List<VisitDTO> getAllVisits();
     VisitDTO saveVisit (VisitDTO visitDTO);
     VisitDTO updateVisit (VisitDTO visitDTO);

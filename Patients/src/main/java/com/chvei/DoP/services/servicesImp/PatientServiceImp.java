@@ -41,7 +41,6 @@ public class PatientServiceImp implements PatientService {
     }
 
     public List<Patient> getAllPatient() {
-        System.out.println("getAllPatient :" + patientRepository.findByRegistrationIsNotNull());
         return patientRepository.findAll();
     }
 

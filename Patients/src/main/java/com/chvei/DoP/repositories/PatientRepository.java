@@ -10,9 +10,9 @@ import java.util.List;
 
 public interface PatientRepository extends JpaRepository<Patient, Long> {
 
-    Patient findByRegistrationIsNotNull();
+    List<Patient> findByRegistrationIsNotNull();
     List<Patient> findAllByVisits_createdBetween(LocalDate dateStart,LocalDate dateEnd);
-    @Query("select p from Patient p where p.registration <= :registration")
+    @Query("select p from Patient p where p.registration = :registration")
     List<Patient> findAllWithRegistrationBefore(@Param("registration") LocalDate registration);
 
 }

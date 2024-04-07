@@ -59,6 +59,10 @@ public class VisitController {
     public List<VisitDTO> getFirstFiveVisitsByPatientId(@PathVariable Long patientId){
         return visitService.getFirstFiveVisitsByPatientIdAsc(patientId);
     }
+    @GetMapping("/patient/registration/{patientId}")
+    public VisitDTO getVisitByPatientIdByRegistration(@PathVariable Long patientId){
+        return visitService.getVisitByPatientIdByRegistration(patientId);
+    }
     @GetMapping("/patient/count/{patientId}")
     public int getCountByPatientId(@PathVariable Long patientId){
         return visitService.getCountByPatientID(patientId);
